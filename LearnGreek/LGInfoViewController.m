@@ -1,18 +1,35 @@
-#import "LGCreditsViewController.h"
+#import "LGInfoViewController.h"
 #import "LGLanguageManager.h"
 #import "LGThemeManager.h"
 
-@interface LGCreditsViewController ()
+@interface LGInfoViewController ()
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *blurbLabel;
 @property (nonatomic, strong) UILabel *builtLabel;
 @property (nonatomic, strong) UILabel *quoteLabel;
 @property (nonatomic, strong) UILabel *quoteTranslationLabel;
 @end
 
-@implementation LGCreditsViewController
+@implementation LGInfoViewController
 
 + (NSDictionary<NSString *, NSDictionary<NSString *, NSString *> *> *)localizedStrings {
     return @{
+        @"blurb" : @{
+            @"en" : @"Create a schedule for yourself, then start building sentences to repeat "
+                    @"out loud. Tap a word to hear it — the bare word first, then with its "
+                    @"article. Star the words you want to keep close.",
+            @"es" : @"Crea un horario para ti y luego empieza a construir frases para repetir "
+                    @"en voz alta. Toca una palabra para escucharla: primero sola, luego con su "
+                    @"artículo. Marca con estrella las que quieras tener cerca.",
+            @"it" : @"Creati un programma e poi inizia a costruire frasi da ripetere ad alta "
+                    @"voce. Tocca una parola per ascoltarla: prima da sola, poi con il suo "
+                    @"articolo. Segna con la stella quelle da tenere vicine.",
+            @"fr" : @"Crée-toi un emploi du temps, puis commence à construire des phrases à "
+                    @"répéter à voix haute. Touche un mot pour l'entendre : d'abord seul, puis "
+                    @"avec son article. Étoile ceux que tu veux garder près de toi.",
+            @"yue" : @"為自己定一個時間表，然後開始砌句子，大聲重複講。撳一個字就聽到讀音——"
+                     @"先淨係個字，再連埋冠詞。想留住嘅字就撳星。",
+        },
         @"built" : @{
             @"en" : @"Built with Objective-C and UIKit.\nNo ads. No tracking. No dependencies.\n"
                     @"Made by an independent developer learning Greek.",
@@ -42,12 +59,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Σχετικά";
+    self.title = @"Βοήθεια";
 
     self.nameLabel = [[UILabel alloc] init];
     self.nameLabel.text = @"LearnGreek";
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.accessibilityIdentifier = @"credits.name";
+
+    self.blurbLabel = [[UILabel alloc] init];
+    self.blurbLabel.text = [[self class] string:@"blurb"];
+    self.blurbLabel.numberOfLines = 0;
+    self.blurbLabel.textAlignment = NSTextAlignmentCenter;
+    self.blurbLabel.accessibilityIdentifier = @"info.blurb";
 
     self.builtLabel = [[UILabel alloc] init];
     self.builtLabel.text = [[self class] string:@"built"];
@@ -68,7 +91,8 @@
     self.quoteTranslationLabel.accessibilityIdentifier = @"credits.quoteTranslation";
 
     UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:@[
-        self.nameLabel, self.builtLabel, self.quoteLabel, self.quoteTranslationLabel
+        self.nameLabel, self.blurbLabel, self.builtLabel, self.quoteLabel,
+        self.quoteTranslationLabel
     ]];
     stack.axis = UILayoutConstraintAxisVertical;
     stack.spacing = 24;
@@ -89,6 +113,8 @@
     self.view.backgroundColor = theme.backgroundColor;
     self.nameLabel.textColor = theme.primaryTextColor;
     self.nameLabel.font = [theme fontOfSize:28 weight:UIFontWeightBold];
+    self.blurbLabel.textColor = theme.primaryTextColor;
+    self.blurbLabel.font = [theme fontOfSize:15 weight:UIFontWeightRegular];
     self.builtLabel.textColor = theme.secondaryTextColor;
     self.builtLabel.font = [theme fontOfSize:15 weight:UIFontWeightRegular];
     self.quoteLabel.textColor = theme.accentColor;
