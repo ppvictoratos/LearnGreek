@@ -15,20 +15,35 @@
 + (NSDictionary<NSString *, NSDictionary<NSString *, NSString *> *> *)localizedStrings {
     return @{
         @"blurb" : @{
-            @"en" : @"Create a schedule for yourself, then start building sentences to repeat "
-                    @"out loud. Tap a word to hear it — the bare word first, then with its "
-                    @"article. Star the words you want to keep close.",
-            @"es" : @"Crea un horario para ti y luego empieza a construir frases para repetir "
-                    @"en voz alta. Toca una palabra para escucharla: primero sola, luego con su "
-                    @"artículo. Marca con estrella las que quieras tener cerca.",
-            @"it" : @"Creati un programma e poi inizia a costruire frasi da ripetere ad alta "
-                    @"voce. Tocca una parola per ascoltarla: prima da sola, poi con il suo "
-                    @"articolo. Segna con la stella quelle da tenere vicine.",
-            @"fr" : @"Crée-toi un emploi du temps, puis commence à construire des phrases à "
-                    @"répéter à voix haute. Touche un mot pour l'entendre : d'abord seul, puis "
-                    @"avec son article. Étoile ceux que tu veux garder près de toi.",
-            @"yue" : @"為自己定一個時間表，然後開始砌句子，大聲重複講。撳一個字就聽到讀音——"
-                     @"先淨係個字，再連埋冠詞。想留住嘅字就撳星。",
+            @"en" : @"Give yourself a schedule, then practice out loud.\n\n"
+                    @"Tap a word to hear it. Star the ones worth keeping — the small grey "
+                    @"word in front is its article, which tells you the gender.\n\n"
+                    @"In Προτάσεις, tap your starred words to chain them into a sentence. "
+                    @"Play it, then tap the bookmark to save it. Saved sentences stay put — "
+                    @"tap one to hear it again, swipe to delete.",
+            @"es" : @"Date un horario y practica en voz alta.\n\n"
+                    @"Toca una palabra para escucharla. Marca las que valga la pena guardar; "
+                    @"la palabrita gris de delante es su artículo, que indica el género.\n\n"
+                    @"En Προτάσεις, toca tus palabras marcadas para encadenarlas en una frase. "
+                    @"Reprodúcela y toca el marcador para guardarla. Las frases guardadas se "
+                    @"quedan: tócalas para oírlas, deslízalas para borrarlas.",
+            @"it" : @"Datti un programma, poi esercitati ad alta voce.\n\n"
+                    @"Tocca una parola per ascoltarla. Aggiungi la stella a quelle da tenere; "
+                    @"la paroletta grigia davanti è l'articolo, che indica il genere.\n\n"
+                    @"In Προτάσεις, tocca le parole preferite per concatenarle in una frase. "
+                    @"Riproducila, poi tocca il segnalibro per salvarla. Le frasi salvate "
+                    @"restano: toccale per riascoltarle, scorri per eliminarle.",
+            @"fr" : @"Donne-toi un emploi du temps, puis pratique à voix haute.\n\n"
+                    @"Touche un mot pour l'entendre. Étoile ceux qui valent la peine ; le petit "
+                    @"mot gris devant est son article, qui indique le genre.\n\n"
+                    @"Dans Προτάσεις, touche tes mots étoilés pour les enchaîner en une phrase. "
+                    @"Écoute-la, puis touche le signet pour l'enregistrer. Les phrases "
+                    @"enregistrées restent : touche pour réécouter, glisse pour supprimer.",
+            @"yue" : @"為自己定個時間表，然後大聲練習。\n\n"
+                     @"撳個字就聽到讀音。想留住嘅就撳星——前面嗰個細細灰色字係冠詞，"
+                     @"話你知個字嘅性別。\n\n"
+                     @"喺 Προτάσεις 度，撳你加咗星嘅字，就可以串成一句。撳播放聽吓，"
+                     @"再撳書籤儲起。儲低嘅句子會留喺度：撳一下再聽，掃走就刪除。",
         },
         @"built" : @{
             @"en" : @"Built with Objective-C and UIKit.\nNo ads. No tracking. No dependencies.\n"
@@ -43,11 +58,11 @@
                      @"由一位學緊希臘文嘅獨立開發者製作。",
         },
         @"quoteTranslation" : @{
-            @"en" : @"“I was given the Greek language.” — Odysseas Elytis",
-            @"es" : @"“Me dieron la lengua griega.” — Odiseas Elitis",
-            @"it" : @"“Mi è stata data la lingua greca.” — Odisseas Elitis",
-            @"fr" : @"“On m'a donné la langue grecque.” — Odysséas Elýtis",
-            @"yue" : @"「我獲賜希臘語。」— 奧德修斯·埃利蒂斯",
+            @"en" : @"We love beauty with simplicity. — Pericles",
+            @"es" : @"Amamos la belleza con sencillez. — Pericles",
+            @"it" : @"Amiamo la bellezza con semplicità. — Pericle",
+            @"fr" : @"Nous aimons la beauté avec simplicité. — Périclès",
+            @"yue" : @"我哋愛美，而不奢華。— 伯里克利",
         },
     };
 }
@@ -79,7 +94,9 @@
     self.builtLabel.accessibilityIdentifier = @"credits.built";
 
     self.quoteLabel = [[UILabel alloc] init];
-    self.quoteLabel.text = @"«Τη γλώσσα μού έδωσαν ελληνική»";
+    // Pericles' funeral oration (Thucydides 2.40) — a fitting line for an app
+    // that is deliberately plain.
+    self.quoteLabel.text = @"Φιλοκαλοῦμεν μετ' εὐτελείας";
     self.quoteLabel.numberOfLines = 0;
     self.quoteLabel.textAlignment = NSTextAlignmentCenter;
     self.quoteLabel.accessibilityIdentifier = @"credits.quote";

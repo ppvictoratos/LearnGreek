@@ -153,10 +153,11 @@ static const CGFloat LGGridSpacing = 10;
                              subtitle:[[self class] tileString:@"favorites"]];
         cell.accessibilityIdentifier = @"home.tile.favorites";
     } else if (indexPath.item == LGTileThemeToggle) {
+        // The tile names the mode you are in, not the one you'd switch to.
         BOOL isDark = LGThemeManager.sharedManager.style == LGThemeStyleDark;
         [cell configureWithSymbolName:@"circle.lefthalf.filled"
                            titleGreek:@"Θέμα"
-                             subtitle:(isDark ? @"Light mode" : @"Dark mode")];
+                             subtitle:(isDark ? @"Dark mode" : @"Light mode")];
         cell.accessibilityIdentifier = @"home.tile.theme";
     } else if (indexPath.item == [self helpTileIndex]) {
         [cell configureWithSymbolName:@"questionmark.circle.fill"

@@ -3,12 +3,15 @@
 #import "LGWord.h"
 
 NSNotificationName const LGFavoritesDidChangeNotification = @"LGFavoritesDidChangeNotification";
+NSNotificationName const LGSentencesDidChangeNotification = @"LGSentencesDidChangeNotification";
 
 static NSString *const LGFavoritesDefaultsKey = @"LGFavoriteWordIDs";
+static NSString *const LGSentencesDefaultsKey = @"LGSavedSentences";
 
 @interface LGDataStore ()
 @property (nonatomic, strong) NSUserDefaults *defaults;
 @property (nonatomic, strong) NSMutableOrderedSet<NSString *> *favoriteIDs;
+@property (nonatomic, strong) NSMutableOrderedSet<NSString *> *sentences;
 @property (nonatomic, copy) NSArray<LGCategory *> *categories;
 @end
 
@@ -30,6 +33,8 @@ static NSString *const LGFavoritesDefaultsKey = @"LGFavoriteWordIDs";
         _defaults = defaults;
         NSArray<NSString *> *saved = [defaults stringArrayForKey:LGFavoritesDefaultsKey] ?: @[];
         _favoriteIDs = [NSMutableOrderedSet orderedSetWithArray:saved];
+        NSArray<NSString *> *sentences = [defaults stringArrayForKey:LGSentencesDefaultsKey] ?: @[];
+        _sentences = [NSMutableOrderedSet orderedSetWithArray:sentences];
         _categories = [self loadCategoriesFromBundle:bundle];
     }
     return self;
@@ -76,6 +81,36 @@ static NSString *const LGFavoritesDefaultsKey = @"LGFavoriteWordIDs";
     }
     [self.defaults setObject:self.favoriteIDs.array forKey:LGFavoritesDefaultsKey];
     [[NSNotificationCenter defaultCenter] postNotificationName:LGFavoritesDidChangeNotification
+                                                        object:self];
+}
+
+#pragma mark - Saved sentences
+
+- (NSArray<NSString *> *)savedSentences {
+    return self.sentences.array;
+}
+
+- (void)saveSentence:(NSString *)sentence {
+    NSString *trimmed = [sentence
+        stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmed.length == 0 || [self.sentences containsObject:trimmed]) {
+        return;
+    }
+    [self.sentences addObject:trimmed];
+    [self persistSentences];
+}
+
+- (void)deleteSentence:(NSString *)sentence {
+    if (![self.sentences containsObject:sentence]) {
+        return;
+    }
+    [self.sentences removeObject:sentence];
+    [self persistSentences];
+}
+
+- (void)persistSentences {
+    [self.defaults setObject:self.sentences.array forKey:LGSentencesDefaultsKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LGSentencesDidChangeNotification
                                                         object:self];
 }
 

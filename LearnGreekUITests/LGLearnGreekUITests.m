@@ -68,6 +68,39 @@
     XCTAssertEqualObjects(chain.label, @"…");
 }
 
+- (void)testSavedSentencePersistsAcrossLaunches {
+    XCUIElement *grid = self.app.collectionViews[@"home.grid"];
+    XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
+
+    [grid.cells[@"home.tile.mythology"] tap];
+    XCUIElement *wordTable = self.app.tables[@"wordList.table"];
+    XCTAssertTrue([wordTable waitForExistenceWithTimeout:5]);
+    [wordTable.cells[@"word.Ο Δίας"].buttons[@"word.favoriteButton"] tap];
+    [self.app.navigationBars.buttons.firstMatch tap];
+
+    // Chain one word and bookmark it.
+    [grid.cells[@"home.tile.sentences"] tap];
+    XCUIElement *table = self.app.tables[@"sentence.table"];
+    XCTAssertTrue([table waitForExistenceWithTimeout:5]);
+    [table.cells[@"word.Ο Δίας"] tap];
+    [self.app.buttons[@"sentence.save"] tap];
+
+    // Saving clears the chain and files the sentence above the favorites.
+    XCTAssertEqualObjects(self.app.staticTexts[@"sentence.chain"].label, @"…");
+    XCUIElement *saved = table.cells[@"sentence.saved"].firstMatch;
+    XCTAssertTrue([saved waitForExistenceWithTimeout:5]);
+    XCTAssertTrue([saved.staticTexts.firstMatch.label containsString:@"Ο Δίας"]);
+
+    // Relaunch without the reset flag: the sentence survives.
+    [self.app terminate];
+    XCUIApplication *relaunched = [[XCUIApplication alloc] init];
+    [relaunched launch];
+    [relaunched.collectionViews[@"home.grid"].cells[@"home.tile.sentences"] tap];
+    XCUIElement *savedAfter =
+        relaunched.tables[@"sentence.table"].cells[@"sentence.saved"].firstMatch;
+    XCTAssertTrue([savedAfter waitForExistenceWithTimeout:5]);
+}
+
 - (void)testCategoryOpensWordListAndSpeaksOnTap {
     XCUIElement *grid = self.app.collectionViews[@"home.grid"];
     XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
@@ -136,14 +169,15 @@
     XCUIElement *grid = self.app.collectionViews[@"home.grid"];
     XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
 
+    // The tile names the mode you are currently in, not the one you'd switch to.
     XCUIElement *themeTile = grid.cells[@"home.tile.theme"];
-    XCTAssertTrue(themeTile.staticTexts[@"Dark mode"].exists);
-
-    [themeTile tap];
-    XCTAssertTrue([themeTile.staticTexts[@"Light mode"] waitForExistenceWithTimeout:5]);
+    XCTAssertTrue(themeTile.staticTexts[@"Light mode"].exists);
 
     [themeTile tap];
     XCTAssertTrue([themeTile.staticTexts[@"Dark mode"] waitForExistenceWithTimeout:5]);
+
+    [themeTile tap];
+    XCTAssertTrue([themeTile.staticTexts[@"Light mode"] waitForExistenceWithTimeout:5]);
 }
 
 @end
