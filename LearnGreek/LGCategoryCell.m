@@ -58,8 +58,8 @@
     self.greekLabel.text = titleGreek;
     self.subtitleLabel.text = subtitle;
 
-    self.greekLabel.font = [theme fontOfSize:15 weight:UIFontWeightSemibold];
-    self.subtitleLabel.font = [theme fontOfSize:11 weight:UIFontWeightRegular];
+    self.greekLabel.font = [theme fontOfSize:14.5 weight:UIFontWeightSemibold];
+    self.subtitleLabel.font = [theme fontOfSize:10.5 weight:UIFontWeightRegular];
     self.contentView.backgroundColor = theme.cellColor;
 
     if (theme.style == LGThemeStyleLight) {
