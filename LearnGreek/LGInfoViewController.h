@@ -3,7 +3,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// What this is, how it was built, and a line of Elytis for the language itself.
-@interface LGCreditsViewController : UIViewController
+@interface LGInfoViewController : UIViewController
 
 @end
 

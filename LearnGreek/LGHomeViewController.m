@@ -5,14 +5,15 @@
 #import "LGLanguageManager.h"
 #import "LGThemeManager.h"
 #import "LGWordListViewController.h"
-#import "LGCreditsViewController.h"
+#import "LGInfoViewController.h"
+#import "LGSentenceBuilderViewController.h"
 
 // Grid layout: 2 columns. The first two tiles are fixed (Favorites, theme
-// toggle), then the word categories, then Help and Credits close the grid.
+// toggle), then the word categories, then Help and Sentences close the grid.
 static const NSInteger LGTileFavorites = 0;
 static const NSInteger LGTileThemeToggle = 1;
 static const NSInteger LGFixedTileCount = 2;
-static const NSInteger LGTrailingTileCount = 2;  // Help, Credits
+static const NSInteger LGTrailingTileCount = 2;  // Help, Sentences
 static const NSInteger LGGridColumns = 2;
 static const CGFloat LGGridSpacing = 10;
 
@@ -118,7 +119,7 @@ static const CGFloat LGGridSpacing = 10;
     return LGFixedTileCount + (NSInteger)LGDataStore.sharedStore.categories.count;
 }
 
-- (NSInteger)creditsTileIndex {
+- (NSInteger)sentencesTileIndex {
     return [self helpTileIndex] + 1;
 }
 
@@ -128,26 +129,8 @@ static const CGFloat LGGridSpacing = 10;
                           @"fr" : @"Favoris", @"yue" : @"最愛" },
         @"help" : @{ @"en" : @"Help", @"es" : @"Ayuda", @"it" : @"Aiuto",
                      @"fr" : @"Aide", @"yue" : @"幫助" },
-        @"credits" : @{ @"en" : @"Credits", @"es" : @"Créditos", @"it" : @"Crediti",
-                        @"fr" : @"Crédits", @"yue" : @"製作人員" },
-        @"helpTitle" : @{ @"en" : @"How to use", @"es" : @"Cómo usarla", @"it" : @"Come si usa",
-                          @"fr" : @"Mode d'emploi", @"yue" : @"使用方法" },
-        @"helpBody" : @{
-            @"en" : @"Create a schedule for yourself, then start building sentences to repeat "
-                    @"out loud. Tap a word to hear it spoken; star the words you want to keep "
-                    @"close. Open the app, practice, close it. That's the whole idea.",
-            @"es" : @"Crea un horario para ti y luego empieza a construir frases para repetir "
-                    @"en voz alta. Toca una palabra para escucharla; marca con estrella las que "
-                    @"quieras tener cerca. Abre la app, practica, ciérrala. Esa es la idea.",
-            @"it" : @"Creati un programma e poi inizia a costruire frasi da ripetere ad alta "
-                    @"voce. Tocca una parola per ascoltarla; segna con la stella quelle da "
-                    @"tenere vicine. Apri l'app, esercitati, chiudila. Tutto qui.",
-            @"fr" : @"Crée-toi un emploi du temps, puis commence à construire des phrases à "
-                    @"répéter à voix haute. Touche un mot pour l'entendre ; étoile ceux que tu "
-                    @"veux garder près de toi. Ouvre l'app, pratique, ferme-la. C'est tout.",
-            @"yue" : @"為自己定一個時間表，然後開始砌句子，大聲重複講。撳一個字就聽到讀音；"
-                     @"想留住嘅字就撳星。打開個app，練習，閂咗佢。就係咁簡單。",
-        },
+        @"sentences" : @{ @"en" : @"Sentences", @"es" : @"Frases", @"it" : @"Frasi",
+                          @"fr" : @"Phrases", @"yue" : @"句子" },
     };
 }
 
@@ -180,11 +163,11 @@ static const CGFloat LGGridSpacing = 10;
                            titleGreek:@"Βοήθεια"
                              subtitle:[[self class] tileString:@"help"]];
         cell.accessibilityIdentifier = @"home.tile.help";
-    } else if (indexPath.item == [self creditsTileIndex]) {
-        [cell configureWithSymbolName:@"building.columns.fill"
-                           titleGreek:@"Σχετικά"
-                             subtitle:[[self class] tileString:@"credits"]];
-        cell.accessibilityIdentifier = @"home.tile.credits";
+    } else if (indexPath.item == [self sentencesTileIndex]) {
+        [cell configureWithSymbolName:@"wand.and.stars"
+                           titleGreek:@"Προτάσεις"
+                             subtitle:[[self class] tileString:@"sentences"]];
+        cell.accessibilityIdentifier = @"home.tile.sentences";
     } else {
         LGCategory *category =
             LGDataStore.sharedStore.categories[(NSUInteger)(indexPath.item - LGFixedTileCount)];
@@ -217,19 +200,14 @@ static const CGFloat LGGridSpacing = 10;
         return;
     }
     if (indexPath.item == [self helpTileIndex]) {
-        UIAlertController *alert =
-            [UIAlertController alertControllerWithTitle:[[self class] tileString:@"helpTitle"]
-                                                message:[[self class] tileString:@"helpBody"]
-                                         preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self.navigationController pushViewController:[[LGInfoViewController alloc] init]
+                                             animated:YES];
         return;
     }
-    if (indexPath.item == [self creditsTileIndex]) {
-        [self.navigationController pushViewController:[[LGCreditsViewController alloc] init]
-                                             animated:YES];
+    if (indexPath.item == [self sentencesTileIndex]) {
+        [self.navigationController
+            pushViewController:[[LGSentenceBuilderViewController alloc] init]
+                      animated:YES];
         return;
     }
 

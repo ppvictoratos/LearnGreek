@@ -4,260 +4,1634 @@
       "id": "greetings",
       "nameGreek": "Χαιρετισμοί",
       "symbol": "hand.wave.fill",
-      "names": { "en": "Greetings", "es": "Saludos", "it": "Saluti", "fr": "Salutations", "yue": "問候" },
+      "names": {
+        "en": "Greetings",
+        "es": "Saludos",
+        "it": "Saluti",
+        "fr": "Salutations",
+        "yue": "問候"
+      },
       "words": [
-        { "el": "Γεια σου", "translit": "ya soo", "en": "Hello (informal)", "es": "Hola (informal)", "it": "Ciao", "fr": "Salut", "yue": "你好" },
-        { "el": "Γεια σας", "translit": "ya sas", "en": "Hello (formal)", "es": "Hola (formal)", "it": "Salve", "fr": "Bonjour (formel)", "yue": "您好" },
-        { "el": "Καλημέρα", "translit": "kalimera", "en": "Good morning", "es": "Buenos días", "it": "Buongiorno", "fr": "Bonjour", "yue": "早晨" },
-        { "el": "Καλησπέρα", "translit": "kalispera", "en": "Good evening", "es": "Buenas tardes", "it": "Buonasera", "fr": "Bonsoir", "yue": "晚上好" },
-        { "el": "Καληνύχτα", "translit": "kalinichta", "en": "Good night", "es": "Buenas noches", "it": "Buonanotte", "fr": "Bonne nuit", "yue": "晚安" },
-        { "el": "Αντίο", "translit": "adio", "en": "Goodbye", "es": "Adiós", "it": "Arrivederci", "fr": "Au revoir", "yue": "再見" },
-        { "el": "Τι κάνεις;", "translit": "ti kanis?", "en": "How are you?", "es": "¿Cómo estás?", "it": "Come stai?", "fr": "Comment ça va ?", "yue": "你好嗎？" },
-        { "el": "Καλώς ήρθες", "translit": "kalos irthes", "en": "Welcome", "es": "Bienvenido", "it": "Benvenuto", "fr": "Bienvenue", "yue": "歡迎" },
-        { "el": "Χάρηκα", "translit": "harika", "en": "Nice to meet you", "es": "Encantado", "it": "Piacere", "fr": "Enchanté", "yue": "好高興認識你" },
-        { "el": "Τα λέμε", "translit": "ta leme", "en": "See you", "es": "Nos vemos", "it": "Ci vediamo", "fr": "À bientôt", "yue": "遲啲見" }
+        {
+          "el": "Γεια σου",
+          "translit": "ya soo",
+          "en": "Hello (informal)",
+          "es": "Hola (informal)",
+          "it": "Ciao",
+          "fr": "Salut",
+          "yue": "你好"
+        },
+        {
+          "el": "Γεια σας",
+          "translit": "ya sas",
+          "en": "Hello (formal)",
+          "es": "Hola (formal)",
+          "it": "Salve",
+          "fr": "Bonjour (formel)",
+          "yue": "您好"
+        },
+        {
+          "el": "Καλημέρα",
+          "translit": "kalimera",
+          "en": "Good morning",
+          "es": "Buenos días",
+          "it": "Buongiorno",
+          "fr": "Bonjour",
+          "yue": "早晨"
+        },
+        {
+          "el": "Καλησπέρα",
+          "translit": "kalispera",
+          "en": "Good evening",
+          "es": "Buenas tardes",
+          "it": "Buonasera",
+          "fr": "Bonsoir",
+          "yue": "晚上好"
+        },
+        {
+          "el": "Καληνύχτα",
+          "translit": "kalinichta",
+          "en": "Good night",
+          "es": "Buenas noches",
+          "it": "Buonanotte",
+          "fr": "Bonne nuit",
+          "yue": "晚安"
+        },
+        {
+          "el": "Αντίο",
+          "translit": "adio",
+          "en": "Goodbye",
+          "es": "Adiós",
+          "it": "Arrivederci",
+          "fr": "Au revoir",
+          "yue": "再見"
+        },
+        {
+          "el": "Τι κάνεις;",
+          "translit": "ti kanis?",
+          "en": "How are you?",
+          "es": "¿Cómo estás?",
+          "it": "Come stai?",
+          "fr": "Comment ça va ?",
+          "yue": "你好嗎？"
+        },
+        {
+          "el": "Καλώς ήρθες",
+          "translit": "kalos irthes",
+          "en": "Welcome",
+          "es": "Bienvenido",
+          "it": "Benvenuto",
+          "fr": "Bienvenue",
+          "yue": "歡迎"
+        },
+        {
+          "el": "Χάρηκα",
+          "translit": "harika",
+          "en": "Nice to meet you",
+          "es": "Encantado",
+          "it": "Piacere",
+          "fr": "Enchanté",
+          "yue": "好高興認識你"
+        },
+        {
+          "el": "Τα λέμε",
+          "translit": "ta leme",
+          "en": "See you",
+          "es": "Nos vemos",
+          "it": "Ci vediamo",
+          "fr": "À bientôt",
+          "yue": "遲啲見"
+        }
       ]
     },
     {
       "id": "conversation",
       "nameGreek": "Συζήτηση",
       "symbol": "bubble.left.and.bubble.right.fill",
-      "names": { "en": "Conversation", "es": "Conversación", "it": "Conversazione", "fr": "Conversation", "yue": "對話" },
+      "names": {
+        "en": "Conversation",
+        "es": "Conversación",
+        "it": "Conversazione",
+        "fr": "Conversation",
+        "yue": "對話"
+      },
       "words": [
-        { "el": "Ναι", "translit": "ne", "en": "Yes", "es": "Sí", "it": "Sì", "fr": "Oui", "yue": "係" },
-        { "el": "Όχι", "translit": "ohi", "en": "No", "es": "No", "it": "No", "fr": "Non", "yue": "唔係" },
-        { "el": "Ευχαριστώ", "translit": "efharisto", "en": "Thank you", "es": "Gracias", "it": "Grazie", "fr": "Merci", "yue": "多謝" },
-        { "el": "Παρακαλώ", "translit": "parakalo", "en": "Please / You're welcome", "es": "Por favor / De nada", "it": "Per favore / Prego", "fr": "S'il vous plaît / De rien", "yue": "唔該" },
-        { "el": "Συγγνώμη", "translit": "signomi", "en": "Sorry / Excuse me", "es": "Perdón", "it": "Scusa", "fr": "Pardon", "yue": "對唔住" },
-        { "el": "Δεν καταλαβαίνω", "translit": "then katalaveno", "en": "I don't understand", "es": "No entiendo", "it": "Non capisco", "fr": "Je ne comprends pas", "yue": "我唔明" },
-        { "el": "Μιλάτε αγγλικά;", "translit": "milate anglika?", "en": "Do you speak English?", "es": "¿Hablas inglés?", "it": "Parli inglese?", "fr": "Parlez-vous anglais ?", "yue": "你識唔識講英文？" },
-        { "el": "Πώς σε λένε;", "translit": "pos se lene?", "en": "What's your name?", "es": "¿Cómo te llamas?", "it": "Come ti chiami?", "fr": "Comment tu t'appelles ?", "yue": "你叫咩名？" },
-        { "el": "Με λένε...", "translit": "me lene...", "en": "My name is...", "es": "Me llamo...", "it": "Mi chiamo...", "fr": "Je m'appelle...", "yue": "我叫..." },
-        { "el": "Πόσο κάνει;", "translit": "poso kani?", "en": "How much is it?", "es": "¿Cuánto cuesta?", "it": "Quanto costa?", "fr": "Combien ça coûte ?", "yue": "幾多錢？" }
+        {
+          "el": "Ναι",
+          "translit": "ne",
+          "en": "Yes",
+          "es": "Sí",
+          "it": "Sì",
+          "fr": "Oui",
+          "yue": "係"
+        },
+        {
+          "el": "Όχι",
+          "translit": "ohi",
+          "en": "No",
+          "es": "No",
+          "it": "No",
+          "fr": "Non",
+          "yue": "唔係"
+        },
+        {
+          "el": "Ευχαριστώ",
+          "translit": "efharisto",
+          "en": "Thank you",
+          "es": "Gracias",
+          "it": "Grazie",
+          "fr": "Merci",
+          "yue": "多謝"
+        },
+        {
+          "el": "Παρακαλώ",
+          "translit": "parakalo",
+          "en": "Please / You're welcome",
+          "es": "Por favor / De nada",
+          "it": "Per favore / Prego",
+          "fr": "S'il vous plaît / De rien",
+          "yue": "唔該"
+        },
+        {
+          "el": "Συγγνώμη",
+          "translit": "signomi",
+          "en": "Sorry / Excuse me",
+          "es": "Perdón",
+          "it": "Scusa",
+          "fr": "Pardon",
+          "yue": "對唔住"
+        },
+        {
+          "el": "Δεν καταλαβαίνω",
+          "translit": "then katalaveno",
+          "en": "I don't understand",
+          "es": "No entiendo",
+          "it": "Non capisco",
+          "fr": "Je ne comprends pas",
+          "yue": "我唔明"
+        },
+        {
+          "el": "Μιλάτε αγγλικά;",
+          "translit": "milate anglika?",
+          "en": "Do you speak English?",
+          "es": "¿Hablas inglés?",
+          "it": "Parli inglese?",
+          "fr": "Parlez-vous anglais ?",
+          "yue": "你識唔識講英文？"
+        },
+        {
+          "el": "Πώς σε λένε;",
+          "translit": "pos se lene?",
+          "en": "What's your name?",
+          "es": "¿Cómo te llamas?",
+          "it": "Come ti chiami?",
+          "fr": "Comment tu t'appelles ?",
+          "yue": "你叫咩名？"
+        },
+        {
+          "el": "Με λένε...",
+          "translit": "me lene...",
+          "en": "My name is...",
+          "es": "Me llamo...",
+          "it": "Mi chiamo...",
+          "fr": "Je m'appelle...",
+          "yue": "我叫..."
+        },
+        {
+          "el": "Πόσο κάνει;",
+          "translit": "poso kani?",
+          "en": "How much is it?",
+          "es": "¿Cuánto cuesta?",
+          "it": "Quanto costa?",
+          "fr": "Combien ça coûte ?",
+          "yue": "幾多錢？"
+        }
       ]
     },
     {
       "id": "mythology",
       "nameGreek": "Μυθολογία",
       "symbol": "bolt.fill",
-      "names": { "en": "Mythology", "es": "Mitología", "it": "Mitologia", "fr": "Mythologie", "yue": "神話" },
+      "names": {
+        "en": "Mythology",
+        "es": "Mitología",
+        "it": "Mitologia",
+        "fr": "Mythologie",
+        "yue": "神話"
+      },
       "words": [
-        { "el": "Ο θεός", "translit": "o theos", "en": "God", "es": "Dios", "it": "Dio", "fr": "Dieu", "yue": "神" },
-        { "el": "Η θεά", "translit": "i thea", "en": "Goddess", "es": "Diosa", "it": "Dea", "fr": "Déesse", "yue": "女神" },
-        { "el": "Ο μύθος", "translit": "o mithos", "en": "Myth", "es": "Mito", "it": "Mito", "fr": "Mythe", "yue": "神話" },
-        { "el": "Ο ήρωας", "translit": "o iroas", "en": "Hero", "es": "Héroe", "it": "Eroe", "fr": "Héros", "yue": "英雄" },
-        { "el": "Ο Όλυμπος", "translit": "o Olimbos", "en": "Mount Olympus", "es": "Monte Olimpo", "it": "Monte Olimpo", "fr": "Mont Olympe", "yue": "奧林匹斯山" },
-        { "el": "Ο Δίας", "translit": "o Dias", "en": "Zeus", "es": "Zeus", "it": "Zeus", "fr": "Zeus", "yue": "宙斯" },
-        { "el": "Η Αθηνά", "translit": "i Athina", "en": "Athena", "es": "Atenea", "it": "Atena", "fr": "Athéna", "yue": "雅典娜" },
-        { "el": "Ο Ποσειδώνας", "translit": "o Posidonas", "en": "Poseidon", "es": "Poseidón", "it": "Poseidone", "fr": "Poséidon", "yue": "波塞冬" },
-        { "el": "Ο τιτάνας", "translit": "o titanas", "en": "Titan", "es": "Titán", "it": "Titano", "fr": "Titan", "yue": "泰坦" },
-        { "el": "Ο λαβύρινθος", "translit": "o lavirinthos", "en": "Labyrinth", "es": "Laberinto", "it": "Labirinto", "fr": "Labyrinthe", "yue": "迷宮" },
-        { "el": "Ο κένταυρος", "translit": "o kentavros", "en": "Centaur", "es": "Centauro", "it": "Centauro", "fr": "Centaure", "yue": "半人馬" },
-        { "el": "Η μούσα", "translit": "i moosa", "en": "Muse", "es": "Musa", "it": "Musa", "fr": "Muse", "yue": "繆斯" }
+        {
+          "el": "θεός",
+          "art": "Ο",
+          "translit": "theos",
+          "en": "God",
+          "es": "Dios",
+          "it": "Dio",
+          "fr": "Dieu",
+          "yue": "神"
+        },
+        {
+          "el": "θεά",
+          "art": "Η",
+          "translit": "thea",
+          "en": "Goddess",
+          "es": "Diosa",
+          "it": "Dea",
+          "fr": "Déesse",
+          "yue": "女神"
+        },
+        {
+          "el": "μύθος",
+          "art": "Ο",
+          "translit": "mithos",
+          "en": "Myth",
+          "es": "Mito",
+          "it": "Mito",
+          "fr": "Mythe",
+          "yue": "神話"
+        },
+        {
+          "el": "ήρωας",
+          "art": "Ο",
+          "translit": "iroas",
+          "en": "Hero",
+          "es": "Héroe",
+          "it": "Eroe",
+          "fr": "Héros",
+          "yue": "英雄"
+        },
+        {
+          "el": "Όλυμπος",
+          "art": "Ο",
+          "translit": "Olimbos",
+          "en": "Mount Olympus",
+          "es": "Monte Olimpo",
+          "it": "Monte Olimpo",
+          "fr": "Mont Olympe",
+          "yue": "奧林匹斯山"
+        },
+        {
+          "el": "Δίας",
+          "art": "Ο",
+          "translit": "Dias",
+          "en": "Zeus",
+          "es": "Zeus",
+          "it": "Zeus",
+          "fr": "Zeus",
+          "yue": "宙斯"
+        },
+        {
+          "el": "Αθηνά",
+          "art": "Η",
+          "translit": "Athina",
+          "en": "Athena",
+          "es": "Atenea",
+          "it": "Atena",
+          "fr": "Athéna",
+          "yue": "雅典娜"
+        },
+        {
+          "el": "Ποσειδώνας",
+          "art": "Ο",
+          "translit": "Posidonas",
+          "en": "Poseidon",
+          "es": "Poseidón",
+          "it": "Poseidone",
+          "fr": "Poséidon",
+          "yue": "波塞冬"
+        },
+        {
+          "el": "τιτάνας",
+          "art": "Ο",
+          "translit": "titanas",
+          "en": "Titan",
+          "es": "Titán",
+          "it": "Titano",
+          "fr": "Titan",
+          "yue": "泰坦"
+        },
+        {
+          "el": "λαβύρινθος",
+          "art": "Ο",
+          "translit": "lavirinthos",
+          "en": "Labyrinth",
+          "es": "Laberinto",
+          "it": "Labirinto",
+          "fr": "Labyrinthe",
+          "yue": "迷宮"
+        },
+        {
+          "el": "κένταυρος",
+          "art": "Ο",
+          "translit": "kentavros",
+          "en": "Centaur",
+          "es": "Centauro",
+          "it": "Centauro",
+          "fr": "Centaure",
+          "yue": "半人馬"
+        },
+        {
+          "el": "μούσα",
+          "art": "Η",
+          "translit": "moosa",
+          "en": "Muse",
+          "es": "Musa",
+          "it": "Musa",
+          "fr": "Muse",
+          "yue": "繆斯"
+        }
       ]
     },
     {
       "id": "astrology",
       "nameGreek": "Αστρολογία",
       "symbol": "moon.stars.fill",
-      "names": { "en": "Astrology", "es": "Astrología", "it": "Astrologia", "fr": "Astrologie", "yue": "占星" },
+      "names": {
+        "en": "Astrology",
+        "es": "Astrología",
+        "it": "Astrologia",
+        "fr": "Astrologie",
+        "yue": "占星"
+      },
       "words": [
-        { "el": "Το ζώδιο", "translit": "to zodio", "en": "Zodiac sign", "es": "Signo del zodíaco", "it": "Segno zodiacale", "fr": "Signe du zodiaque", "yue": "星座" },
-        { "el": "Το αστέρι", "translit": "to asteri", "en": "Star", "es": "Estrella", "it": "Stella", "fr": "Étoile", "yue": "星" },
-        { "el": "Ο Κριός", "translit": "o Krios", "en": "Aries", "es": "Aries", "it": "Ariete", "fr": "Bélier", "yue": "白羊座" },
-        { "el": "Ο Ταύρος", "translit": "o Tavros", "en": "Taurus", "es": "Tauro", "it": "Toro", "fr": "Taureau", "yue": "金牛座" },
-        { "el": "Οι Δίδυμοι", "translit": "i Didimi", "en": "Gemini", "es": "Géminis", "it": "Gemelli", "fr": "Gémeaux", "yue": "雙子座" },
-        { "el": "Ο Καρκίνος", "translit": "o Karkinos", "en": "Cancer", "es": "Cáncer", "it": "Cancro", "fr": "Cancer", "yue": "巨蟹座" },
-        { "el": "Ο Λέων", "translit": "o Leon", "en": "Leo", "es": "Leo", "it": "Leone", "fr": "Lion", "yue": "獅子座" },
-        { "el": "Η Παρθένος", "translit": "i Parthenos", "en": "Virgo", "es": "Virgo", "it": "Vergine", "fr": "Vierge", "yue": "處女座" },
-        { "el": "Ο Ζυγός", "translit": "o Zigos", "en": "Libra", "es": "Libra", "it": "Bilancia", "fr": "Balance", "yue": "天秤座" },
-        { "el": "Ο Σκορπιός", "translit": "o Skorpios", "en": "Scorpio", "es": "Escorpio", "it": "Scorpione", "fr": "Scorpion", "yue": "天蠍座" },
-        { "el": "Ο Τοξότης", "translit": "o Toxotis", "en": "Sagittarius", "es": "Sagitario", "it": "Sagittario", "fr": "Sagittaire", "yue": "人馬座" },
-        { "el": "Ο Αιγόκερως", "translit": "o Egokeros", "en": "Capricorn", "es": "Capricornio", "it": "Capricorno", "fr": "Capricorne", "yue": "山羊座" },
-        { "el": "Ο Υδροχόος", "translit": "o Idrohoos", "en": "Aquarius", "es": "Acuario", "it": "Acquario", "fr": "Verseau", "yue": "水瓶座" },
-        { "el": "Οι Ιχθύες", "translit": "i Ihthies", "en": "Pisces", "es": "Piscis", "it": "Pesci", "fr": "Poissons", "yue": "雙魚座" }
+        {
+          "el": "ζώδιο",
+          "art": "Το",
+          "translit": "zodio",
+          "en": "Zodiac sign",
+          "es": "Signo del zodíaco",
+          "it": "Segno zodiacale",
+          "fr": "Signe du zodiaque",
+          "yue": "星座"
+        },
+        {
+          "el": "αστέρι",
+          "art": "Το",
+          "translit": "asteri",
+          "en": "Star",
+          "es": "Estrella",
+          "it": "Stella",
+          "fr": "Étoile",
+          "yue": "星"
+        },
+        {
+          "el": "Κριός",
+          "art": "Ο",
+          "translit": "Krios",
+          "en": "Aries",
+          "es": "Aries",
+          "it": "Ariete",
+          "fr": "Bélier",
+          "yue": "白羊座"
+        },
+        {
+          "el": "Ταύρος",
+          "art": "Ο",
+          "translit": "Tavros",
+          "en": "Taurus",
+          "es": "Tauro",
+          "it": "Toro",
+          "fr": "Taureau",
+          "yue": "金牛座"
+        },
+        {
+          "el": "Δίδυμοι",
+          "art": "Οι",
+          "translit": "Didimi",
+          "en": "Gemini",
+          "es": "Géminis",
+          "it": "Gemelli",
+          "fr": "Gémeaux",
+          "yue": "雙子座"
+        },
+        {
+          "el": "Καρκίνος",
+          "art": "Ο",
+          "translit": "Karkinos",
+          "en": "Cancer",
+          "es": "Cáncer",
+          "it": "Cancro",
+          "fr": "Cancer",
+          "yue": "巨蟹座"
+        },
+        {
+          "el": "Λέων",
+          "art": "Ο",
+          "translit": "Leon",
+          "en": "Leo",
+          "es": "Leo",
+          "it": "Leone",
+          "fr": "Lion",
+          "yue": "獅子座"
+        },
+        {
+          "el": "Παρθένος",
+          "art": "Η",
+          "translit": "Parthenos",
+          "en": "Virgo",
+          "es": "Virgo",
+          "it": "Vergine",
+          "fr": "Vierge",
+          "yue": "處女座"
+        },
+        {
+          "el": "Ζυγός",
+          "art": "Ο",
+          "translit": "Zigos",
+          "en": "Libra",
+          "es": "Libra",
+          "it": "Bilancia",
+          "fr": "Balance",
+          "yue": "天秤座"
+        },
+        {
+          "el": "Σκορπιός",
+          "art": "Ο",
+          "translit": "Skorpios",
+          "en": "Scorpio",
+          "es": "Escorpio",
+          "it": "Scorpione",
+          "fr": "Scorpion",
+          "yue": "天蠍座"
+        },
+        {
+          "el": "Τοξότης",
+          "art": "Ο",
+          "translit": "Toxotis",
+          "en": "Sagittarius",
+          "es": "Sagitario",
+          "it": "Sagittario",
+          "fr": "Sagittaire",
+          "yue": "人馬座"
+        },
+        {
+          "el": "Αιγόκερως",
+          "art": "Ο",
+          "translit": "Egokeros",
+          "en": "Capricorn",
+          "es": "Capricornio",
+          "it": "Capricorno",
+          "fr": "Capricorne",
+          "yue": "山羊座"
+        },
+        {
+          "el": "Υδροχόος",
+          "art": "Ο",
+          "translit": "Idrohoos",
+          "en": "Aquarius",
+          "es": "Acuario",
+          "it": "Acquario",
+          "fr": "Verseau",
+          "yue": "水瓶座"
+        },
+        {
+          "el": "Ιχθύες",
+          "art": "Οι",
+          "translit": "Ihthies",
+          "en": "Pisces",
+          "es": "Piscis",
+          "it": "Pesci",
+          "fr": "Poissons",
+          "yue": "雙魚座"
+        }
       ]
     },
     {
       "id": "transportation",
       "nameGreek": "Μεταφορές",
       "symbol": "bus.fill",
-      "names": { "en": "Transportation", "es": "Transporte", "it": "Trasporti", "fr": "Transports", "yue": "交通" },
+      "names": {
+        "en": "Transportation",
+        "es": "Transporte",
+        "it": "Trasporti",
+        "fr": "Transports",
+        "yue": "交通"
+      },
       "words": [
-        { "el": "Το λεωφορείο", "translit": "to leoforio", "en": "Bus", "es": "Autobús", "it": "Autobus", "fr": "Bus", "yue": "巴士" },
-        { "el": "Το τρένο", "translit": "to treno", "en": "Train", "es": "Tren", "it": "Treno", "fr": "Train", "yue": "火車" },
-        { "el": "Το μετρό", "translit": "to metro", "en": "Metro", "es": "Metro", "it": "Metropolitana", "fr": "Métro", "yue": "地鐵" },
-        { "el": "Το ταξί", "translit": "to taxi", "en": "Taxi", "es": "Taxi", "it": "Taxi", "fr": "Taxi", "yue": "的士" },
-        { "el": "Το πλοίο", "translit": "to plio", "en": "Boat / Ship", "es": "Barco", "it": "Nave", "fr": "Bateau", "yue": "船" },
-        { "el": "Το αεροπλάνο", "translit": "to aeroplano", "en": "Airplane", "es": "Avión", "it": "Aereo", "fr": "Avion", "yue": "飛機" },
-        { "el": "Το ποδήλατο", "translit": "to podilato", "en": "Bicycle", "es": "Bicicleta", "it": "Bicicletta", "fr": "Vélo", "yue": "單車" },
-        { "el": "Το εισιτήριο", "translit": "to isitirio", "en": "Ticket", "es": "Billete", "it": "Biglietto", "fr": "Billet", "yue": "車票" },
-        { "el": "Ο σταθμός", "translit": "o stathmos", "en": "Station", "es": "Estación", "it": "Stazione", "fr": "Gare", "yue": "車站" },
-        { "el": "Το λιμάνι", "translit": "to limani", "en": "Port", "es": "Puerto", "it": "Porto", "fr": "Port", "yue": "港口" }
+        {
+          "el": "λεωφορείο",
+          "art": "Το",
+          "translit": "leoforio",
+          "en": "Bus",
+          "es": "Autobús",
+          "it": "Autobus",
+          "fr": "Bus",
+          "yue": "巴士"
+        },
+        {
+          "el": "τρένο",
+          "art": "Το",
+          "translit": "treno",
+          "en": "Train",
+          "es": "Tren",
+          "it": "Treno",
+          "fr": "Train",
+          "yue": "火車"
+        },
+        {
+          "el": "μετρό",
+          "art": "Το",
+          "translit": "metro",
+          "en": "Metro",
+          "es": "Metro",
+          "it": "Metropolitana",
+          "fr": "Métro",
+          "yue": "地鐵"
+        },
+        {
+          "el": "ταξί",
+          "art": "Το",
+          "translit": "taxi",
+          "en": "Taxi",
+          "es": "Taxi",
+          "it": "Taxi",
+          "fr": "Taxi",
+          "yue": "的士"
+        },
+        {
+          "el": "πλοίο",
+          "art": "Το",
+          "translit": "plio",
+          "en": "Boat / Ship",
+          "es": "Barco",
+          "it": "Nave",
+          "fr": "Bateau",
+          "yue": "船"
+        },
+        {
+          "el": "αεροπλάνο",
+          "art": "Το",
+          "translit": "aeroplano",
+          "en": "Airplane",
+          "es": "Avión",
+          "it": "Aereo",
+          "fr": "Avion",
+          "yue": "飛機"
+        },
+        {
+          "el": "ποδήλατο",
+          "art": "Το",
+          "translit": "podilato",
+          "en": "Bicycle",
+          "es": "Bicicleta",
+          "it": "Bicicletta",
+          "fr": "Vélo",
+          "yue": "單車"
+        },
+        {
+          "el": "εισιτήριο",
+          "art": "Το",
+          "translit": "isitirio",
+          "en": "Ticket",
+          "es": "Billete",
+          "it": "Biglietto",
+          "fr": "Billet",
+          "yue": "車票"
+        },
+        {
+          "el": "σταθμός",
+          "art": "Ο",
+          "translit": "stathmos",
+          "en": "Station",
+          "es": "Estación",
+          "it": "Stazione",
+          "fr": "Gare",
+          "yue": "車站"
+        },
+        {
+          "el": "λιμάνι",
+          "art": "Το",
+          "translit": "limani",
+          "en": "Port",
+          "es": "Puerto",
+          "it": "Porto",
+          "fr": "Port",
+          "yue": "港口"
+        }
       ]
     },
     {
       "id": "sports",
       "nameGreek": "Αθλήματα",
       "symbol": "sportscourt.fill",
-      "names": { "en": "Sports", "es": "Deportes", "it": "Sport", "fr": "Sports", "yue": "運動" },
+      "names": {
+        "en": "Sports",
+        "es": "Deportes",
+        "it": "Sport",
+        "fr": "Sports",
+        "yue": "運動"
+      },
       "words": [
-        { "el": "Το ποδόσφαιρο", "translit": "to podosfero", "en": "Soccer", "es": "Fútbol", "it": "Calcio", "fr": "Football", "yue": "足球" },
-        { "el": "Το μπάσκετ", "translit": "to basket", "en": "Basketball", "es": "Baloncesto", "it": "Pallacanestro", "fr": "Basket", "yue": "籃球" },
-        { "el": "Η κολύμβηση", "translit": "i kolimvisi", "en": "Swimming", "es": "Natación", "it": "Nuoto", "fr": "Natation", "yue": "游水" },
-        { "el": "Το τρέξιμο", "translit": "to treximo", "en": "Running", "es": "Correr", "it": "Corsa", "fr": "Course à pied", "yue": "跑步" },
-        { "el": "Ο μαραθώνιος", "translit": "o marathonios", "en": "Marathon", "es": "Maratón", "it": "Maratona", "fr": "Marathon", "yue": "馬拉松" },
-        { "el": "Οι Ολυμπιακοί Αγώνες", "translit": "i Olimbiaki Agones", "en": "Olympic Games", "es": "Juegos Olímpicos", "it": "Giochi Olimpici", "fr": "Jeux Olympiques", "yue": "奧運會" },
-        { "el": "Η ομάδα", "translit": "i omada", "en": "Team", "es": "Equipo", "it": "Squadra", "fr": "Équipe", "yue": "隊" },
-        { "el": "Ο αγώνας", "translit": "o agonas", "en": "Match / Race", "es": "Partido", "it": "Partita", "fr": "Match", "yue": "比賽" },
-        { "el": "Το γκολ", "translit": "to gol", "en": "Goal", "es": "Gol", "it": "Gol", "fr": "But", "yue": "入球" },
-        { "el": "Η νίκη", "translit": "i niki", "en": "Victory", "es": "Victoria", "it": "Vittoria", "fr": "Victoire", "yue": "勝利" }
+        {
+          "el": "ποδόσφαιρο",
+          "art": "Το",
+          "translit": "podosfero",
+          "en": "Soccer",
+          "es": "Fútbol",
+          "it": "Calcio",
+          "fr": "Football",
+          "yue": "足球"
+        },
+        {
+          "el": "μπάσκετ",
+          "art": "Το",
+          "translit": "basket",
+          "en": "Basketball",
+          "es": "Baloncesto",
+          "it": "Pallacanestro",
+          "fr": "Basket",
+          "yue": "籃球"
+        },
+        {
+          "el": "κολύμβηση",
+          "art": "Η",
+          "translit": "kolimvisi",
+          "en": "Swimming",
+          "es": "Natación",
+          "it": "Nuoto",
+          "fr": "Natation",
+          "yue": "游水"
+        },
+        {
+          "el": "τρέξιμο",
+          "art": "Το",
+          "translit": "treximo",
+          "en": "Running",
+          "es": "Correr",
+          "it": "Corsa",
+          "fr": "Course à pied",
+          "yue": "跑步"
+        },
+        {
+          "el": "μαραθώνιος",
+          "art": "Ο",
+          "translit": "marathonios",
+          "en": "Marathon",
+          "es": "Maratón",
+          "it": "Maratona",
+          "fr": "Marathon",
+          "yue": "馬拉松"
+        },
+        {
+          "el": "Ολυμπιακοί Αγώνες",
+          "art": "Οι",
+          "translit": "Olimbiaki Agones",
+          "en": "Olympic Games",
+          "es": "Juegos Olímpicos",
+          "it": "Giochi Olimpici",
+          "fr": "Jeux Olympiques",
+          "yue": "奧運會"
+        },
+        {
+          "el": "ομάδα",
+          "art": "Η",
+          "translit": "omada",
+          "en": "Team",
+          "es": "Equipo",
+          "it": "Squadra",
+          "fr": "Équipe",
+          "yue": "隊"
+        },
+        {
+          "el": "αγώνας",
+          "art": "Ο",
+          "translit": "agonas",
+          "en": "Match / Race",
+          "es": "Partido",
+          "it": "Partita",
+          "fr": "Match",
+          "yue": "比賽"
+        },
+        {
+          "el": "γκολ",
+          "art": "Το",
+          "translit": "gol",
+          "en": "Goal",
+          "es": "Gol",
+          "it": "Gol",
+          "fr": "But",
+          "yue": "入球"
+        },
+        {
+          "el": "νίκη",
+          "art": "Η",
+          "translit": "niki",
+          "en": "Victory",
+          "es": "Victoria",
+          "it": "Vittoria",
+          "fr": "Victoire",
+          "yue": "勝利"
+        }
       ]
     },
     {
       "id": "food",
       "nameGreek": "Φαγητό",
       "symbol": "fork.knife",
-      "names": { "en": "Food", "es": "Comida", "it": "Cibo", "fr": "Nourriture", "yue": "食物" },
+      "names": {
+        "en": "Food",
+        "es": "Comida",
+        "it": "Cibo",
+        "fr": "Nourriture",
+        "yue": "食物"
+      },
       "words": [
-        { "el": "Το ψωμί", "translit": "to psomi", "en": "Bread", "es": "Pan", "it": "Pane", "fr": "Pain", "yue": "麵包" },
-        { "el": "Το νερό", "translit": "to nero", "en": "Water", "es": "Agua", "it": "Acqua", "fr": "Eau", "yue": "水" },
-        { "el": "Ο καφές", "translit": "o kafes", "en": "Coffee", "es": "Café", "it": "Caffè", "fr": "Café", "yue": "咖啡" },
-        { "el": "Το κρασί", "translit": "to krasi", "en": "Wine", "es": "Vino", "it": "Vino", "fr": "Vin", "yue": "葡萄酒" },
-        { "el": "Η ελιά", "translit": "i elia", "en": "Olive", "es": "Aceituna", "it": "Oliva", "fr": "Olive", "yue": "橄欖" },
-        { "el": "Το τυρί", "translit": "to tiri", "en": "Cheese", "es": "Queso", "it": "Formaggio", "fr": "Fromage", "yue": "芝士" },
-        { "el": "Η σαλάτα", "translit": "i salata", "en": "Salad", "es": "Ensalada", "it": "Insalata", "fr": "Salade", "yue": "沙律" },
-        { "el": "Το σουβλάκι", "translit": "to souvlaki", "en": "Souvlaki", "es": "Souvlaki", "it": "Souvlaki", "fr": "Souvlaki", "yue": "希臘烤肉串" },
-        { "el": "Το μέλι", "translit": "to meli", "en": "Honey", "es": "Miel", "it": "Miele", "fr": "Miel", "yue": "蜜糖" },
-        { "el": "Καλή όρεξη", "translit": "kali orexi", "en": "Bon appétit", "es": "Buen provecho", "it": "Buon appetito", "fr": "Bon appétit", "yue": "慢慢食" }
+        {
+          "el": "ψωμί",
+          "art": "Το",
+          "translit": "psomi",
+          "en": "Bread",
+          "es": "Pan",
+          "it": "Pane",
+          "fr": "Pain",
+          "yue": "麵包"
+        },
+        {
+          "el": "νερό",
+          "art": "Το",
+          "translit": "nero",
+          "en": "Water",
+          "es": "Agua",
+          "it": "Acqua",
+          "fr": "Eau",
+          "yue": "水"
+        },
+        {
+          "el": "καφές",
+          "art": "Ο",
+          "translit": "kafes",
+          "en": "Coffee",
+          "es": "Café",
+          "it": "Caffè",
+          "fr": "Café",
+          "yue": "咖啡"
+        },
+        {
+          "el": "κρασί",
+          "art": "Το",
+          "translit": "krasi",
+          "en": "Wine",
+          "es": "Vino",
+          "it": "Vino",
+          "fr": "Vin",
+          "yue": "葡萄酒"
+        },
+        {
+          "el": "ελιά",
+          "art": "Η",
+          "translit": "elia",
+          "en": "Olive",
+          "es": "Aceituna",
+          "it": "Oliva",
+          "fr": "Olive",
+          "yue": "橄欖"
+        },
+        {
+          "el": "τυρί",
+          "art": "Το",
+          "translit": "tiri",
+          "en": "Cheese",
+          "es": "Queso",
+          "it": "Formaggio",
+          "fr": "Fromage",
+          "yue": "芝士"
+        },
+        {
+          "el": "σαλάτα",
+          "art": "Η",
+          "translit": "salata",
+          "en": "Salad",
+          "es": "Ensalada",
+          "it": "Insalata",
+          "fr": "Salade",
+          "yue": "沙律"
+        },
+        {
+          "el": "σουβλάκι",
+          "art": "Το",
+          "translit": "souvlaki",
+          "en": "Souvlaki",
+          "es": "Souvlaki",
+          "it": "Souvlaki",
+          "fr": "Souvlaki",
+          "yue": "希臘烤肉串"
+        },
+        {
+          "el": "μέλι",
+          "art": "Το",
+          "translit": "meli",
+          "en": "Honey",
+          "es": "Miel",
+          "it": "Miele",
+          "fr": "Miel",
+          "yue": "蜜糖"
+        },
+        {
+          "el": "Καλή όρεξη",
+          "translit": "kali orexi",
+          "en": "Bon appétit",
+          "es": "Buen provecho",
+          "it": "Buon appetito",
+          "fr": "Bon appétit",
+          "yue": "慢慢食"
+        }
       ]
     },
     {
       "id": "numbers",
       "nameGreek": "Αριθμοί",
       "symbol": "number",
-      "names": { "en": "Numbers", "es": "Números", "it": "Numeri", "fr": "Nombres", "yue": "數字" },
+      "names": {
+        "en": "Numbers",
+        "es": "Números",
+        "it": "Numeri",
+        "fr": "Nombres",
+        "yue": "數字"
+      },
       "words": [
-        { "el": "Ένα", "translit": "ena", "en": "One", "es": "Uno", "it": "Uno", "fr": "Un", "yue": "一" },
-        { "el": "Δύο", "translit": "thio", "en": "Two", "es": "Dos", "it": "Due", "fr": "Deux", "yue": "二" },
-        { "el": "Τρία", "translit": "tria", "en": "Three", "es": "Tres", "it": "Tre", "fr": "Trois", "yue": "三" },
-        { "el": "Τέσσερα", "translit": "tesera", "en": "Four", "es": "Cuatro", "it": "Quattro", "fr": "Quatre", "yue": "四" },
-        { "el": "Πέντε", "translit": "pende", "en": "Five", "es": "Cinco", "it": "Cinque", "fr": "Cinq", "yue": "五" },
-        { "el": "Έξι", "translit": "exi", "en": "Six", "es": "Seis", "it": "Sei", "fr": "Six", "yue": "六" },
-        { "el": "Επτά", "translit": "epta", "en": "Seven", "es": "Siete", "it": "Sette", "fr": "Sept", "yue": "七" },
-        { "el": "Οκτώ", "translit": "okto", "en": "Eight", "es": "Ocho", "it": "Otto", "fr": "Huit", "yue": "八" },
-        { "el": "Εννέα", "translit": "enea", "en": "Nine", "es": "Nueve", "it": "Nove", "fr": "Neuf", "yue": "九" },
-        { "el": "Δέκα", "translit": "theka", "en": "Ten", "es": "Diez", "it": "Dieci", "fr": "Dix", "yue": "十" },
-        { "el": "Εκατό", "translit": "ekato", "en": "One hundred", "es": "Cien", "it": "Cento", "fr": "Cent", "yue": "一百" },
-        { "el": "Χίλια", "translit": "hilia", "en": "One thousand", "es": "Mil", "it": "Mille", "fr": "Mille", "yue": "一千" }
+        {
+          "el": "Ένα",
+          "translit": "ena",
+          "en": "One",
+          "es": "Uno",
+          "it": "Uno",
+          "fr": "Un",
+          "yue": "一"
+        },
+        {
+          "el": "Δύο",
+          "translit": "thio",
+          "en": "Two",
+          "es": "Dos",
+          "it": "Due",
+          "fr": "Deux",
+          "yue": "二"
+        },
+        {
+          "el": "Τρία",
+          "translit": "tria",
+          "en": "Three",
+          "es": "Tres",
+          "it": "Tre",
+          "fr": "Trois",
+          "yue": "三"
+        },
+        {
+          "el": "Τέσσερα",
+          "translit": "tesera",
+          "en": "Four",
+          "es": "Cuatro",
+          "it": "Quattro",
+          "fr": "Quatre",
+          "yue": "四"
+        },
+        {
+          "el": "Πέντε",
+          "translit": "pende",
+          "en": "Five",
+          "es": "Cinco",
+          "it": "Cinque",
+          "fr": "Cinq",
+          "yue": "五"
+        },
+        {
+          "el": "Έξι",
+          "translit": "exi",
+          "en": "Six",
+          "es": "Seis",
+          "it": "Sei",
+          "fr": "Six",
+          "yue": "六"
+        },
+        {
+          "el": "Επτά",
+          "translit": "epta",
+          "en": "Seven",
+          "es": "Siete",
+          "it": "Sette",
+          "fr": "Sept",
+          "yue": "七"
+        },
+        {
+          "el": "Οκτώ",
+          "translit": "okto",
+          "en": "Eight",
+          "es": "Ocho",
+          "it": "Otto",
+          "fr": "Huit",
+          "yue": "八"
+        },
+        {
+          "el": "Εννέα",
+          "translit": "enea",
+          "en": "Nine",
+          "es": "Nueve",
+          "it": "Nove",
+          "fr": "Neuf",
+          "yue": "九"
+        },
+        {
+          "el": "Δέκα",
+          "translit": "theka",
+          "en": "Ten",
+          "es": "Diez",
+          "it": "Dieci",
+          "fr": "Dix",
+          "yue": "十"
+        },
+        {
+          "el": "Εκατό",
+          "translit": "ekato",
+          "en": "One hundred",
+          "es": "Cien",
+          "it": "Cento",
+          "fr": "Cent",
+          "yue": "一百"
+        },
+        {
+          "el": "Χίλια",
+          "translit": "hilia",
+          "en": "One thousand",
+          "es": "Mil",
+          "it": "Mille",
+          "fr": "Mille",
+          "yue": "一千"
+        }
       ]
     },
     {
       "id": "colors",
       "nameGreek": "Χρώματα",
       "symbol": "paintpalette.fill",
-      "names": { "en": "Colors", "es": "Colores", "it": "Colori", "fr": "Couleurs", "yue": "顏色" },
+      "names": {
+        "en": "Colors",
+        "es": "Colores",
+        "it": "Colori",
+        "fr": "Couleurs",
+        "yue": "顏色"
+      },
       "words": [
-        { "el": "Το μπλε", "translit": "to ble", "en": "Blue", "es": "Azul", "it": "Blu", "fr": "Bleu", "yue": "藍色" },
-        { "el": "Το άσπρο", "translit": "to aspro", "en": "White", "es": "Blanco", "it": "Bianco", "fr": "Blanc", "yue": "白色" },
-        { "el": "Το πράσινο", "translit": "to prasino", "en": "Green", "es": "Verde", "it": "Verde", "fr": "Vert", "yue": "綠色" },
-        { "el": "Το κόκκινο", "translit": "to kokino", "en": "Red", "es": "Rojo", "it": "Rosso", "fr": "Rouge", "yue": "紅色" },
-        { "el": "Το κίτρινο", "translit": "to kitrino", "en": "Yellow", "es": "Amarillo", "it": "Giallo", "fr": "Jaune", "yue": "黃色" },
-        { "el": "Το μαύρο", "translit": "to mavro", "en": "Black", "es": "Negro", "it": "Nero", "fr": "Noir", "yue": "黑色" },
-        { "el": "Το πορτοκαλί", "translit": "to portokali", "en": "Orange", "es": "Naranja", "it": "Arancione", "fr": "Orange", "yue": "橙色" },
-        { "el": "Το μωβ", "translit": "to mov", "en": "Purple", "es": "Morado", "it": "Viola", "fr": "Violet", "yue": "紫色" },
-        { "el": "Το ροζ", "translit": "to roz", "en": "Pink", "es": "Rosa", "it": "Rosa", "fr": "Rose", "yue": "粉紅色" },
-        { "el": "Το γκρι", "translit": "to gri", "en": "Gray", "es": "Gris", "it": "Grigio", "fr": "Gris", "yue": "灰色" }
+        {
+          "el": "μπλε",
+          "art": "Το",
+          "translit": "ble",
+          "en": "Blue",
+          "es": "Azul",
+          "it": "Blu",
+          "fr": "Bleu",
+          "yue": "藍色"
+        },
+        {
+          "el": "άσπρο",
+          "art": "Το",
+          "translit": "aspro",
+          "en": "White",
+          "es": "Blanco",
+          "it": "Bianco",
+          "fr": "Blanc",
+          "yue": "白色"
+        },
+        {
+          "el": "πράσινο",
+          "art": "Το",
+          "translit": "prasino",
+          "en": "Green",
+          "es": "Verde",
+          "it": "Verde",
+          "fr": "Vert",
+          "yue": "綠色"
+        },
+        {
+          "el": "κόκκινο",
+          "art": "Το",
+          "translit": "kokino",
+          "en": "Red",
+          "es": "Rojo",
+          "it": "Rosso",
+          "fr": "Rouge",
+          "yue": "紅色"
+        },
+        {
+          "el": "κίτρινο",
+          "art": "Το",
+          "translit": "kitrino",
+          "en": "Yellow",
+          "es": "Amarillo",
+          "it": "Giallo",
+          "fr": "Jaune",
+          "yue": "黃色"
+        },
+        {
+          "el": "μαύρο",
+          "art": "Το",
+          "translit": "mavro",
+          "en": "Black",
+          "es": "Negro",
+          "it": "Nero",
+          "fr": "Noir",
+          "yue": "黑色"
+        },
+        {
+          "el": "πορτοκαλί",
+          "art": "Το",
+          "translit": "portokali",
+          "en": "Orange",
+          "es": "Naranja",
+          "it": "Arancione",
+          "fr": "Orange",
+          "yue": "橙色"
+        },
+        {
+          "el": "μωβ",
+          "art": "Το",
+          "translit": "mov",
+          "en": "Purple",
+          "es": "Morado",
+          "it": "Viola",
+          "fr": "Violet",
+          "yue": "紫色"
+        },
+        {
+          "el": "ροζ",
+          "art": "Το",
+          "translit": "roz",
+          "en": "Pink",
+          "es": "Rosa",
+          "it": "Rosa",
+          "fr": "Rose",
+          "yue": "粉紅色"
+        },
+        {
+          "el": "γκρι",
+          "art": "Το",
+          "translit": "gri",
+          "en": "Gray",
+          "es": "Gris",
+          "it": "Grigio",
+          "fr": "Gris",
+          "yue": "灰色"
+        }
       ]
     },
     {
       "id": "time",
       "nameGreek": "Χρόνος",
       "symbol": "clock.fill",
-      "names": { "en": "Days & Time", "es": "Días y tiempo", "it": "Giorni e tempo", "fr": "Jours et temps", "yue": "日子同時間" },
+      "names": {
+        "en": "Days & Time",
+        "es": "Días y tiempo",
+        "it": "Giorni e tempo",
+        "fr": "Jours et temps",
+        "yue": "日子同時間"
+      },
       "words": [
-        { "el": "Η Δευτέρα", "translit": "i Theftera", "en": "Monday", "es": "Lunes", "it": "Lunedì", "fr": "Lundi", "yue": "星期一" },
-        { "el": "Η Τρίτη", "translit": "i Triti", "en": "Tuesday", "es": "Martes", "it": "Martedì", "fr": "Mardi", "yue": "星期二" },
-        { "el": "Η Τετάρτη", "translit": "i Tetarti", "en": "Wednesday", "es": "Miércoles", "it": "Mercoledì", "fr": "Mercredi", "yue": "星期三" },
-        { "el": "Η Πέμπτη", "translit": "i Pembti", "en": "Thursday", "es": "Jueves", "it": "Giovedì", "fr": "Jeudi", "yue": "星期四" },
-        { "el": "Η Παρασκευή", "translit": "i Paraskevi", "en": "Friday", "es": "Viernes", "it": "Venerdì", "fr": "Vendredi", "yue": "星期五" },
-        { "el": "Το Σάββατο", "translit": "to Savato", "en": "Saturday", "es": "Sábado", "it": "Sabato", "fr": "Samedi", "yue": "星期六" },
-        { "el": "Η Κυριακή", "translit": "i Kiriaki", "en": "Sunday", "es": "Domingo", "it": "Domenica", "fr": "Dimanche", "yue": "星期日" },
-        { "el": "Σήμερα", "translit": "simera", "en": "Today", "es": "Hoy", "it": "Oggi", "fr": "Aujourd'hui", "yue": "今日" },
-        { "el": "Αύριο", "translit": "avrio", "en": "Tomorrow", "es": "Mañana", "it": "Domani", "fr": "Demain", "yue": "聽日" },
-        { "el": "Χθες", "translit": "hthes", "en": "Yesterday", "es": "Ayer", "it": "Ieri", "fr": "Hier", "yue": "尋日" }
+        {
+          "el": "Δευτέρα",
+          "art": "Η",
+          "translit": "Theftera",
+          "en": "Monday",
+          "es": "Lunes",
+          "it": "Lunedì",
+          "fr": "Lundi",
+          "yue": "星期一"
+        },
+        {
+          "el": "Τρίτη",
+          "art": "Η",
+          "translit": "Triti",
+          "en": "Tuesday",
+          "es": "Martes",
+          "it": "Martedì",
+          "fr": "Mardi",
+          "yue": "星期二"
+        },
+        {
+          "el": "Τετάρτη",
+          "art": "Η",
+          "translit": "Tetarti",
+          "en": "Wednesday",
+          "es": "Miércoles",
+          "it": "Mercoledì",
+          "fr": "Mercredi",
+          "yue": "星期三"
+        },
+        {
+          "el": "Πέμπτη",
+          "art": "Η",
+          "translit": "Pembti",
+          "en": "Thursday",
+          "es": "Jueves",
+          "it": "Giovedì",
+          "fr": "Jeudi",
+          "yue": "星期四"
+        },
+        {
+          "el": "Παρασκευή",
+          "art": "Η",
+          "translit": "Paraskevi",
+          "en": "Friday",
+          "es": "Viernes",
+          "it": "Venerdì",
+          "fr": "Vendredi",
+          "yue": "星期五"
+        },
+        {
+          "el": "Σάββατο",
+          "art": "Το",
+          "translit": "Savato",
+          "en": "Saturday",
+          "es": "Sábado",
+          "it": "Sabato",
+          "fr": "Samedi",
+          "yue": "星期六"
+        },
+        {
+          "el": "Κυριακή",
+          "art": "Η",
+          "translit": "Kiriaki",
+          "en": "Sunday",
+          "es": "Domingo",
+          "it": "Domenica",
+          "fr": "Dimanche",
+          "yue": "星期日"
+        },
+        {
+          "el": "Σήμερα",
+          "translit": "simera",
+          "en": "Today",
+          "es": "Hoy",
+          "it": "Oggi",
+          "fr": "Aujourd'hui",
+          "yue": "今日"
+        },
+        {
+          "el": "Αύριο",
+          "translit": "avrio",
+          "en": "Tomorrow",
+          "es": "Mañana",
+          "it": "Domani",
+          "fr": "Demain",
+          "yue": "聽日"
+        },
+        {
+          "el": "Χθες",
+          "translit": "hthes",
+          "en": "Yesterday",
+          "es": "Ayer",
+          "it": "Ieri",
+          "fr": "Hier",
+          "yue": "尋日"
+        }
       ]
     },
     {
       "id": "family",
       "nameGreek": "Οικογένεια",
       "symbol": "house.fill",
-      "names": { "en": "Family", "es": "Familia", "it": "Famiglia", "fr": "Famille", "yue": "家庭" },
+      "names": {
+        "en": "Family",
+        "es": "Familia",
+        "it": "Famiglia",
+        "fr": "Famille",
+        "yue": "家庭"
+      },
       "words": [
-        { "el": "Η μητέρα", "translit": "i mitera", "en": "Mother", "es": "Madre", "it": "Madre", "fr": "Mère", "yue": "媽媽" },
-        { "el": "Ο πατέρας", "translit": "o pateras", "en": "Father", "es": "Padre", "it": "Padre", "fr": "Père", "yue": "爸爸" },
-        { "el": "Ο αδελφός", "translit": "o adelfos", "en": "Brother", "es": "Hermano", "it": "Fratello", "fr": "Frère", "yue": "兄弟" },
-        { "el": "Η αδελφή", "translit": "i adelfi", "en": "Sister", "es": "Hermana", "it": "Sorella", "fr": "Sœur", "yue": "姊妹" },
-        { "el": "Η γιαγιά", "translit": "i yaya", "en": "Grandmother", "es": "Abuela", "it": "Nonna", "fr": "Grand-mère", "yue": "嫲嫲" },
-        { "el": "Ο παππούς", "translit": "o papoos", "en": "Grandfather", "es": "Abuelo", "it": "Nonno", "fr": "Grand-père", "yue": "爺爺" },
-        { "el": "Ο θείος", "translit": "o thios", "en": "Uncle", "es": "Tío", "it": "Zio", "fr": "Oncle", "yue": "叔叔" },
-        { "el": "Η θεία", "translit": "i thia", "en": "Aunt", "es": "Tía", "it": "Zia", "fr": "Tante", "yue": "姨媽" },
-        { "el": "Ο ξάδελφος", "translit": "o xadelfos", "en": "Cousin", "es": "Primo", "it": "Cugino", "fr": "Cousin", "yue": "表兄弟" },
-        { "el": "Η οικογένεια", "translit": "i ikogenia", "en": "Family", "es": "Familia", "it": "Famiglia", "fr": "Famille", "yue": "家庭" }
+        {
+          "el": "μητέρα",
+          "art": "Η",
+          "translit": "mitera",
+          "en": "Mother",
+          "es": "Madre",
+          "it": "Madre",
+          "fr": "Mère",
+          "yue": "媽媽"
+        },
+        {
+          "el": "πατέρας",
+          "art": "Ο",
+          "translit": "pateras",
+          "en": "Father",
+          "es": "Padre",
+          "it": "Padre",
+          "fr": "Père",
+          "yue": "爸爸"
+        },
+        {
+          "el": "αδελφός",
+          "art": "Ο",
+          "translit": "adelfos",
+          "en": "Brother",
+          "es": "Hermano",
+          "it": "Fratello",
+          "fr": "Frère",
+          "yue": "兄弟"
+        },
+        {
+          "el": "αδελφή",
+          "art": "Η",
+          "translit": "adelfi",
+          "en": "Sister",
+          "es": "Hermana",
+          "it": "Sorella",
+          "fr": "Sœur",
+          "yue": "姊妹"
+        },
+        {
+          "el": "γιαγιά",
+          "art": "Η",
+          "translit": "yaya",
+          "en": "Grandmother",
+          "es": "Abuela",
+          "it": "Nonna",
+          "fr": "Grand-mère",
+          "yue": "嫲嫲"
+        },
+        {
+          "el": "παππούς",
+          "art": "Ο",
+          "translit": "papoos",
+          "en": "Grandfather",
+          "es": "Abuelo",
+          "it": "Nonno",
+          "fr": "Grand-père",
+          "yue": "爺爺"
+        },
+        {
+          "el": "θείος",
+          "art": "Ο",
+          "translit": "thios",
+          "en": "Uncle",
+          "es": "Tío",
+          "it": "Zio",
+          "fr": "Oncle",
+          "yue": "叔叔"
+        },
+        {
+          "el": "θεία",
+          "art": "Η",
+          "translit": "thia",
+          "en": "Aunt",
+          "es": "Tía",
+          "it": "Zia",
+          "fr": "Tante",
+          "yue": "姨媽"
+        },
+        {
+          "el": "ξάδελφος",
+          "art": "Ο",
+          "translit": "xadelfos",
+          "en": "Cousin",
+          "es": "Primo",
+          "it": "Cugino",
+          "fr": "Cousin",
+          "yue": "表兄弟"
+        },
+        {
+          "el": "οικογένεια",
+          "art": "Η",
+          "translit": "ikogenia",
+          "en": "Family",
+          "es": "Familia",
+          "it": "Famiglia",
+          "fr": "Famille",
+          "yue": "家庭"
+        }
       ]
     },
     {
       "id": "nature",
       "nameGreek": "Φύση",
       "symbol": "leaf.fill",
-      "names": { "en": "Nature", "es": "Naturaleza", "it": "Natura", "fr": "Nature", "yue": "大自然" },
+      "names": {
+        "en": "Nature",
+        "es": "Naturaleza",
+        "it": "Natura",
+        "fr": "Nature",
+        "yue": "大自然"
+      },
       "words": [
-        { "el": "Η θάλασσα", "translit": "i thalasa", "en": "Sea", "es": "Mar", "it": "Mare", "fr": "Mer", "yue": "海" },
-        { "el": "Ο ήλιος", "translit": "o ilios", "en": "Sun", "es": "Sol", "it": "Sole", "fr": "Soleil", "yue": "太陽" },
-        { "el": "Το βουνό", "translit": "to vouno", "en": "Mountain", "es": "Montaña", "it": "Montagna", "fr": "Montagne", "yue": "山" },
-        { "el": "Το νησί", "translit": "to nisi", "en": "Island", "es": "Isla", "it": "Isola", "fr": "Île", "yue": "島" },
-        { "el": "Η παραλία", "translit": "i paralia", "en": "Beach", "es": "Playa", "it": "Spiaggia", "fr": "Plage", "yue": "沙灘" },
-        { "el": "Ο ουρανός", "translit": "o ouranos", "en": "Sky", "es": "Cielo", "it": "Cielo", "fr": "Ciel", "yue": "天空" },
-        { "el": "Το φεγγάρι", "translit": "to fengari", "en": "Moon", "es": "Luna", "it": "Luna", "fr": "Lune", "yue": "月亮" },
-        { "el": "Το δέντρο", "translit": "to dendro", "en": "Tree", "es": "Árbol", "it": "Albero", "fr": "Arbre", "yue": "樹" },
-        { "el": "Η βροχή", "translit": "i vrohi", "en": "Rain", "es": "Lluvia", "it": "Pioggia", "fr": "Pluie", "yue": "雨" },
-        { "el": "Ο άνεμος", "translit": "o anemos", "en": "Wind", "es": "Viento", "it": "Vento", "fr": "Vent", "yue": "風" }
+        {
+          "el": "θάλασσα",
+          "art": "Η",
+          "translit": "thalasa",
+          "en": "Sea",
+          "es": "Mar",
+          "it": "Mare",
+          "fr": "Mer",
+          "yue": "海"
+        },
+        {
+          "el": "ήλιος",
+          "art": "Ο",
+          "translit": "ilios",
+          "en": "Sun",
+          "es": "Sol",
+          "it": "Sole",
+          "fr": "Soleil",
+          "yue": "太陽"
+        },
+        {
+          "el": "βουνό",
+          "art": "Το",
+          "translit": "vouno",
+          "en": "Mountain",
+          "es": "Montaña",
+          "it": "Montagna",
+          "fr": "Montagne",
+          "yue": "山"
+        },
+        {
+          "el": "νησί",
+          "art": "Το",
+          "translit": "nisi",
+          "en": "Island",
+          "es": "Isla",
+          "it": "Isola",
+          "fr": "Île",
+          "yue": "島"
+        },
+        {
+          "el": "παραλία",
+          "art": "Η",
+          "translit": "paralia",
+          "en": "Beach",
+          "es": "Playa",
+          "it": "Spiaggia",
+          "fr": "Plage",
+          "yue": "沙灘"
+        },
+        {
+          "el": "ουρανός",
+          "art": "Ο",
+          "translit": "ouranos",
+          "en": "Sky",
+          "es": "Cielo",
+          "it": "Cielo",
+          "fr": "Ciel",
+          "yue": "天空"
+        },
+        {
+          "el": "φεγγάρι",
+          "art": "Το",
+          "translit": "fengari",
+          "en": "Moon",
+          "es": "Luna",
+          "it": "Luna",
+          "fr": "Lune",
+          "yue": "月亮"
+        },
+        {
+          "el": "δέντρο",
+          "art": "Το",
+          "translit": "dendro",
+          "en": "Tree",
+          "es": "Árbol",
+          "it": "Albero",
+          "fr": "Arbre",
+          "yue": "樹"
+        },
+        {
+          "el": "βροχή",
+          "art": "Η",
+          "translit": "vrohi",
+          "en": "Rain",
+          "es": "Lluvia",
+          "it": "Pioggia",
+          "fr": "Pluie",
+          "yue": "雨"
+        },
+        {
+          "el": "άνεμος",
+          "art": "Ο",
+          "translit": "anemos",
+          "en": "Wind",
+          "es": "Viento",
+          "it": "Vento",
+          "fr": "Vent",
+          "yue": "風"
+        }
       ]
     },
     {
       "id": "animals",
       "nameGreek": "Ζώα",
       "symbol": "pawprint.fill",
-      "names": { "en": "Animals", "es": "Animales", "it": "Animali", "fr": "Animaux", "yue": "動物" },
+      "names": {
+        "en": "Animals",
+        "es": "Animales",
+        "it": "Animali",
+        "fr": "Animaux",
+        "yue": "動物"
+      },
       "words": [
-        { "el": "Ο σκύλος", "translit": "o skilos", "en": "Dog", "es": "Perro", "it": "Cane", "fr": "Chien", "yue": "狗" },
-        { "el": "Η γάτα", "translit": "i gata", "en": "Cat", "es": "Gato", "it": "Gatto", "fr": "Chat", "yue": "貓" },
-        { "el": "Το ψάρι", "translit": "to psari", "en": "Fish", "es": "Pez", "it": "Pesce", "fr": "Poisson", "yue": "魚" },
-        { "el": "Το χταπόδι", "translit": "to htapodi", "en": "Octopus", "es": "Pulpo", "it": "Polpo", "fr": "Poulpe", "yue": "八爪魚" },
-        { "el": "Το πουλί", "translit": "to pouli", "en": "Bird", "es": "Pájaro", "it": "Uccello", "fr": "Oiseau", "yue": "雀仔" },
-        { "el": "Το άλογο", "translit": "to alogo", "en": "Horse", "es": "Caballo", "it": "Cavallo", "fr": "Cheval", "yue": "馬" },
-        { "el": "Η κατσίκα", "translit": "i katsika", "en": "Goat", "es": "Cabra", "it": "Capra", "fr": "Chèvre", "yue": "山羊" },
-        { "el": "Το δελφίνι", "translit": "to delfini", "en": "Dolphin", "es": "Delfín", "it": "Delfino", "fr": "Dauphin", "yue": "海豚" },
-        { "el": "Η μέλισσα", "translit": "i melisa", "en": "Bee", "es": "Abeja", "it": "Ape", "fr": "Abeille", "yue": "蜜蜂" },
-        { "el": "Η κουκουβάγια", "translit": "i koukouvaya", "en": "Owl", "es": "Búho", "it": "Gufo", "fr": "Hibou", "yue": "貓頭鷹" }
+        {
+          "el": "σκύλος",
+          "art": "Ο",
+          "translit": "skilos",
+          "en": "Dog",
+          "es": "Perro",
+          "it": "Cane",
+          "fr": "Chien",
+          "yue": "狗"
+        },
+        {
+          "el": "γάτα",
+          "art": "Η",
+          "translit": "gata",
+          "en": "Cat",
+          "es": "Gato",
+          "it": "Gatto",
+          "fr": "Chat",
+          "yue": "貓"
+        },
+        {
+          "el": "ψάρι",
+          "art": "Το",
+          "translit": "psari",
+          "en": "Fish",
+          "es": "Pez",
+          "it": "Pesce",
+          "fr": "Poisson",
+          "yue": "魚"
+        },
+        {
+          "el": "χταπόδι",
+          "art": "Το",
+          "translit": "htapodi",
+          "en": "Octopus",
+          "es": "Pulpo",
+          "it": "Polpo",
+          "fr": "Poulpe",
+          "yue": "八爪魚"
+        },
+        {
+          "el": "πουλί",
+          "art": "Το",
+          "translit": "pouli",
+          "en": "Bird",
+          "es": "Pájaro",
+          "it": "Uccello",
+          "fr": "Oiseau",
+          "yue": "雀仔"
+        },
+        {
+          "el": "άλογο",
+          "art": "Το",
+          "translit": "alogo",
+          "en": "Horse",
+          "es": "Caballo",
+          "it": "Cavallo",
+          "fr": "Cheval",
+          "yue": "馬"
+        },
+        {
+          "el": "κατσίκα",
+          "art": "Η",
+          "translit": "katsika",
+          "en": "Goat",
+          "es": "Cabra",
+          "it": "Capra",
+          "fr": "Chèvre",
+          "yue": "山羊"
+        },
+        {
+          "el": "δελφίνι",
+          "art": "Το",
+          "translit": "delfini",
+          "en": "Dolphin",
+          "es": "Delfín",
+          "it": "Delfino",
+          "fr": "Dauphin",
+          "yue": "海豚"
+        },
+        {
+          "el": "μέλισσα",
+          "art": "Η",
+          "translit": "melisa",
+          "en": "Bee",
+          "es": "Abeja",
+          "it": "Ape",
+          "fr": "Abeille",
+          "yue": "蜜蜂"
+        },
+        {
+          "el": "κουκουβάγια",
+          "art": "Η",
+          "translit": "koukouvaya",
+          "en": "Owl",
+          "es": "Búho",
+          "it": "Gufo",
+          "fr": "Hibou",
+          "yue": "貓頭鷹"
+        }
       ]
     },
     {
       "id": "emergency",
       "nameGreek": "Έκτακτα",
       "symbol": "cross.case.fill",
-      "names": { "en": "Emergency", "es": "Emergencia", "it": "Emergenza", "fr": "Urgence", "yue": "緊急" },
+      "names": {
+        "en": "Emergency",
+        "es": "Emergencia",
+        "it": "Emergenza",
+        "fr": "Urgence",
+        "yue": "緊急"
+      },
       "words": [
-        { "el": "Βοήθεια!", "translit": "voithia!", "en": "Help!", "es": "¡Ayuda!", "it": "Aiuto!", "fr": "Au secours !", "yue": "救命呀！" },
-        { "el": "Ο γιατρός", "translit": "o yatros", "en": "Doctor", "es": "Médico", "it": "Medico", "fr": "Médecin", "yue": "醫生" },
-        { "el": "Το νοσοκομείο", "translit": "to nosokomio", "en": "Hospital", "es": "Hospital", "it": "Ospedale", "fr": "Hôpital", "yue": "醫院" },
-        { "el": "Το φαρμακείο", "translit": "to farmakio", "en": "Pharmacy", "es": "Farmacia", "it": "Farmacia", "fr": "Pharmacie", "yue": "藥房" },
-        { "el": "Η αστυνομία", "translit": "i astinomia", "en": "Police", "es": "Policía", "it": "Polizia", "fr": "Police", "yue": "警察" },
-        { "el": "Χάθηκα", "translit": "hathika", "en": "I'm lost", "es": "Estoy perdido", "it": "Mi sono perso", "fr": "Je suis perdu", "yue": "我蕩失路" },
-        { "el": "Πονάω", "translit": "ponao", "en": "I'm in pain", "es": "Me duele", "it": "Ho dolore", "fr": "J'ai mal", "yue": "我好痛" },
-        { "el": "Πού είναι η τουαλέτα;", "translit": "pou ine i toualeta?", "en": "Where is the bathroom?", "es": "¿Dónde está el baño?", "it": "Dov'è il bagno?", "fr": "Où sont les toilettes ?", "yue": "洗手間喺邊度？" },
-        { "el": "Καλέστε ασθενοφόρο", "translit": "kaleste asthenoforo", "en": "Call an ambulance", "es": "Llame una ambulancia", "it": "Chiamate un'ambulanza", "fr": "Appelez une ambulance", "yue": "快啲叫白車" },
-        { "el": "Είμαι καλά", "translit": "ime kala", "en": "I'm okay", "es": "Estoy bien", "it": "Sto bene", "fr": "Ça va", "yue": "我冇事" }
+        {
+          "el": "Βοήθεια!",
+          "translit": "voithia!",
+          "en": "Help!",
+          "es": "¡Ayuda!",
+          "it": "Aiuto!",
+          "fr": "Au secours !",
+          "yue": "救命呀！"
+        },
+        {
+          "el": "γιατρός",
+          "art": "Ο",
+          "translit": "yatros",
+          "en": "Doctor",
+          "es": "Médico",
+          "it": "Medico",
+          "fr": "Médecin",
+          "yue": "醫生"
+        },
+        {
+          "el": "νοσοκομείο",
+          "art": "Το",
+          "translit": "nosokomio",
+          "en": "Hospital",
+          "es": "Hospital",
+          "it": "Ospedale",
+          "fr": "Hôpital",
+          "yue": "醫院"
+        },
+        {
+          "el": "φαρμακείο",
+          "art": "Το",
+          "translit": "farmakio",
+          "en": "Pharmacy",
+          "es": "Farmacia",
+          "it": "Farmacia",
+          "fr": "Pharmacie",
+          "yue": "藥房"
+        },
+        {
+          "el": "αστυνομία",
+          "art": "Η",
+          "translit": "astinomia",
+          "en": "Police",
+          "es": "Policía",
+          "it": "Polizia",
+          "fr": "Police",
+          "yue": "警察"
+        },
+        {
+          "el": "Χάθηκα",
+          "translit": "hathika",
+          "en": "I'm lost",
+          "es": "Estoy perdido",
+          "it": "Mi sono perso",
+          "fr": "Je suis perdu",
+          "yue": "我蕩失路"
+        },
+        {
+          "el": "Πονάω",
+          "translit": "ponao",
+          "en": "I'm in pain",
+          "es": "Me duele",
+          "it": "Ho dolore",
+          "fr": "J'ai mal",
+          "yue": "我好痛"
+        },
+        {
+          "el": "Πού είναι η τουαλέτα;",
+          "translit": "pou ine i toualeta?",
+          "en": "Where is the bathroom?",
+          "es": "¿Dónde está el baño?",
+          "it": "Dov'è il bagno?",
+          "fr": "Où sont les toilettes ?",
+          "yue": "洗手間喺邊度？"
+        },
+        {
+          "el": "Καλέστε ασθενοφόρο",
+          "translit": "kaleste asthenoforo",
+          "en": "Call an ambulance",
+          "es": "Llame una ambulancia",
+          "it": "Chiamate un'ambulanza",
+          "fr": "Appelez une ambulance",
+          "yue": "快啲叫白車"
+        },
+        {
+          "el": "Είμαι καλά",
+          "translit": "ime kala",
+          "en": "I'm okay",
+          "es": "Estoy bien",
+          "it": "Sto bene",
+          "fr": "Ça va",
+          "yue": "我冇事"
+        }
       ]
     }
   ]

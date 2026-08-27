@@ -11,8 +11,12 @@
     self = [super init];
     if (self) {
         _greek = [dictionary[@"el"] copy] ?: @"";
+        _article = [dictionary[@"art"] copy] ?: @"";
+        _fullPhrase = _article.length > 0
+            ? [NSString stringWithFormat:@"%@ %@", _article, _greek]
+            : _greek;
         _transliteration = [dictionary[@"translit"] copy] ?: @"";
-        _wordID = [_greek copy];
+        _wordID = [_fullPhrase copy];
 
         NSMutableDictionary<NSString *, NSString *> *translations = [NSMutableDictionary dictionary];
         for (NSString *code in LGLanguageManager.allLanguageCodes) {

@@ -6,16 +6,23 @@ no dependencies, no network. Target device: iPhone 12 mini.
 
 ## What it does
 
-- **2×8 home grid, 16 tiles**: Favorites, a light/dark mode toggle, and 14 word
+- **2×9 home grid, 18 tiles**: Favorites, a light/dark mode toggle, 14 word
   categories (Greetings, Conversation, Mythology, Astrology, Transportation,
   Sports, Food, Numbers, Colors, Days & Time, Family, Nature, Animals,
-  Emergency). Tiles use SF Symbols.
+  Emergency), Help, and a Sentences builder. Tiles use SF Symbols.
 - **Base languages** — English, Español, Italiano, Français, auto-detected from
   the device and switchable via the globe button. Cantonese (廣東話) is fully
   translated in the data set but held behind a feature flag
   (`LGFeatureCantonese` bool in NSUserDefaults) until it ships.
-- **Tap a word to hear it** pronounced via the system `el-GR` voice
+- **Articles are taught, not hidden**: each noun's definite article (Ο/Η/Το/Οι)
+  lives in its own data field. Lists show the noun big with the article small
+  and dimmed, and tapping speaks the bare noun first, then the full gendered
+  form ("Δίας … ο Δίας") — so learners hear the core word clearly.
+- **Tap a word to hear it** via the system `el-GR` voice
   (`AVSpeechSynthesizer`) — works offline, zero audio assets.
+- **Sentences (Προτάσεις)**: tap favorited words to string them into a chain
+  and hear it spoken. (A rule-based grammar engine is the planned next step —
+  the article field already encodes each noun's gender for it.)
 - **Star words to favorite them**; favorites persist in `NSUserDefaults`.
 - **Light mode** — Aegean blue (`#0D5EAF`) on white. **Dark mode** — neon green
   (`#00FF41` / `#00CC33`) on deep green (`#04150C`), monospaced type.
@@ -23,7 +30,7 @@ no dependencies, no network. Target device: iPhone 12 mini.
 ## Layout
 
 - `LearnGreek/` — app sources (`LG` prefix). `Resources/words.json` holds all
-  148 words (`el` / `translit` + `en`/`es`/`it`/`fr`/`yue` per word). Add words
+  148 words (`el` / optional `art` / `translit` + `en`/`es`/`it`/`fr`/`yue` per word). Add words
   there; no code changes needed. A unit test fails if any translation is missing.
 - `LearnGreekTests/` — unit tests: data store, favorites persistence, theme and
   language managers, feature flags, and the **performance budgets** (binary

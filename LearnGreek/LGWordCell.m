@@ -63,14 +63,34 @@
 - (void)configureWithWord:(LGWord *)word favorite:(BOOL)favorite {
     LGThemeManager *theme = LGThemeManager.sharedManager;
 
-    self.greekLabel.text = word.greek;
     NSString *translation =
         [word translationForLanguage:LGLanguageManager.sharedManager.languageCode];
     self.detailLabel.text =
         [NSString stringWithFormat:@"%@ · %@", word.transliteration, translation];
 
-    self.greekLabel.font = [theme fontOfSize:20 weight:UIFontWeightSemibold];
-    self.greekLabel.textColor = theme.primaryTextColor;
+    // The noun is the star; its article is shown small and dimmed so learners
+    // see the core word immediately but still absorb the gender.
+    UIFont *nounFont = [theme fontOfSize:20 weight:UIFontWeightSemibold];
+    if (word.article.length > 0) {
+        NSMutableAttributedString *line = [[NSMutableAttributedString alloc]
+            initWithString:[NSString stringWithFormat:@"%@ ", word.article]
+                attributes:@{
+                    NSFontAttributeName : [theme fontOfSize:14 weight:UIFontWeightRegular],
+                    NSForegroundColorAttributeName : theme.secondaryTextColor,
+                }];
+        [line appendAttributedString:
+            [[NSAttributedString alloc] initWithString:word.greek
+                                            attributes:@{
+                    NSFontAttributeName : nounFont,
+                    NSForegroundColorAttributeName : theme.primaryTextColor,
+                }]];
+        self.greekLabel.attributedText = line;
+    } else {
+        self.greekLabel.attributedText = nil;
+        self.greekLabel.text = word.greek;
+        self.greekLabel.font = nounFont;
+        self.greekLabel.textColor = theme.primaryTextColor;
+    }
     self.detailLabel.font = [theme fontOfSize:14 weight:UIFontWeightRegular];
     self.detailLabel.textColor = theme.secondaryTextColor;
     self.backgroundColor = theme.backgroundColor;

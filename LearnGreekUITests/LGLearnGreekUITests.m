@@ -25,28 +25,47 @@
     XCTAssertTrue(grid.cells[@"home.tile.mythology"].exists);
     XCTAssertTrue(grid.cells[@"home.tile.astrology"].exists);
     XCTAssertTrue(grid.cells[@"home.tile.help"].exists);
-    XCTAssertTrue(grid.cells[@"home.tile.credits"].exists);
+    XCTAssertTrue(grid.cells[@"home.tile.sentences"].exists);
 }
 
-- (void)testHelpTileShowsLocalizedBlurb {
+- (void)testHelpTileOpensInfoPageWithBlurbAndCredits {
     XCUIElement *grid = self.app.collectionViews[@"home.grid"];
     XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
     [grid.cells[@"home.tile.help"] tap];
 
-    XCUIElement *alert = self.app.alerts[@"How to use"];
-    XCTAssertTrue([alert waitForExistenceWithTimeout:5]);
-    [alert.buttons[@"OK"] tap];
-    XCTAssertTrue(grid.exists);
-}
-
-- (void)testCreditsTileOpensCreditsPage {
-    XCUIElement *grid = self.app.collectionViews[@"home.grid"];
-    XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
-    [grid.cells[@"home.tile.credits"] tap];
-
-    XCTAssertTrue([self.app.staticTexts[@"credits.name"] waitForExistenceWithTimeout:5]);
+    XCTAssertTrue([self.app.staticTexts[@"info.blurb"] waitForExistenceWithTimeout:5]);
+    XCTAssertTrue(self.app.staticTexts[@"credits.name"].exists);
     XCTAssertTrue(self.app.staticTexts[@"credits.quote"].exists);
     XCTAssertTrue(self.app.staticTexts[@"credits.quoteTranslation"].exists);
+}
+
+- (void)testSentenceBuilderStringsFavoritedWords {
+    XCUIElement *grid = self.app.collectionViews[@"home.grid"];
+    XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
+
+    // Favorite two mythology words.
+    [grid.cells[@"home.tile.mythology"] tap];
+    XCUIElement *wordTable = self.app.tables[@"wordList.table"];
+    XCTAssertTrue([wordTable waitForExistenceWithTimeout:5]);
+    [wordTable.cells[@"word.Ο Δίας"].buttons[@"word.favoriteButton"] tap];
+    [wordTable.cells[@"word.Η Αθηνά"].buttons[@"word.favoriteButton"] tap];
+    [self.app.navigationBars.buttons.firstMatch tap];
+
+    // Build a chain from them.
+    [grid.cells[@"home.tile.sentences"] tap];
+    XCUIElement *table = self.app.tables[@"sentence.table"];
+    XCTAssertTrue([table waitForExistenceWithTimeout:5]);
+    [table.cells[@"word.Ο Δίας"] tap];
+    [table.cells[@"word.Η Αθηνά"] tap];
+
+    XCUIElement *chain = self.app.staticTexts[@"sentence.chain"];
+    XCTAssertEqualObjects(chain.label, @"Ο Δίας Η Αθηνά");
+
+    [self.app.buttons[@"sentence.play"] tap];
+    XCTAssertTrue(chain.exists);
+
+    [self.app.buttons[@"sentence.clear"] tap];
+    XCTAssertEqualObjects(chain.label, @"…");
 }
 
 - (void)testCategoryOpensWordListAndSpeaksOnTap {
