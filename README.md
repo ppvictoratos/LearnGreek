@@ -35,7 +35,7 @@ no dependencies, no network. Target device: iPhone 12 mini.
   there; no code changes needed. A unit test fails if any translation is missing.
 - `LearnGreekTests/` — unit tests: data store, favorites persistence, theme and
   language managers, feature flags, and the **performance budgets** (binary
-  ≤ 1.5 MB, data ≤ 512 KB, data-store load time).
+  ≤ 256 KB, data ≤ 512 KB, data-store load time).
 - `LearnGreekUITests/` — XCUITest e2e: grid layout, category browsing, favorite
   round trip, language switch, theme toggle, and **cold-launch time** measured
   with `XCTApplicationLaunchMetric` over 5 launches. The app resets state when
