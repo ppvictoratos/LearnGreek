@@ -10,6 +10,7 @@
     if ([[NSProcessInfo processInfo].arguments containsObject:@"--uitest-reset"]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults removeObjectForKey:@"LGFavoriteWordIDs"];
+        [defaults removeObjectForKey:@"LGSavedSentences"];
         [defaults removeObjectForKey:@"LGSelectedTheme"];
         [defaults setObject:@"en" forKey:@"LGBaseLanguage"];
     }

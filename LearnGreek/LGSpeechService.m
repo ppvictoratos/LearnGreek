@@ -41,11 +41,6 @@
 - (void)speakWord:(LGWord *)word {
     [self stopSpeaking];
     [self.synthesizer speakUtterance:[self utteranceForText:word.greek]];
-    if (word.article.length > 0) {
-        AVSpeechUtterance *full = [self utteranceForText:word.fullPhrase];
-        full.preUtteranceDelay = 0.4;
-        [self.synthesizer speakUtterance:full];
-    }
 }
 
 - (void)speakText:(NSString *)text {

@@ -136,6 +136,46 @@
     XCTAssertTrue([reloaded isFavorite:word]);
 }
 
+#pragma mark - Saved sentences
+
+- (void)testSavedSentencesStartEmpty {
+    XCTAssertEqual(self.store.savedSentences.count, 0u);
+}
+
+- (void)testSaveSentencePersistsAndDeduplicates {
+    [self.store saveSentence:@"Ο Δίας Η Αθηνά"];
+    XCTAssertEqualObjects(self.store.savedSentences, (@[ @"Ο Δίας Η Αθηνά" ]));
+
+    // Same sentence again, and a blank one, are both ignored.
+    [self.store saveSentence:@"Ο Δίας Η Αθηνά"];
+    [self.store saveSentence:@"   "];
+    XCTAssertEqual(self.store.savedSentences.count, 1u);
+
+    LGDataStore *reloaded =
+        [[LGDataStore alloc] initWithBundle:[NSBundle bundleForClass:[LGDataStore class]]
+                               userDefaults:self.defaults];
+    XCTAssertEqualObjects(reloaded.savedSentences, (@[ @"Ο Δίας Η Αθηνά" ]));
+}
+
+- (void)testSentencesKeepInsertionOrderAndDelete {
+    [self.store saveSentence:@"Καλημέρα"];
+    [self.store saveSentence:@"Καληνύχτα"];
+    XCTAssertEqualObjects(self.store.savedSentences, (@[ @"Καλημέρα", @"Καληνύχτα" ]));
+
+    [self.store deleteSentence:@"Καλημέρα"];
+    XCTAssertEqualObjects(self.store.savedSentences, (@[ @"Καληνύχτα" ]));
+
+    // Deleting something absent is a no-op.
+    [self.store deleteSentence:@"Καλημέρα"];
+    XCTAssertEqual(self.store.savedSentences.count, 1u);
+}
+
+- (void)testSaveSentencePostsNotification {
+    [self expectationForNotification:LGSentencesDidChangeNotification object:self.store handler:nil];
+    [self.store saveSentence:@"Ο ήλιος"];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
 - (void)testToggleFavoritePostsNotification {
     LGWord *word = self.store.categories.firstObject.words.firstObject;
     [self expectationForNotification:LGFavoritesDidChangeNotification

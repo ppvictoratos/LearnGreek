@@ -16,13 +16,14 @@ no dependencies, no network. Target device: iPhone 12 mini.
   (`LGFeatureCantonese` bool in NSUserDefaults) until it ships.
 - **Articles are taught, not hidden**: each noun's definite article (Ο/Η/Το/Οι)
   lives in its own data field. Lists show the noun big with the article small
-  and dimmed, and tapping speaks the bare noun first, then the full gendered
-  form ("Δίας … ο Δίας") — so learners hear the core word clearly.
+  and dimmed. Speech says the **bare noun only** — hearing "ο Δίας" read aloud
+  obscures which sound is the word, so the article is taught by eye, not ear.
 - **Tap a word to hear it** via the system `el-GR` voice
   (`AVSpeechSynthesizer`) — works offline, zero audio assets.
-- **Sentences (Προτάσεις)**: tap favorited words to string them into a chain
-  and hear it spoken. (A rule-based grammar engine is the planned next step —
-  the article field already encodes each noun's gender for it.)
+- **Sentences (Προτάσεις)**: tap favorited words to chain them, play the chain,
+  and bookmark it to save. Saved sentences persist, replay on tap, and delete on
+  swipe. (A rule-based grammar engine is the planned next step — the article
+  field already encodes each noun's gender for it.)
 - **Star words to favorite them**; favorites persist in `NSUserDefaults`.
 - **Light mode** — Aegean blue (`#0D5EAF`) on white. **Dark mode** — neon green
   (`#00FF41` / `#00CC33`) on deep green (`#04150C`), monospaced type.

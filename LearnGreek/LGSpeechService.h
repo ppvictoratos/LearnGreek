@@ -9,9 +9,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, nonatomic, readonly) LGSpeechService *sharedService;
 
-/// Nouns are spoken in two stages — the bare word first, then the full
-/// article+noun form after a beat — so learners hear the core word clearly
-/// before the gendered form. Phrases are spoken once.
+/// Speaks the bare word only — never the definite article. The article is
+/// taught visually (small and dimmed in the list); hearing it read aloud just
+/// obscures which sound is the word itself.
 - (void)speakWord:(LGWord *)word;
 
 /// Speaks arbitrary Greek text once (used by the sentence builder).

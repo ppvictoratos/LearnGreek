@@ -6,11 +6,18 @@
 #import "LGWord.h"
 #import "LGWordCell.h"
 
+static NSInteger const LGSectionSaved = 0;
+static NSInteger const LGSectionFavorites = 1;
+
+static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
+
 @interface LGSentenceBuilderViewController () <UITableViewDataSource, UITableViewDelegate,
                                                LGWordCellDelegate>
 @property (nonatomic, copy) NSArray<LGWord *> *favorites;
+@property (nonatomic, copy) NSArray<NSString *> *saved;
 @property (nonatomic, strong) NSMutableArray<LGWord *> *chain;
 @property (nonatomic, strong) UILabel *sentenceLabel;
+@property (nonatomic, strong) UIButton *saveButton;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *clearButton;
 @property (nonatomic, strong) UILabel *hintLabel;
@@ -22,16 +29,26 @@
 + (NSDictionary<NSString *, NSDictionary<NSString *, NSString *> *> *)localizedStrings {
     return @{
         @"hint" : @{
-            @"en" : @"Tap your favorite words to string them together, then play the chain "
-                    @"and repeat it out loud. Favorite words from any category to use them here.",
-            @"es" : @"Toca tus palabras favoritas para encadenarlas, luego reprodúcelas y "
-                    @"repítelas en voz alta. Marca palabras de cualquier categoría para usarlas aquí.",
-            @"it" : @"Tocca le tue parole preferite per metterle in fila, poi ascolta la "
-                    @"catena e ripetila ad alta voce. Aggiungi preferiti da qualsiasi categoria.",
-            @"fr" : @"Touche tes mots favoris pour les enchaîner, puis écoute la chaîne et "
-                    @"répète-la à voix haute. Étoile des mots de n'importe quelle catégorie.",
-            @"yue" : @"撳你嘅最愛字將佢哋串埋一齊，然後播出嚟，大聲重複講。喺任何分類撳星，"
-                     @"啲字就會喺呢度出現。",
+            @"en" : @"Tap favorites to chain them. Play to hear it, bookmark to save it.",
+            @"es" : @"Toca favoritos para encadenarlos. Reproduce para oírlo, guarda con el marcador.",
+            @"it" : @"Tocca i preferiti per concatenarli. Riproduci per ascoltare, salva col segnalibro.",
+            @"fr" : @"Touche tes favoris pour les enchaîner. Écoute, puis garde avec le signet.",
+            @"yue" : @"撳最愛字串埋一齊。撳播放聽，撳書籤儲起。",
+        },
+        @"savedHeader" : @{
+            @"en" : @"Saved sentences", @"es" : @"Frases guardadas", @"it" : @"Frasi salvate",
+            @"fr" : @"Phrases enregistrées", @"yue" : @"已儲句子",
+        },
+        @"favoritesHeader" : @{
+            @"en" : @"Your favorites", @"es" : @"Tus favoritos", @"it" : @"I tuoi preferiti",
+            @"fr" : @"Tes favoris", @"yue" : @"你嘅最愛",
+        },
+        @"noFavorites" : @{
+            @"en" : @"Star words in any category to use them here.",
+            @"es" : @"Marca palabras en cualquier categoría para usarlas aquí.",
+            @"it" : @"Aggiungi preferiti da qualsiasi categoria per usarli qui.",
+            @"fr" : @"Étoile des mots dans n'importe quelle catégorie pour les utiliser ici.",
+            @"yue" : @"喺任何分類撳星，啲字就會喺呢度出現。",
         },
     };
 }
@@ -50,29 +67,20 @@
     self.sentenceLabel.numberOfLines = 0;
     self.sentenceLabel.accessibilityIdentifier = @"sentence.chain";
 
-    self.playButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.playButton setImage:[UIImage systemImageNamed:@"play.circle.fill"]
-                     forState:UIControlStateNormal];
-    self.playButton.accessibilityIdentifier = @"sentence.play";
-    [self.playButton addTarget:self
-                        action:@selector(playChain)
-              forControlEvents:UIControlEventTouchUpInside];
+    self.saveButton = [self buttonWithSymbol:@"bookmark.circle.fill"
+                                  identifier:@"sentence.save"
+                                      action:@selector(saveChain)];
+    self.playButton = [self buttonWithSymbol:@"play.circle.fill"
+                                  identifier:@"sentence.play"
+                                      action:@selector(playChain)];
+    self.clearButton = [self buttonWithSymbol:@"trash.circle"
+                                   identifier:@"sentence.clear"
+                                       action:@selector(clearChain)];
 
-    self.clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.clearButton setImage:[UIImage systemImageNamed:@"trash.circle"]
-                      forState:UIControlStateNormal];
-    self.clearButton.accessibilityIdentifier = @"sentence.clear";
-    [self.clearButton addTarget:self
-                         action:@selector(clearChain)
-               forControlEvents:UIControlEventTouchUpInside];
-
-    UIStackView *controls = [[UIStackView alloc]
-        initWithArrangedSubviews:@[ self.sentenceLabel, self.playButton, self.clearButton ]];
-    controls.axis = UILayoutConstraintAxisHorizontal;
-    controls.alignment = UIStackViewAlignmentCenter;
-    controls.spacing = 12;
-    [self.sentenceLabel setContentHuggingPriority:UILayoutPriorityDefaultLow
-                                          forAxis:UILayoutConstraintAxisHorizontal];
+    UIStackView *buttons = [[UIStackView alloc]
+        initWithArrangedSubviews:@[ self.playButton, self.saveButton, self.clearButton ]];
+    buttons.axis = UILayoutConstraintAxisHorizontal;
+    buttons.distribution = UIStackViewDistributionFillEqually;
 
     self.hintLabel = [[UILabel alloc] init];
     self.hintLabel.text = [[self class] string:@"hint"];
@@ -82,15 +90,18 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 64;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 64;
     self.tableView.accessibilityIdentifier = @"sentence.table";
     [self.tableView registerClass:[LGWordCell class]
            forCellReuseIdentifier:[LGWordCell reuseIdentifier]];
+    [self.tableView registerClass:[UITableViewCell class]
+           forCellReuseIdentifier:LGSavedSentenceCellID];
 
     UIStackView *layout = [[UIStackView alloc]
-        initWithArrangedSubviews:@[ controls, self.hintLabel, self.tableView ]];
+        initWithArrangedSubviews:@[ self.sentenceLabel, buttons, self.hintLabel, self.tableView ]];
     layout.axis = UILayoutConstraintAxisVertical;
-    layout.spacing = 12;
+    layout.spacing = 10;
     layout.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:layout];
     UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
@@ -101,14 +112,18 @@
         [layout.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
-    [self reloadFavorites];
+    [self reloadData];
     [self renderChain];
     [self applyTheme];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
-               selector:@selector(reloadFavorites)
+               selector:@selector(reloadData)
                    name:LGFavoritesDidChangeNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(reloadData)
+                   name:LGSentencesDidChangeNotification
                  object:nil];
     [center addObserver:self
                selector:@selector(applyTheme)
@@ -116,24 +131,48 @@
                  object:nil];
 }
 
-- (void)reloadFavorites {
+- (UIButton *)buttonWithSymbol:(NSString *)symbol
+                    identifier:(NSString *)identifier
+                        action:(SEL)action {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setImage:[UIImage systemImageNamed:symbol] forState:UIControlStateNormal];
+    button.accessibilityIdentifier = identifier;
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    [button.heightAnchor constraintGreaterThanOrEqualToConstant:44].active = YES;
+    return button;
+}
+
+- (void)reloadData {
     self.favorites = LGDataStore.sharedStore.favoriteWords;
+    self.saved = LGDataStore.sharedStore.savedSentences;
     [self.tableView reloadData];
 }
 
-- (void)renderChain {
+#pragma mark - Chain
+
+- (NSString *)chainText {
     NSMutableArray<NSString *> *parts = [NSMutableArray array];
     for (LGWord *word in self.chain) {
         [parts addObject:word.fullPhrase];
     }
-    self.sentenceLabel.text =
-        self.chain.count > 0 ? [parts componentsJoinedByString:@" "] : @"…";
-    self.playButton.enabled = self.chain.count > 0;
-    self.clearButton.enabled = self.chain.count > 0;
+    return [parts componentsJoinedByString:@" "];
+}
+
+- (void)renderChain {
+    BOOL hasWords = self.chain.count > 0;
+    self.sentenceLabel.text = hasWords ? [self chainText] : @"…";
+    self.playButton.enabled = hasWords;
+    self.saveButton.enabled = hasWords;
+    self.clearButton.enabled = hasWords;
 }
 
 - (void)playChain {
-    [LGSpeechService.sharedService speakText:self.sentenceLabel.text];
+    [LGSpeechService.sharedService speakText:[self chainText]];
+}
+
+- (void)saveChain {
+    [LGDataStore.sharedStore saveSentence:[self chainText]];
+    [self clearChain];
 }
 
 - (void)clearChain {
@@ -151,18 +190,49 @@
     self.hintLabel.textColor = theme.secondaryTextColor;
     self.hintLabel.font = [theme fontOfSize:13 weight:UIFontWeightRegular];
     self.playButton.tintColor = theme.accentColor;
+    self.saveButton.tintColor = theme.accentColor;
     self.clearButton.tintColor = theme.secondaryTextColor;
     [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (NSInteger)self.favorites.count;
+    return section == LGSectionSaved ? (NSInteger)self.saved.count
+                                     : (NSInteger)self.favorites.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == LGSectionSaved) {
+        return self.saved.count > 0 ? [[self class] string:@"savedHeader"] : nil;
+    }
+    return self.favorites.count > 0 ? [[self class] string:@"favoritesHeader"]
+                                    : [[self class] string:@"noFavorites"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LGThemeManager *theme = LGThemeManager.sharedManager;
+
+    if (indexPath.section == LGSectionSaved) {
+        UITableViewCell *cell =
+            [tableView dequeueReusableCellWithIdentifier:LGSavedSentenceCellID
+                                            forIndexPath:indexPath];
+        NSString *sentence = self.saved[(NSUInteger)indexPath.row];
+        cell.textLabel.text = sentence;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.font = [theme fontOfSize:17 weight:UIFontWeightRegular];
+        cell.textLabel.textColor = theme.primaryTextColor;
+        cell.backgroundColor = theme.backgroundColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessibilityIdentifier = @"sentence.saved";
+        return cell;
+    }
+
     LGWordCell *cell = [tableView dequeueReusableCellWithIdentifier:[LGWordCell reuseIdentifier]
                                                        forIndexPath:indexPath];
     LGWord *word = self.favorites[(NSUInteger)indexPath.row];
@@ -175,15 +245,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == LGSectionSaved) {
+        [LGSpeechService.sharedService speakText:self.saved[(NSUInteger)indexPath.row]];
+        return;
+    }
     [self.chain addObject:self.favorites[(NSUInteger)indexPath.row]];
     [self renderChain];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.section == LGSectionSaved;
+}
+
+- (void)tableView:(UITableView *)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [LGDataStore.sharedStore deleteSentence:self.saved[(NSUInteger)indexPath.row]];
+    }
 }
 
 #pragma mark - LGWordCellDelegate
 
 - (void)wordCellDidTapFavorite:(LGWordCell *)cell {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (!indexPath) {
+    if (!indexPath || indexPath.section != LGSectionFavorites) {
         return;
     }
     [LGDataStore.sharedStore toggleFavorite:self.favorites[(NSUInteger)indexPath.row]];

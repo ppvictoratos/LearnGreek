@@ -2,9 +2,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// String favorited words into a chain and hear it spoken — deliberate
-/// sentence practice built from the words the learner chose to keep.
-/// (No grammar engine yet; that's the next chapter.)
+/// String favorited words into a chain, hear it spoken, and save the ones
+/// worth practicing. Saved sentences persist and can be replayed or swiped
+/// away. (No grammar engine yet; that's the next chapter.)
 @interface LGSentenceBuilderViewController : UIViewController
 
 @end
