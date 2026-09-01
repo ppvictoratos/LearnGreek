@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class LGCategory, LGWord;
+@class LGCategory, LGWord, LGSentence;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,6 +29,13 @@ extern NSNotificationName const LGSentencesDidChangeNotification;
 /// Saves a sentence. Blank or duplicate sentences are ignored.
 - (void)saveSentence:(NSString *)sentence;
 - (void)deleteSentence:(NSString *)sentence;
+
+/// New sentence model API with icons
+@property (nonatomic, copy, readonly) NSArray<LGSentence *> *savedSentencesWithIcons;
+
+- (void)addSentence:(LGSentence *)sentence;
+- (void)updateSentence:(LGSentence *)sentence;
+- (void)deleteSentenceWithID:(LGSentence *)sentence;
 
 /// For tests: load from an explicit bundle and defaults suite.
 - (instancetype)initWithBundle:(NSBundle *)bundle userDefaults:(NSUserDefaults *)defaults;

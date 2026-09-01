@@ -5,6 +5,8 @@
 #import "LGThemeManager.h"
 #import "LGWord.h"
 #import "LGWordCell.h"
+#import "LGSentence.h"
+#import "LGSentenceEditModalViewController.h"
 
 static NSInteger const LGSectionSaved = 0;
 static NSInteger const LGSectionFavorites = 1;
@@ -12,9 +14,10 @@ static NSInteger const LGSectionFavorites = 1;
 static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 
 @interface LGSentenceBuilderViewController () <UITableViewDataSource, UITableViewDelegate,
-                                               LGWordCellDelegate>
+                                               LGWordCellDelegate, LGSentenceEditDelegate>
 @property (nonatomic, copy) NSArray<LGWord *> *favorites;
 @property (nonatomic, copy) NSArray<NSString *> *saved;
+@property (nonatomic, copy) NSArray<LGSentence *> *savedSentences;
 @property (nonatomic, strong) NSMutableArray<LGWord *> *chain;
 @property (nonatomic, strong) UILabel *sentenceLabel;
 @property (nonatomic, strong) UIButton *saveButton;
@@ -22,6 +25,8 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 @property (nonatomic, strong) UIButton *clearButton;
 @property (nonatomic, strong) UILabel *hintLabel;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UICollectionView *iconCollectionView;
+@property (nonatomic, copy) NSString *selectedIcon;
 @end
 
 @implementation LGSentenceBuilderViewController
@@ -145,6 +150,7 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 - (void)reloadData {
     self.favorites = LGDataStore.sharedStore.favoriteWords;
     self.saved = LGDataStore.sharedStore.savedSentences;
+    self.savedSentences = LGDataStore.sharedStore.savedSentencesWithIcons;
     [self.tableView reloadData];
 }
 
@@ -171,8 +177,17 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 }
 
 - (void)saveChain {
-    [LGDataStore.sharedStore saveSentence:[self chainText]];
+    if (self.chain.count == 0) return;
+    self.selectedIcon = @"ellipsis.bubble";
+    [self showIconPicker];
+}
+
+- (void)saveChainWithIcon:(NSString *)icon {
+    LGSentence *sentence = [[LGSentence alloc] initWithText:[self chainText]
+                                              iconSymbolName:icon];
+    [LGDataStore.sharedStore addSentence:sentence];
     [self clearChain];
+    [self reloadData];
 }
 
 - (void)clearChain {
@@ -202,13 +217,13 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == LGSectionSaved ? (NSInteger)self.saved.count
+    return section == LGSectionSaved ? (NSInteger)self.savedSentences.count
                                      : (NSInteger)self.favorites.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == LGSectionSaved) {
-        return self.saved.count > 0 ? [[self class] string:@"savedHeader"] : nil;
+        return self.savedSentences.count > 0 ? [[self class] string:@"savedHeader"] : nil;
     }
     return self.favorites.count > 0 ? [[self class] string:@"favoritesHeader"]
                                     : [[self class] string:@"noFavorites"];
@@ -222,14 +237,31 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
         UITableViewCell *cell =
             [tableView dequeueReusableCellWithIdentifier:LGSavedSentenceCellID
                                             forIndexPath:indexPath];
-        NSString *sentence = self.saved[(NSUInteger)indexPath.row];
-        cell.textLabel.text = sentence;
+        LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
+        cell.textLabel.text = sentence.text;
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.font = [theme fontOfSize:17 weight:UIFontWeightRegular];
         cell.textLabel.textColor = theme.primaryTextColor;
+        cell.imageView.image = [UIImage systemImageNamed:sentence.iconSymbolName];
+        cell.imageView.tintColor = theme.accentColor;
         cell.backgroundColor = theme.backgroundColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessibilityIdentifier = @"sentence.saved";
+
+        // Add tap gesture to play
+        for (UIGestureRecognizer *g in cell.gestureRecognizers) {
+            [cell removeGestureRecognizer:g];
+        }
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+            initWithTarget:self action:@selector(sentenceTapped:)];
+        [cell addGestureRecognizer:tap];
+
+        // Add swipe gesture to edit
+        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]
+            initWithTarget:self action:@selector(sentenceSwiped:)];
+        swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+        [cell addGestureRecognizer:swipe];
+
         return cell;
     }
 
@@ -273,6 +305,129 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
         return;
     }
     [LGDataStore.sharedStore toggleFavorite:self.favorites[(NSUInteger)indexPath.row]];
+}
+
+#pragma mark - Icon Picker
+
+- (NSArray<NSString *> *)availableIcons {
+    return @[@"ellipsis.bubble", @"star.fill", @"heart.fill", @"bookmark.fill",
+             @"lightbulb.fill", @"checkmark.circle.fill", @"exclamationmark.circle.fill",
+             @"info.circle.fill", @"wand.and.stars"];
+}
+
+- (void)showIconPicker {
+    UIViewController *container = [[UIViewController alloc] init];
+    container.modalPresentationStyle = UIModalPresentationFormSheet;
+
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake(60, 60);
+    layout.minimumInteritemSpacing = 10;
+
+    self.iconCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
+                                                  collectionViewLayout:layout];
+    self.iconCollectionView.dataSource = self;
+    self.iconCollectionView.delegate = self;
+    [self.iconCollectionView registerClass:[UICollectionViewCell class]
+              forCellWithReuseIdentifier:@"iconCell"];
+    self.iconCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [container.view addSubview:self.iconCollectionView];
+    [NSLayoutConstraint activateConstraints:@[
+        [self.iconCollectionView.topAnchor constraintEqualToAnchor:container.view.safeAreaLayoutGuide.topAnchor constant:10],
+        [self.iconCollectionView.leadingAnchor constraintEqualToAnchor:container.view.leadingAnchor constant:10],
+        [self.iconCollectionView.trailingAnchor constraintEqualToAnchor:container.view.trailingAnchor constant:-10],
+        [self.iconCollectionView.bottomAnchor constraintEqualToAnchor:container.view.bottomAnchor constant:-60],
+    ]];
+
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    [doneButton addTarget:self action:@selector(iconPickerDone) forControlEvents:UIControlEventTouchUpInside];
+    doneButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [container.view addSubview:doneButton];
+    [NSLayoutConstraint activateConstraints:@[
+        [doneButton.centerXAnchor constraintEqualToAnchor:container.view.centerXAnchor],
+        [doneButton.bottomAnchor constraintEqualToAnchor:container.view.bottomAnchor constant:-20],
+    ]];
+
+    [self presentViewController:container animated:YES completion:nil];
+}
+
+- (void)iconPickerDone {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self saveChainWithIcon:self.selectedIcon];
+    }];
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section {
+    return [self availableIcons].count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"iconCell"
+                                                                           forIndexPath:indexPath];
+    for (UIView *v in cell.contentView.subviews) {
+        [v removeFromSuperview];
+    }
+
+    NSString *icon = [self availableIcons][indexPath.item];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:icon]];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [cell.contentView addSubview:imageView];
+    [NSLayoutConstraint activateConstraints:@[
+        [imageView.centerXAnchor constraintEqualToAnchor:cell.contentView.centerXAnchor],
+        [imageView.centerYAnchor constraintEqualToAnchor:cell.contentView.centerYAnchor],
+        [imageView.widthAnchor constraintEqualToConstant:40],
+        [imageView.heightAnchor constraintEqualToConstant:40],
+    ]];
+
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView
+didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedIcon = [self availableIcons][indexPath.item];
+}
+
+#pragma mark - Sentence Interactions
+
+- (void)sentenceTapped:(UITapGestureRecognizer *)gesture {
+    CGPoint location = [gesture locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath && indexPath.section == LGSectionSaved) {
+        LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
+        [LGSpeechService.sharedService speakText:sentence.text];
+    }
+}
+
+- (void)sentenceSwiped:(UISwipeGestureRecognizer *)gesture {
+    CGPoint location = [gesture locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath && indexPath.section == LGSectionSaved) {
+        LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
+        [self showEditModalForSentence:sentence];
+    }
+}
+
+- (void)showEditModalForSentence:(LGSentence *)sentence {
+    LGSentenceEditModalViewController *editVC = [[LGSentenceEditModalViewController alloc]
+        initWithSentence:sentence];
+    editVC.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editVC];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark - LGSentenceEditDelegate
+
+- (void)sentenceDidUpdate:(LGSentence *)sentence {
+    [self reloadData];
+}
+
+- (void)sentenceDidDelete:(LGSentence *)sentence {
+    [self reloadData];
 }
 
 @end
