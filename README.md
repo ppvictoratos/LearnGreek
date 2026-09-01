@@ -41,6 +41,14 @@ no dependencies, no network. Target device: iPhone 12 mini.
   with `XCTApplicationLaunchMetric` over 5 launches. The app resets state when
   launched with `--uitest-reset`.
 
+<img width="563" height="1218" alt="IMG_2047" src="https://github.com/user-attachments/assets/9236e69d-e642-457c-af11-bb421f343828" />
+
+<img width="563" height="1218" alt="IMG_2047" src="https://github.com/user-attachments/assets/2af5e62c-03a8-42a6-aef9-0b4be2a5ade3" />
+
+<img width="563" height="1218" alt="IMG_2049" src="https://github.com/user-attachments/assets/d5f5707f-678d-4264-9917-bbc6069a23dc" />
+
+
+
 ## Building (no Xcode GUI needed)
 
 Project is generated with [XcodeGen](https://github.com/yonaskolb/XcodeGen):
