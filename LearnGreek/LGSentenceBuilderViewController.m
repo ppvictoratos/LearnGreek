@@ -316,8 +316,8 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
              @"info.circle.fill", @"wand.and.stars", @"hand.thumbsup.fill",
              @"face.smiling.fill", @"sparkles", @"flame.fill", @"sun.max.fill",
              @"moon.fill", @"cloud.fill", @"tree.fill", @"leaf.fill",
-             @"drop.fill", @"wind", @"hare.fill", @"tortoise.fill",
-             @"peacock.fill", @"fish.fill", @"butterfly.fill", @"ant.fill",
+             @"drop.fill", @"hourglass", @"hare.fill", @"tortoise.fill",
+             @"bird.fill", @"fish.fill", @"bug.fill", @"ant.fill",
              @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill"];
 }
 
