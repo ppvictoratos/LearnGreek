@@ -92,8 +92,9 @@
              @"face.smiling.fill", @"sparkles", @"flame.fill", @"sun.max.fill",
              @"moon.fill", @"cloud.fill", @"tree.fill", @"leaf.fill",
              @"drop.fill", @"hourglass", @"hare.fill", @"tortoise.fill",
-             @"bird.fill", @"fish.fill", @"bug.fill", @"ant.fill",
-             @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill"];
+             @"bird.fill", @"fish.fill", @"key.fill", @"ant.fill",
+             @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill",
+             @"phone.fill", @"car.fill"];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
@@ -148,12 +149,12 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)deleteTapped {
     if (!self.sentence || !self.sentence.sentenceID) return;
-    NSString *sentenceID = [self.sentence.sentenceID copy];
+    LGSentence *sentenceCopy = [[LGSentence alloc] initWithText:self.sentence.text iconSymbolName:self.sentence.iconSymbolName];
+    sentenceCopy.sentenceID = self.sentence.sentenceID;
+
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        LGSentence *toDelete = [[LGSentence alloc] init];
-        toDelete.sentenceID = sentenceID;
-        [LGDataStore.sharedStore deleteSentenceWithID:toDelete];
-        [self.delegate sentenceDidDelete:self.sentence];
+        [LGDataStore.sharedStore deleteSentenceWithID:sentenceCopy];
+        [self.delegate sentenceDidDelete:sentenceCopy];
     }];
 }
 
