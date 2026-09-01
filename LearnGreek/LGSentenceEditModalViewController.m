@@ -142,9 +142,38 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (void)saveTapped {
     self.sentence.text = self.textField.text;
     self.sentence.iconSymbolName = self.selectedIcon;
-    [LGDataStore.sharedStore updateSentence:self.sentence];
-    [self.delegate sentenceDidUpdate:self.sentence];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self checkAndCorrectSentence];
+}
+
+- (void)checkAndCorrectSentence {
+    NSString *text = self.sentence.text;
+    UITextChecker *checker = [[UITextChecker alloc] init];
+    NSRange range = [checker rangeOfMisspelledWordInString:text range:NSMakeRange(0, text.length) startingAt:0 wrap:NO language:@"el"];
+
+    if (range.location == NSNotFound) {
+        [LGDataStore.sharedStore updateSentence:self.sentence];
+        [self.delegate sentenceDidUpdate:self.sentence];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+
+    NSString *misspelled = [text substringWithRange:range];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Grammar check"
+                                                                   message:[NSString stringWithFormat:@"Misspelling detected: '%@'. Keep or edit?", misspelled]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    [alert addAction:[UIAlertAction actionWithTitle:@"Keep original" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [LGDataStore.sharedStore updateSentence:self.sentence];
+        [self.delegate sentenceDidUpdate:self.sentence];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }]];
+
+    [alert addAction:[UIAlertAction actionWithTitle:@"Edit" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        self.textField.text = text;
+        [self.textField becomeFirstResponder];
+    }]];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)deleteTapped {

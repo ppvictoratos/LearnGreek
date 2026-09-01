@@ -24,8 +24,10 @@ static const CGFloat LGGridSpacing = 10;
 @implementation LGHomeViewController
 
 - (void)viewDidLoad {
+    NSLog(@"[LGHomeViewController] viewDidLoad called");
     [super viewDidLoad];
     self.title = @"Ελληνικά";
+    NSLog(@"[LGHomeViewController] Accessing LGDataStore.sharedStore.categories.count...");
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = LGGridSpacing;
