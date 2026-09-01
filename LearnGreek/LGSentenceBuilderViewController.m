@@ -6,7 +6,6 @@
 #import "LGWord.h"
 #import "LGWordCell.h"
 #import "LGSentence.h"
-#import "LGSentenceEditModalViewController.h"
 
 static NSInteger const LGSectionSaved = 0;
 static NSInteger const LGSectionFavorites = 1;
@@ -15,7 +14,7 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 
 @interface LGSentenceBuilderViewController () <UITableViewDataSource, UITableViewDelegate,
                                                UICollectionViewDataSource, UICollectionViewDelegate,
-                                               LGWordCellDelegate, LGSentenceEditDelegate>
+                                               LGWordCellDelegate>
 @property (nonatomic, copy) NSArray<LGWord *> *favorites;
 @property (nonatomic, copy) NSArray<NSString *> *saved;
 @property (nonatomic, copy) NSArray<LGSentence *> *savedSentences;
@@ -422,27 +421,14 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     if (indexPath && indexPath.section == LGSectionSaved && indexPath.row < (NSInteger)self.savedSentences.count) {
         LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
-        [self showEditModalForSentence:sentence];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete sentence?" message:sentence.text preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [LGDataStore.sharedStore deleteSentenceWithID:sentence];
+            [self reloadData];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-}
-
-- (void)showEditModalForSentence:(LGSentence *)sentence {
-    LGSentenceEditModalViewController *editVC = [[LGSentenceEditModalViewController alloc]
-        initWithSentence:sentence];
-    editVC.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editVC];
-    nav.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-#pragma mark - LGSentenceEditDelegate
-
-- (void)sentenceDidUpdate:(LGSentence *)sentence {
-    [self reloadData];
-}
-
-- (void)sentenceDidDelete:(LGSentence *)sentence {
-    [self reloadData];
 }
 
 @end
