@@ -14,6 +14,7 @@ static NSInteger const LGSectionFavorites = 1;
 static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 
 @interface LGSentenceBuilderViewController () <UITableViewDataSource, UITableViewDelegate,
+                                               UICollectionViewDataSource, UICollectionViewDelegate,
                                                LGWordCellDelegate, LGSentenceEditDelegate>
 @property (nonatomic, copy) NSArray<LGWord *> *favorites;
 @property (nonatomic, copy) NSArray<NSString *> *saved;
