@@ -1,6 +1,7 @@
 #import "LGDataStore.h"
 #import "LGCategory.h"
 #import "LGWord.h"
+#import "LGSentence.h"
 
 NSNotificationName const LGFavoritesDidChangeNotification = @"LGFavoritesDidChangeNotification";
 NSNotificationName const LGSentencesDidChangeNotification = @"LGSentencesDidChangeNotification";
@@ -12,6 +13,7 @@ static NSString *const LGSentencesDefaultsKey = @"LGSavedSentences";
 @property (nonatomic, strong) NSUserDefaults *defaults;
 @property (nonatomic, strong) NSMutableOrderedSet<NSString *> *favoriteIDs;
 @property (nonatomic, strong) NSMutableOrderedSet<NSString *> *sentences;
+@property (nonatomic, strong) NSMutableArray<LGSentence *> *sentencesWithIcons;
 @property (nonatomic, copy) NSArray<LGCategory *> *categories;
 @end
 
@@ -36,6 +38,7 @@ static NSString *const LGSentencesDefaultsKey = @"LGSavedSentences";
         NSArray<NSString *> *sentences = [defaults stringArrayForKey:LGSentencesDefaultsKey] ?: @[];
         _sentences = [NSMutableOrderedSet orderedSetWithArray:sentences];
         _categories = [self loadCategoriesFromBundle:bundle];
+        [self loadSavedSentencesWithIcons];
     }
     return self;
 }
@@ -110,6 +113,57 @@ static NSString *const LGSentencesDefaultsKey = @"LGSavedSentences";
 
 - (void)persistSentences {
     [self.defaults setObject:self.sentences.array forKey:LGSentencesDefaultsKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LGSentencesDidChangeNotification
+                                                        object:self];
+}
+
+#pragma mark - Saved sentences with icons
+
+- (NSArray<LGSentence *> *)savedSentencesWithIcons {
+    return [self.sentencesWithIcons copy];
+}
+
+- (void)loadSavedSentencesWithIcons {
+    NSData *data = [self.defaults dataForKey:@"LGSavedSentencesWithIcons"];
+    if (data) {
+        NSArray *decoded = [NSKeyedUnarchiver unarchivedArrayOfObjectsOfClass:[LGSentence class]
+                                                                      fromData:data error:nil];
+        _sentencesWithIcons = [decoded mutableCopy] ?: [NSMutableArray array];
+    } else {
+        _sentencesWithIcons = [NSMutableArray array];
+    }
+}
+
+- (void)addSentence:(LGSentence *)sentence {
+    [self.sentencesWithIcons addObject:sentence];
+    [self persistSentencesWithIcons];
+}
+
+- (void)updateSentence:(LGSentence *)sentence {
+    NSUInteger idx = [self.sentencesWithIcons indexOfObjectPassingTest:^BOOL(LGSentence *s, NSUInteger i, BOOL *stop) {
+        return [s.sentenceID isEqualToString:sentence.sentenceID];
+    }];
+    if (idx != NSNotFound) {
+        [self.sentencesWithIcons replaceObjectAtIndex:idx withObject:sentence];
+        [self persistSentencesWithIcons];
+    }
+}
+
+- (void)deleteSentenceWithID:(LGSentence *)sentence {
+    NSUInteger idx = [self.sentencesWithIcons indexOfObjectPassingTest:^BOOL(LGSentence *s, NSUInteger i, BOOL *stop) {
+        return [s.sentenceID isEqualToString:sentence.sentenceID];
+    }];
+    if (idx != NSNotFound) {
+        [self.sentencesWithIcons removeObjectAtIndex:idx];
+        [self persistSentencesWithIcons];
+    }
+}
+
+- (void)persistSentencesWithIcons {
+    NSData *encoded = [NSKeyedArchiver archivedDataWithRootObject:self.sentencesWithIcons
+                                            requiringSecureCoding:NO error:nil];
+    [self.defaults setObject:encoded forKey:@"LGSavedSentencesWithIcons"];
+    [self.defaults synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:LGSentencesDidChangeNotification
                                                         object:self];
 }
