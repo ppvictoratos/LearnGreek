@@ -256,12 +256,6 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
             initWithTarget:self action:@selector(sentenceTapped:)];
         [cell addGestureRecognizer:tap];
 
-        // Add swipe gesture to edit
-        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc]
-            initWithTarget:self action:@selector(sentenceSwiped:)];
-        swipe.direction = UISwipeGestureRecognizerDirectionLeft;
-        [cell addGestureRecognizer:swipe];
-
         return cell;
     }
 
@@ -293,7 +287,9 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
      forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [LGDataStore.sharedStore deleteSentence:self.saved[(NSUInteger)indexPath.row]];
+        LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
+        [LGDataStore.sharedStore deleteSentenceWithID:sentence];
+        [self reloadData];
     }
 }
 
@@ -412,22 +408,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath && indexPath.section == LGSectionSaved) {
         LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
         [LGSpeechService.sharedService speakText:sentence.text];
-    }
-}
-
-- (void)sentenceSwiped:(UISwipeGestureRecognizer *)gesture {
-    if (gesture.state != UIGestureRecognizerStateRecognized) return;
-    CGPoint location = [gesture locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    if (indexPath && indexPath.section == LGSectionSaved && indexPath.row < (NSInteger)self.savedSentences.count) {
-        LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete sentence?" message:sentence.text preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-            [LGDataStore.sharedStore deleteSentenceWithID:sentence];
-            [self reloadData];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
