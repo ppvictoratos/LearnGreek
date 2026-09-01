@@ -205,6 +205,60 @@
           "it": "Quanto costa?",
           "fr": "Combien ça coûte ?",
           "yue": "幾多錢？"
+        },
+        {
+          "el": "Μου αρέσει...",
+          "translit": "moo aresi...",
+          "en": "I like...",
+          "es": "Me gusta...",
+          "it": "Mi piace...",
+          "fr": "J'aime...",
+          "yue": "我鍾意..."
+        },
+        {
+          "el": "Σας αρέσει;",
+          "translit": "sas aresi?",
+          "en": "Do you like...?",
+          "es": "¿Te gusta...?",
+          "it": "Ti piace...?",
+          "fr": "Aimez-vous...?",
+          "yue": "你鍾意...？"
+        },
+        {
+          "el": "Αγαπώ...",
+          "translit": "agapo...",
+          "en": "I love...",
+          "es": "Amo...",
+          "it": "Amo...",
+          "fr": "J'aime...",
+          "yue": "我愛..."
+        },
+        {
+          "el": "Δεν μου αρέσει",
+          "translit": "then moo aresi",
+          "en": "I don't like it",
+          "es": "No me gusta",
+          "it": "Non mi piace",
+          "fr": "Je n'aime pas",
+          "yue": "我唔鍾意"
+        },
+        {
+          "el": "Πώς είστε;",
+          "translit": "pos iste?",
+          "en": "How are you?",
+          "es": "¿Cómo estás?",
+          "it": "Come stai?",
+          "fr": "Comment allez-vous ?",
+          "yue": "你點？"
+        },
+        {
+          "el": "Είμαι καλά",
+          "translit": "ime kala",
+          "en": "I'm well",
+          "es": "Estoy bien",
+          "it": "Sto bene",
+          "fr": "Je vais bien",
+          "yue": "我好"
         }
       ]
     },

@@ -313,7 +313,12 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 - (NSArray<NSString *> *)availableIcons {
     return @[@"ellipsis.bubble", @"star.fill", @"heart.fill", @"bookmark.fill",
              @"lightbulb.fill", @"checkmark.circle.fill", @"exclamationmark.circle.fill",
-             @"info.circle.fill", @"wand.and.stars"];
+             @"info.circle.fill", @"wand.and.stars", @"hand.thumbsup.fill",
+             @"face.smiling.fill", @"sparkles", @"flame.fill", @"sun.max.fill",
+             @"moon.fill", @"cloud.fill", @"tree.fill", @"leaf.fill",
+             @"drop.fill", @"wind", @"hare.fill", @"tortoise.fill",
+             @"peacock.fill", @"fish.fill", @"butterfly.fill", @"ant.fill",
+             @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill"];
 }
 
 - (void)showIconPicker {
@@ -321,33 +326,26 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     container.modalPresentationStyle = UIModalPresentationFormSheet;
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(60, 60);
-    layout.minimumInteritemSpacing = 10;
+    layout.itemSize = CGSizeMake(70, 70);
+    layout.minimumInteritemSpacing = 8;
+    layout.minimumLineSpacing = 8;
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
 
     self.iconCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
                                                   collectionViewLayout:layout];
     self.iconCollectionView.dataSource = self;
     self.iconCollectionView.delegate = self;
+    self.iconCollectionView.backgroundColor = [LGThemeManager sharedManager].backgroundColor;
     [self.iconCollectionView registerClass:[UICollectionViewCell class]
               forCellWithReuseIdentifier:@"iconCell"];
     self.iconCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [container.view addSubview:self.iconCollectionView];
     [NSLayoutConstraint activateConstraints:@[
-        [self.iconCollectionView.topAnchor constraintEqualToAnchor:container.view.safeAreaLayoutGuide.topAnchor constant:10],
-        [self.iconCollectionView.leadingAnchor constraintEqualToAnchor:container.view.leadingAnchor constant:10],
-        [self.iconCollectionView.trailingAnchor constraintEqualToAnchor:container.view.trailingAnchor constant:-10],
-        [self.iconCollectionView.bottomAnchor constraintEqualToAnchor:container.view.bottomAnchor constant:-60],
-    ]];
-
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
-    [doneButton addTarget:self action:@selector(iconPickerDone) forControlEvents:UIControlEventTouchUpInside];
-    doneButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [container.view addSubview:doneButton];
-    [NSLayoutConstraint activateConstraints:@[
-        [doneButton.centerXAnchor constraintEqualToAnchor:container.view.centerXAnchor],
-        [doneButton.bottomAnchor constraintEqualToAnchor:container.view.bottomAnchor constant:-20],
+        [self.iconCollectionView.topAnchor constraintEqualToAnchor:container.view.safeAreaLayoutGuide.topAnchor],
+        [self.iconCollectionView.leadingAnchor constraintEqualToAnchor:container.view.leadingAnchor],
+        [self.iconCollectionView.trailingAnchor constraintEqualToAnchor:container.view.trailingAnchor],
+        [self.iconCollectionView.bottomAnchor constraintEqualToAnchor:container.view.bottomAnchor],
     ]];
 
     [self presentViewController:container animated:YES completion:nil];
@@ -375,14 +373,25 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     NSString *icon = [self availableIcons][indexPath.item];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:icon]];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.tintColor = [LGThemeManager sharedManager].accentColor;
     imageView.translatesAutoresizingMaskIntoConstraints = NO;
     [cell.contentView addSubview:imageView];
     [NSLayoutConstraint activateConstraints:@[
         [imageView.centerXAnchor constraintEqualToAnchor:cell.contentView.centerXAnchor],
         [imageView.centerYAnchor constraintEqualToAnchor:cell.contentView.centerYAnchor],
-        [imageView.widthAnchor constraintEqualToConstant:40],
-        [imageView.heightAnchor constraintEqualToConstant:40],
+        [imageView.widthAnchor constraintEqualToConstant:45],
+        [imageView.heightAnchor constraintEqualToConstant:45],
     ]];
+
+    cell.contentView.layer.cornerRadius = 8;
+    if ([self.selectedIcon isEqualToString:icon]) {
+        cell.contentView.layer.borderWidth = 3;
+        cell.contentView.layer.borderColor = [UIColor systemBlueColor].CGColor;
+        cell.contentView.backgroundColor = [LGThemeManager sharedManager].accentColor;
+        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.1];
+    } else {
+        cell.contentView.layer.borderWidth = 0;
+    }
 
     return cell;
 }
@@ -390,6 +399,10 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 - (void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedIcon = [self availableIcons][indexPath.item];
+    UIViewController *modal = [self.presentedViewController];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self saveChainWithIcon:self.selectedIcon];
+    }];
 }
 
 #pragma mark - Sentence Interactions

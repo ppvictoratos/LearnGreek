@@ -88,7 +88,12 @@
 - (NSArray<NSString *> *)availableIcons {
     return @[@"ellipsis.bubble", @"star.fill", @"heart.fill", @"bookmark.fill",
              @"lightbulb.fill", @"checkmark.circle.fill", @"exclamationmark.circle.fill",
-             @"info.circle.fill", @"wand.and.stars"];
+             @"info.circle.fill", @"wand.and.stars", @"hand.thumbsup.fill",
+             @"face.smiling.fill", @"sparkles", @"flame.fill", @"sun.max.fill",
+             @"moon.fill", @"cloud.fill", @"tree.fill", @"leaf.fill",
+             @"drop.fill", @"wind", @"hare.fill", @"tortoise.fill",
+             @"peacock.fill", @"fish.fill", @"butterfly.fill", @"ant.fill",
+             @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill"];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
