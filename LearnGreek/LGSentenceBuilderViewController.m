@@ -399,7 +399,6 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 - (void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.selectedIcon = [self availableIcons][indexPath.item];
-    UIViewController *modal = [self.presentedViewController];
     [self dismissViewControllerAnimated:YES completion:^{
         [self saveChainWithIcon:self.selectedIcon];
     }];
