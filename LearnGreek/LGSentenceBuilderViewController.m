@@ -317,8 +317,9 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
              @"face.smiling.fill", @"sparkles", @"flame.fill", @"sun.max.fill",
              @"moon.fill", @"cloud.fill", @"tree.fill", @"leaf.fill",
              @"drop.fill", @"hourglass", @"hare.fill", @"tortoise.fill",
-             @"bird.fill", @"fish.fill", @"bug.fill", @"ant.fill",
-             @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill"];
+             @"bird.fill", @"fish.fill", @"key.fill", @"ant.fill",
+             @"ladybug.fill", @"person.fill", @"hand.wave.fill", @"gift.fill",
+             @"phone.fill", @"car.fill"];
 }
 
 - (void)showIconPicker {
@@ -416,9 +417,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)sentenceSwiped:(UISwipeGestureRecognizer *)gesture {
+    if (gesture.state != UIGestureRecognizerStateRecognized) return;
     CGPoint location = [gesture locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    if (indexPath && indexPath.section == LGSectionSaved) {
+    if (indexPath && indexPath.section == LGSectionSaved && indexPath.row < (NSInteger)self.savedSentences.count) {
         LGSentence *sentence = self.savedSentences[(NSUInteger)indexPath.row];
         [self showEditModalForSentence:sentence];
     }
