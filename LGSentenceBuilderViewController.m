@@ -289,6 +289,29 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
+    leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section != LGSectionSaved) {
+        return nil;
+    }
+
+    UIContextualAction *addAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                             title:@"+"
+                                                                           handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+        LGSentence *sentence = self.savedSentences[indexPath.row];
+        NSLog(@"[LGSentenceBuilder] Adding sentence to home screen: %@", sentence.text);
+        [[LGDataStore sharedStore] addSentenceToHomeScreen:sentence];
+        completionHandler(YES);
+    }];
+
+    addAction.backgroundColor = [UIColor systemGreenColor];
+    addAction.image = [UIImage systemImageNamed:@"plus"];
+
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[addAction]];
+    config.performsFirstActionWithFullSwipe = NO;
+    return config;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView
     trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section != LGSectionSaved) {
         return nil;
