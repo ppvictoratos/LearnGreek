@@ -37,6 +37,15 @@ extern NSNotificationName const LGSentencesDidChangeNotification;
 - (void)updateSentence:(LGSentence *)sentence;
 - (void)deleteSentenceWithID:(LGSentence *)sentence;
 
+/// Sentences pinned to home screen, by ID
+@property (nonatomic, copy, readonly) NSSet<NSString *> *sentencesOnHomeScreen;
+
+/// Move sentence from saved list to home screen
+- (void)addSentenceToHomeScreen:(LGSentence *)sentence;
+
+/// Move sentence from home screen back to saved list (Phase 3)
+- (void)removeSentenceFromHomeScreen:(NSString *)sentenceID;
+
 /// For tests: load from an explicit bundle and defaults suite.
 - (instancetype)initWithBundle:(NSBundle *)bundle userDefaults:(NSUserDefaults *)defaults;
 
