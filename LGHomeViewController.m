@@ -7,6 +7,9 @@
 #import "LGWordListViewController.h"
 #import "LGInfoViewController.h"
 #import "LGSentenceBuilderViewController.h"
+#import "LGSentence.h"
+#import "LGSpeechService.h"
+#import <objc/runtime.h>
 
 // Grid layout: 2 columns. The first two tiles are fixed (Favorites, theme
 // toggle), then the word categories, then Help and Sentences close the grid.
@@ -19,6 +22,7 @@ static const CGFloat LGGridSpacing = 10;
 
 @interface LGHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIView *homeScreenSentencesContainer;
 @end
 
 @implementation LGHomeViewController
@@ -28,6 +32,20 @@ static const CGFloat LGGridSpacing = 10;
     [super viewDidLoad];
     self.title = @"Ελληνικά";
     NSLog(@"[LGHomeViewController] Accessing LGDataStore.sharedStore.categories.count...");
+
+    // Home screen sentences container
+    self.homeScreenSentencesContainer = [[UIView alloc] init];
+    self.homeScreenSentencesContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    self.homeScreenSentencesContainer.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.homeScreenSentencesContainer];
+
+    UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.homeScreenSentencesContainer.topAnchor constraintEqualToAnchor:safe.topAnchor],
+        [self.homeScreenSentencesContainer.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+        [self.homeScreenSentencesContainer.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+        [self.homeScreenSentencesContainer.heightAnchor constraintEqualToConstant:120]
+    ]];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = LGGridSpacing;
@@ -45,9 +63,8 @@ static const CGFloat LGGridSpacing = 10;
 
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.collectionView];
-    UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
     [NSLayoutConstraint activateConstraints:@[
-        [self.collectionView.topAnchor constraintEqualToAnchor:safe.topAnchor],
+        [self.collectionView.topAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.bottomAnchor],
         [self.collectionView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [self.collectionView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
         [self.collectionView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
@@ -62,6 +79,8 @@ static const CGFloat LGGridSpacing = 10;
     self.navigationItem.rightBarButtonItem = languageButton;
 
     [self applyTheme];
+    [self populateHomeScreenSentences];
+
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
                selector:@selector(applyTheme)
@@ -70,6 +89,10 @@ static const CGFloat LGGridSpacing = 10;
     [center addObserver:self
                selector:@selector(languageDidChange)
                    name:LGLanguageDidChangeNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(populateHomeScreenSentences)
+                   name:LGSentencesDidChangeNotification
                  object:nil];
 }
 
@@ -107,6 +130,108 @@ static const CGFloat LGGridSpacing = 10;
         [theme applyToNavigationController:self.navigationController];
     }
     [self.collectionView reloadData];
+}
+
+#pragma mark - Home Screen Sentences
+
+- (void)populateHomeScreenSentences {
+    NSLog(@"[LGHomeViewController] populateHomeScreenSentences called");
+
+    // Clear any existing subviews
+    [self.homeScreenSentencesContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+    LGDataStore *store = [LGDataStore sharedStore];
+    NSSet<NSString *> *homeScreenIDs = store.sentencesOnHomeScreen;
+
+    NSLog(@"[LGHomeViewController] Home screen sentence count: %lu", (unsigned long)homeScreenIDs.count);
+
+    if (homeScreenIDs.count == 0) {
+        NSLog(@"[LGHomeViewController] No home screen sentences to display");
+        return;
+    }
+
+    // Create horizontal scroll view for tiles
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    [self.homeScreenSentencesContainer addSubview:scrollView];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [scrollView.topAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.topAnchor],
+        [scrollView.leadingAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.leadingAnchor],
+        [scrollView.trailingAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.trailingAnchor],
+        [scrollView.bottomAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.bottomAnchor]
+    ]];
+
+    // Create stack view for horizontal layout
+    UIStackView *stackView = [[UIStackView alloc] init];
+    stackView.axis = UILayoutConstraintAxisHorizontal;
+    stackView.spacing = 12;
+    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    stackView.layoutMargins = UIEdgeInsetsMake(8, 16, 8, 16);
+    stackView.isLayoutMarginsRelativeArrangement = YES;
+    [scrollView addSubview:stackView];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [stackView.topAnchor constraintEqualToAnchor:scrollView.topAnchor],
+        [stackView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor],
+        [stackView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor],
+        [stackView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor],
+        [stackView.heightAnchor constraintEqualToAnchor:scrollView.heightAnchor]
+    ]];
+
+    // Build buttons for each home screen sentence
+    NSArray<LGSentence *> *allSentences = store.savedSentencesWithIcons;
+    for (LGSentence *sentence in allSentences) {
+        if ([homeScreenIDs containsObject:sentence.sentenceID]) {
+            [self createTileButton:sentence inStackView:stackView];
+        }
+    }
+}
+
+- (void)createTileButton:(LGSentence *)sentence inStackView:(UIStackView *)stackView {
+    NSLog(@"[LGHomeViewController] Creating tile for sentence: %@", sentence.text);
+
+    UIButton *tileButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    tileButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [tileButton setTitle:sentence.text forState:UIControlStateNormal];
+    tileButton.titleLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+    tileButton.titleLabel.numberOfLines = 2;
+    tileButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    tileButton.backgroundColor = [UIColor systemBlueColor];
+    tileButton.tintColor = [UIColor whiteColor];
+    tileButton.layer.cornerRadius = 8;
+    tileButton.clipsToBounds = YES;
+
+    // Add SF Symbol image if available
+    if (sentence.iconSymbolName && sentence.iconSymbolName.length > 0) {
+        UIImage *icon = [UIImage systemImageNamed:sentence.iconSymbolName];
+        if (icon) {
+            [tileButton setImage:icon forState:UIControlStateNormal];
+            tileButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
+        }
+    }
+
+    // Handle tap to play audio
+    [tileButton addTarget:self action:@selector(tileButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+    // Store sentence data for later access
+    objc_setAssociatedObject(tileButton, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    [stackView addArrangedSubview:tileButton];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [tileButton.widthAnchor constraintEqualToConstant:100],
+        [tileButton.heightAnchor constraintEqualToConstant:100]
+    ]];
+}
+
+- (void)tileButtonTapped:(UIButton *)button {
+    LGSentence *sentence = objc_getAssociatedObject(button, "sentence");
+    if (sentence) {
+        NSLog(@"[LGHomeViewController] Playing audio for: %@", sentence.text);
+        [[LGSpeechService sharedService] speakText:sentence.text];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
