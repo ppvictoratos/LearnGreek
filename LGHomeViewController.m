@@ -169,7 +169,7 @@ static const CGFloat LGGridSpacing = 10;
     stackView.spacing = 12;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.layoutMargins = UIEdgeInsetsMake(8, 16, 8, 16);
-    stackView.isLayoutMarginsRelativeArrangement = YES;
+    stackView.layoutMarginsRelativeArrangement = YES;
     [scrollView addSubview:stackView];
 
     [NSLayoutConstraint activateConstraints:@[

@@ -295,7 +295,7 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     }
 
     UIContextualAction *addAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                             title:@"+"
+                                                                             title:@"Home"
                                                                            handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
         LGSentence *sentence = self.savedSentences[indexPath.row];
         NSLog(@"[LGSentenceBuilder] Adding sentence to home screen: %@", sentence.text);

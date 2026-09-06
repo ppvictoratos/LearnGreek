@@ -262,15 +262,12 @@ static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentence
 - (void)addSentenceToHomeScreen:(LGSentence *)sentence {
     NSLog(@"[LGDataStore] addSentenceToHomeScreen: %@", sentence.sentenceID);
 
-    // Add to home screen set
+    // Add to home screen set (keep in saved list too)
     [self.sentencesOnHomeScreenMutable addObject:sentence.sentenceID];
 
-    // Remove from saved sentences
-    [self deleteSentenceWithID:sentence];
-
-    // Persist
+    // Persist and notify
     [self persistHomeScreenSentences];
-    NSLog(@"[LGDataStore] Moved sentence to home screen");
+    NSLog(@"[LGDataStore] Added sentence to home screen");
 }
 
 - (void)removeSentenceFromHomeScreen:(NSString *)sentenceID {
