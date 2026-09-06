@@ -300,6 +300,12 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
         LGSentence *sentence = self.savedSentences[indexPath.row];
         NSLog(@"[LGSentenceBuilder] Adding sentence to home screen: %@", sentence.text);
         [[LGDataStore sharedStore] addSentenceToHomeScreen:sentence];
+
+        // Soft dissolve animation
+        [UIView animateWithDuration:0.3 animations:^{
+            sourceView.alpha = 0.3;
+        }];
+
         completionHandler(YES);
     }];
 
