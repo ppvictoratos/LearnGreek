@@ -301,12 +301,13 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
         NSLog(@"[LGSentenceBuilder] Adding sentence to home screen: %@", sentence.text);
         [[LGDataStore sharedStore] addSentenceToHomeScreen:sentence];
 
-        // Soft dissolve animation
+        // Fade out animation before dismissing
         [UIView animateWithDuration:0.3 animations:^{
-            sourceView.alpha = 0.3;
+            sourceView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self reloadData];
+            completionHandler(YES);
         }];
-
-        completionHandler(YES);
     }];
 
     addAction.backgroundColor = [UIColor systemGreenColor];

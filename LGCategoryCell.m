@@ -75,9 +75,13 @@
     self.subtitleLabel.font = [theme fontOfSize:10.5 weight:UIFontWeightRegular];
     self.contentView.backgroundColor = theme.cellColor;
 
-    // Special tint for star.fill (favorites) - EU gold color
+    // Special tints for specific icons
     if ([symbolName isEqualToString:@"star.fill"]) {
         self.symbolView.tintColor = [UIColor colorWithRed:1.0 green:0.84 blue:0.0 alpha:1.0];
+    } else if ([symbolName isEqualToString:@"wand.and.stars"]) {
+        self.symbolView.tintColor = [UIColor colorWithRed:1.0 green:0.1 blue:0.6 alpha:1.0];
+    } else if ([symbolName isEqualToString:@"questionmark.circle.fill"]) {
+        self.symbolView.tintColor = [UIColor colorWithRed:0.5 green:0.0 blue:1.0 alpha:1.0];
     } else if (theme.style == LGThemeStyleLight) {
         self.symbolView.tintColor = [UIColor whiteColor];
     } else {

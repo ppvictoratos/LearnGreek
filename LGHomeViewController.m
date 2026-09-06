@@ -305,15 +305,11 @@ static const CGFloat LGGridSpacing = 10;
                            titleGreek:@"Προτάσεις"
                              subtitle:[[self class] tileString:@"sentences"]];
         cell.accessibilityIdentifier = @"home.tile.sentences";
-        // Hot pink for sentences
-        cell.backgroundColor = [UIColor colorWithRed:1.0 green:0.1 blue:0.6 alpha:1.0];
     } else if (indexPath.item == LGTileHelp) {
         [cell configureWithSymbolName:@"questionmark.circle.fill"
                            titleGreek:@"Βοήθεια"
                              subtitle:[[self class] tileString:@"help"]];
         cell.accessibilityIdentifier = @"home.tile.help";
-        // Purple for help
-        cell.backgroundColor = [UIColor colorWithRed:0.5 green:0.0 blue:1.0 alpha:1.0];
     } else {
         LGCategory *category =
             LGDataStore.sharedStore.categories[(NSUInteger)(indexPath.item - LGFixedTileCount)];
