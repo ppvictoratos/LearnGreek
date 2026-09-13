@@ -1687,6 +1687,194 @@
           "yue": "我冇事"
         }
       ]
+    },
+    {
+      "id": "verbs",
+      "nameGreek": "Ρήματα",
+      "symbol": "bolt.fill",
+      "names": {
+        "en": "Verbs",
+        "es": "Verbos",
+        "it": "Verbi",
+        "fr": "Verbes",
+        "yue": "動詞"
+      },
+      "words": [
+        {
+          "el": "είμαι",
+          "art": "",
+          "translit": "ímai",
+          "en": "I am",
+          "es": "Soy",
+          "it": "Sono",
+          "fr": "Je suis",
+          "yue": "我係"
+        },
+        {
+          "el": "έχω",
+          "art": "",
+          "translit": "écho",
+          "en": "I have",
+          "es": "Tengo",
+          "it": "Ho",
+          "fr": "J'ai",
+          "yue": "我有"
+        },
+        {
+          "el": "πάω",
+          "art": "",
+          "translit": "páo",
+          "en": "I go",
+          "es": "Voy",
+          "it": "Vado",
+          "fr": "Je vais",
+          "yue": "我去"
+        },
+        {
+          "el": "κάνω",
+          "art": "",
+          "translit": "káno",
+          "en": "I do",
+          "es": "Hago",
+          "it": "Faccio",
+          "fr": "Je fais",
+          "yue": "我做"
+        },
+        {
+          "el": "θέλω",
+          "art": "",
+          "translit": "thélo",
+          "en": "I want",
+          "es": "Quiero",
+          "it": "Voglio",
+          "fr": "Je veux",
+          "yue": "我要"
+        },
+        {
+          "el": "μπορώ",
+          "art": "",
+          "translit": "boró",
+          "en": "I can",
+          "es": "Puedo",
+          "it": "Posso",
+          "fr": "Je peux",
+          "yue": "我可以"
+        }
+      ]
+    },
+    {
+      "id": "prepositions_adverbs",
+      "nameGreek": "Προθέσεις & Επιρρήματα",
+      "symbol": "link",
+      "names": {
+        "en": "Prepositions & Adverbs",
+        "es": "Preposiciones & Adverbios",
+        "it": "Preposizioni & Avverbi",
+        "fr": "Prépositions & Adverbes",
+        "yue": "前置詞 & 副詞"
+      },
+      "words": [
+        {
+          "el": "σε",
+          "art": "",
+          "translit": "se",
+          "en": "in/at",
+          "es": "en",
+          "it": "in",
+          "fr": "dans",
+          "yue": "喺"
+        },
+        {
+          "el": "από",
+          "art": "",
+          "translit": "apó",
+          "en": "from",
+          "es": "desde",
+          "it": "da",
+          "fr": "de",
+          "yue": "由"
+        },
+        {
+          "el": "με",
+          "art": "",
+          "translit": "me",
+          "en": "with",
+          "es": "con",
+          "it": "con",
+          "fr": "avec",
+          "yue": "同"
+        },
+        {
+          "el": "για",
+          "art": "",
+          "translit": "yia",
+          "en": "for",
+          "es": "para",
+          "it": "per",
+          "fr": "pour",
+          "yue": "為左"
+        },
+        {
+          "el": "και",
+          "art": "",
+          "translit": "ke",
+          "en": "and",
+          "es": "y",
+          "it": "e",
+          "fr": "et",
+          "yue": "同埋"
+        },
+        {
+          "el": "αλλά",
+          "art": "",
+          "translit": "alá",
+          "en": "but",
+          "es": "pero",
+          "it": "ma",
+          "fr": "mais",
+          "yue": "但係"
+        },
+        {
+          "el": "όχι",
+          "art": "",
+          "translit": "óhi",
+          "en": "no",
+          "es": "no",
+          "it": "no",
+          "fr": "non",
+          "yue": "唔"
+        },
+        {
+          "el": "ναι",
+          "art": "",
+          "translit": "ne",
+          "en": "yes",
+          "es": "sí",
+          "it": "sì",
+          "fr": "oui",
+          "yue": "係"
+        },
+        {
+          "el": "εδώ",
+          "art": "",
+          "translit": "edó",
+          "en": "here",
+          "es": "aquí",
+          "it": "qui",
+          "fr": "ici",
+          "yue": "呢度"
+        },
+        {
+          "el": "εκεί",
+          "art": "",
+          "translit": "eké",
+          "en": "there",
+          "es": "allá",
+          "it": "lì",
+          "fr": "là",
+          "yue": "嗰度"
+        }
+      ]
     }
   ]
 }
