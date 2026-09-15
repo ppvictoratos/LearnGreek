@@ -1,0 +1,330 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C0001 /* LGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0002 /* LGAppDelegate.m */; };
+		4C0003 /* LGSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0004 /* LGSceneDelegate.m */; };
+		4C0005 /* LGHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0006 /* LGHomeViewController.m */; };
+		4C0007 /* LGDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0008 /* LGDataStore.m */; };
+		4C0009 /* LGSentence.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C000A /* LGSentence.m */; };
+		4C000B /* LGSentenceBuilderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C000C /* LGSentenceBuilderViewController.m */; };
+		4C000D /* LGSentenceEditModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C000E /* LGSentenceEditModalViewController.m */; };
+		4C000F /* LGCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0010 /* LGCategory.m */; };
+		4C0011 /* LGWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0012 /* LGWord.m */; };
+		4C0013 /* LGThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0014 /* LGThemeManager.m */; };
+		4C0015 /* LGLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0016 /* LGLanguageManager.m */; };
+		4C0017 /* LGSpeechService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0018 /* LGSpeechService.m */; };
+		4C0019 /* LGWordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C001A /* LGWordListViewController.m */; };
+		4C001B /* LGCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C001C /* LGCategoryCell.m */; };
+		4C001D /* LGWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C001E /* LGWordCell.m */; };
+		4C001F /* LGInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0020 /* LGInfoViewController.m */; };
+		4C0023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0024 /* Assets.xcassets */; };
+		4C0025 /* Resources/words.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0026 /* Resources/words.json */; };
+		4C0036 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0037 /* main.m */; };
+		4C0040 /* LGGrammarCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0041 /* LGGrammarCorrector.m */; };
+		4C0042 /* GreekCorrectorEncoder.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4C0043 /* GreekCorrectorEncoder.mlpackage */; };
+		4C0044 /* GreekCorrectorDecoder.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4C0045 /* GreekCorrectorDecoder.mlpackage */; };
+		4C0046 /* corrector_vocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0047 /* corrector_vocab.json */; };
+		4C0038 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003A /* UIKit.framework */; };
+		4C0039 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003B /* Foundation.framework */; };
+		4C003E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003C /* CoreGraphics.framework */; };
+		4C003F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003D /* AVFoundation.framework */; };
+		4C0049 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C004A /* CoreML.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4C0002 /* LGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		4C0004 /* LGSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSceneDelegate.m; sourceTree = SOURCE_ROOT; };
+		4C0006 /* LGHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGHomeViewController.m; sourceTree = SOURCE_ROOT; };
+		4C0008 /* LGDataStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGDataStore.m; sourceTree = SOURCE_ROOT; };
+		4C000A /* LGSentence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSentence.m; sourceTree = SOURCE_ROOT; };
+		4C000C /* LGSentenceBuilderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSentenceBuilderViewController.m; sourceTree = SOURCE_ROOT; };
+		4C000E /* LGSentenceEditModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSentenceEditModalViewController.m; sourceTree = SOURCE_ROOT; };
+		4C0010 /* LGCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGCategory.m; sourceTree = SOURCE_ROOT; };
+		4C0012 /* LGWord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGWord.m; sourceTree = SOURCE_ROOT; };
+		4C0014 /* LGThemeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGThemeManager.m; sourceTree = SOURCE_ROOT; };
+		4C0016 /* LGLanguageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGLanguageManager.m; sourceTree = SOURCE_ROOT; };
+		4C0018 /* LGSpeechService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSpeechService.m; sourceTree = SOURCE_ROOT; };
+		4C001A /* LGWordListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGWordListViewController.m; sourceTree = SOURCE_ROOT; };
+		4C001C /* LGCategoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGCategoryCell.m; sourceTree = SOURCE_ROOT; };
+		4C001E /* LGWordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGWordCell.m; sourceTree = SOURCE_ROOT; };
+		4C0020 /* LGInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGInfoViewController.m; sourceTree = SOURCE_ROOT; };
+		4C0022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		4C0024 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		4C0026 /* Resources/words.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/words.json; sourceTree = SOURCE_ROOT; };
+		4C0028 /* LearnGreek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnGreek.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C0037 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
+		4C0041 /* LGGrammarCorrector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGGrammarCorrector.m; sourceTree = SOURCE_ROOT; };
+		4C0048 /* LGGrammarCorrector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGGrammarCorrector.h; sourceTree = SOURCE_ROOT; };
+		4C0043 /* GreekCorrectorEncoder.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Resources/GreekCorrectorEncoder.mlpackage; sourceTree = SOURCE_ROOT; };
+		4C0045 /* GreekCorrectorDecoder.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Resources/GreekCorrectorDecoder.mlpackage; sourceTree = SOURCE_ROOT; };
+		4C0047 /* corrector_vocab.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/corrector_vocab.json; sourceTree = SOURCE_ROOT; };
+		4C003A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4C003B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C003C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4C003D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4C004A /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C0027 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C0038 /* UIKit.framework in Frameworks */,
+				4C0039 /* Foundation.framework in Frameworks */,
+				4C003E /* CoreGraphics.framework in Frameworks */,
+				4C003F /* AVFoundation.framework in Frameworks */,
+				4C0049 /* CoreML.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A712598304DF9C70009096F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				4C0037 /* main.m */,
+				4C003A /* UIKit.framework */,
+				4C003B /* Foundation.framework */,
+				4C003C /* CoreGraphics.framework */,
+				4C003D /* AVFoundation.framework */,
+				4C004A /* CoreML.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		4C0029 = {
+			isa = PBXGroup;
+			children = (
+				4C0002 /* LGAppDelegate.m */,
+				4C0004 /* LGSceneDelegate.m */,
+				4C0006 /* LGHomeViewController.m */,
+				4C0008 /* LGDataStore.m */,
+				4C000A /* LGSentence.m */,
+				4C000C /* LGSentenceBuilderViewController.m */,
+				4C000E /* LGSentenceEditModalViewController.m */,
+				4C0010 /* LGCategory.m */,
+				4C0012 /* LGWord.m */,
+				4C0014 /* LGThemeManager.m */,
+				4C0016 /* LGLanguageManager.m */,
+				4C0018 /* LGSpeechService.m */,
+				4C001A /* LGWordListViewController.m */,
+				4C001C /* LGCategoryCell.m */,
+				4C001E /* LGWordCell.m */,
+				4C0020 /* LGInfoViewController.m */,
+				4C0022 /* Info.plist */,
+				4C0024 /* Assets.xcassets */,
+				4C0026 /* Resources/words.json */,
+				4C0048 /* LGGrammarCorrector.h */,
+				4C0041 /* LGGrammarCorrector.m */,
+				4C0043 /* GreekCorrectorEncoder.mlpackage */,
+				4C0045 /* GreekCorrectorDecoder.mlpackage */,
+				4C0047 /* corrector_vocab.json */,
+			);
+			sourceTree = "<group>";
+		};
+		4C002A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C0028 /* LearnGreek.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C002B = {
+			isa = PBXGroup;
+			children = (
+				4C0029,
+				4C002A /* Products */,
+				1A712598304DF9C70009096F /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C002C /* LearnGreek */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C002D /* Build configuration list for PBXNativeTarget "LearnGreek" */;
+			buildPhases = (
+				4C002E /* Sources */,
+				4C0027 /* Frameworks */,
+				4C002F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LearnGreek;
+			productName = LearnGreek;
+			productReference = 4C0028 /* LearnGreek.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C0035 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					4C002C = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 4C0032 /* Build configuration list for PBXProject "LearnGreek" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4C002B;
+			productRefGroup = 4C002A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C002C /* LearnGreek */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C002F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C0025 /* Resources/words.json in Resources */,
+				4C0023 /* Assets.xcassets in Resources */,
+				4C0046 /* corrector_vocab.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C002E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C0036 /* main.m in Sources */,
+				4C0001 /* LGAppDelegate.m in Sources */,
+				4C0003 /* LGSceneDelegate.m in Sources */,
+				4C0005 /* LGHomeViewController.m in Sources */,
+				4C0007 /* LGDataStore.m in Sources */,
+				4C0009 /* LGSentence.m in Sources */,
+				4C000B /* LGSentenceBuilderViewController.m in Sources */,
+				4C000D /* LGSentenceEditModalViewController.m in Sources */,
+				4C000F /* LGCategory.m in Sources */,
+				4C0011 /* LGWord.m in Sources */,
+				4C0013 /* LGThemeManager.m in Sources */,
+				4C0015 /* LGLanguageManager.m in Sources */,
+				4C0017 /* LGSpeechService.m in Sources */,
+				4C0019 /* LGWordListViewController.m in Sources */,
+				4C001B /* LGCategoryCell.m in Sources */,
+				4C001D /* LGWordCell.m in Sources */,
+				4C001F /* LGInfoViewController.m in Sources */,
+				4C0040 /* LGGrammarCorrector.m in Sources */,
+				4C0042 /* GreekCorrectorEncoder.mlpackage in Sources */,
+				4C0044 /* GreekCorrectorDecoder.mlpackage in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4C0030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5R6CF59GRY;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreek;
+				PRODUCT_NAME = LearnGreek;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		4C0031 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5R6CF59GRY;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreek;
+				PRODUCT_NAME = LearnGreek;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4C0033 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		4C0034 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C002D /* Build configuration list for PBXNativeTarget "LearnGreek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C0030 /* Debug */,
+				4C0031 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C0032 /* Build configuration list for PBXProject "LearnGreek" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C0033 /* Debug */,
+				4C0034 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4C0035 /* Project object */;
+}
