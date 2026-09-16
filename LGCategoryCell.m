@@ -13,30 +13,13 @@
     return @"LGCategoryCell";
 }
 
-// Keyed by SF Symbol name so each home-grid tile reads as its own category
-// rather than a wall of same-colored icons.
+// Only favorites (star) stays gold; everything else is monochrome for sleek marble aesthetic.
 + (NSDictionary<NSString *, UIColor *> *)iconPalette {
     static NSDictionary<NSString *, UIColor *> *palette;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         palette = @{
             @"star.fill" : [UIColor colorWithRed:1.0 green:0.84 blue:0.0 alpha:1.0],
-            @"wand.and.stars" : [UIColor colorWithRed:1.0 green:0.1 blue:0.6 alpha:1.0],
-            @"hand.wave.fill" : [UIColor colorWithRed:1.0 green:0.58 blue:0.0 alpha:1.0],
-            @"bubble.left.and.bubble.right.fill" : [UIColor colorWithRed:0.0 green:0.78 blue:0.85 alpha:1.0],
-            @"bolt.fill" : [UIColor colorWithRed:1.0 green:0.65 blue:0.0 alpha:1.0],
-            @"moon.stars.fill" : [UIColor colorWithRed:0.45 green:0.4 blue:0.9 alpha:1.0],
-            @"bus.fill" : [UIColor colorWithRed:0.0 green:0.48 blue:1.0 alpha:1.0],
-            @"sportscourt.fill" : [UIColor colorWithRed:0.3 green:0.85 blue:0.4 alpha:1.0],
-            @"fork.knife" : [UIColor colorWithRed:0.95 green:0.35 blue:0.2 alpha:1.0],
-            @"number" : [UIColor colorWithRed:0.55 green:0.6 blue:0.66 alpha:1.0],
-            @"paintpalette.fill" : [UIColor colorWithRed:0.75 green:0.25 blue:0.8 alpha:1.0],
-            @"clock.fill" : [UIColor colorWithRed:0.7 green:0.5 blue:0.25 alpha:1.0],
-            @"house.fill" : [UIColor colorWithRed:0.95 green:0.5 blue:0.6 alpha:1.0],
-            @"leaf.fill" : [UIColor colorWithRed:0.15 green:0.55 blue:0.25 alpha:1.0],
-            @"pawprint.fill" : [UIColor colorWithRed:0.6 green:0.4 blue:0.22 alpha:1.0],
-            @"cross.case.fill" : [UIColor colorWithRed:0.9 green:0.15 blue:0.15 alpha:1.0],
-            @"link" : [UIColor colorWithRed:0.25 green:0.6 blue:0.65 alpha:1.0],
         };
     });
     return palette;
