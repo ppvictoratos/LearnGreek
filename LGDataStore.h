@@ -36,6 +36,7 @@ extern NSNotificationName const LGSentencesDidChangeNotification;
 - (void)addSentence:(LGSentence *)sentence;
 - (void)updateSentence:(LGSentence *)sentence;
 - (void)deleteSentenceWithID:(LGSentence *)sentence;
+- (void)deleteAllSentences;
 
 /// Sentences pinned to home screen, by ID
 @property (nonatomic, copy, readonly) NSSet<NSString *> *sentencesOnHomeScreen;

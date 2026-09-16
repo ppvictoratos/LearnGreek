@@ -236,13 +236,13 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 
 - (void)deleteAllSentences {
     UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:@"Delete all sentences?"
-                                            message:@"This cannot be undone."
+        [UIAlertController alertControllerWithTitle:@"Flush all data?"
+                                            message:@"Deletes all sentences and unfavorites all words. Cannot be undone."
                                      preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
                                               style:UIAlertActionStyleCancel
                                             handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Delete"
+    [alert addAction:[UIAlertAction actionWithTitle:@"Flush"
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *action) {
         [LGDataStore.sharedStore deleteAllSentences];

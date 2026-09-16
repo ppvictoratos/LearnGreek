@@ -219,8 +219,14 @@ static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentence
     NSLog(@"[LGDataStore] deleteAllSentences called");
     [self.savedSentencesWithIconsMutable removeAllObjects];
     [self.sentencesOnHomeScreenMutable removeAllObjects];
+    [self.sentences removeAllObjects];
+    [self.favoriteIDs removeAllObjects];
     [self persistSentencesWithIcons];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"LGSentencesDidChangeNotification" object:nil];
+    [self.defaults setObject:[self.favoriteIDs array] forKey:LGFavoritesDefaultsKey];
+    [self.defaults setObject:[self.sentences array] forKey:LGSentencesDefaultsKey];
+    [self.defaults synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LGSentencesDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LGFavoritesDidChangeNotification object:nil];
 }
 
 - (void)persistSentencesWithIcons {
