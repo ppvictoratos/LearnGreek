@@ -8,6 +8,7 @@
 #import "LGInfoViewController.h"
 #import "LGSentenceBuilderViewController.h"
 #import "LGSentence.h"
+#import "LGSentenceDetailViewController.h"
 #import "LGSpeechService.h"
 #import <objc/runtime.h>
 
@@ -24,6 +25,7 @@ static const CGFloat LGGridSpacing = 10;
 @interface LGHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIView *homeScreenSentencesContainer;
+@property (nonatomic, strong) NSLayoutConstraint *homeScreenSentencesHeightConstraint;
 @end
 
 @implementation LGHomeViewController
@@ -41,11 +43,14 @@ static const CGFloat LGGridSpacing = 10;
     [self.view addSubview:self.homeScreenSentencesContainer];
 
     UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
+    // Starts collapsed; populateHomeScreenSentences expands it only when there's real content.
+    self.homeScreenSentencesHeightConstraint =
+        [self.homeScreenSentencesContainer.heightAnchor constraintEqualToConstant:0];
     [NSLayoutConstraint activateConstraints:@[
         [self.homeScreenSentencesContainer.topAnchor constraintEqualToAnchor:safe.topAnchor],
         [self.homeScreenSentencesContainer.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [self.homeScreenSentencesContainer.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
-        [self.homeScreenSentencesContainer.heightAnchor constraintEqualToConstant:120]
+        self.homeScreenSentencesHeightConstraint,
     ]];
 
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -131,6 +136,7 @@ static const CGFloat LGGridSpacing = 10;
         [theme applyToNavigationController:self.navigationController];
     }
     [self.collectionView reloadData];
+    [self populateHomeScreenSentences];
 }
 
 #pragma mark - Home Screen Sentences
@@ -148,8 +154,10 @@ static const CGFloat LGGridSpacing = 10;
 
     if (homeScreenIDs.count == 0) {
         NSLog(@"[LGHomeViewController] No home screen sentences to display");
+        self.homeScreenSentencesHeightConstraint.constant = 0;
         return;
     }
+    self.homeScreenSentencesHeightConstraint.constant = 96;
 
     // Create stack view for static layout (no scroll)
     UIStackView *stackView = [[UIStackView alloc] init];
@@ -180,17 +188,29 @@ static const CGFloat LGGridSpacing = 10;
 - (void)createTileButton:(LGSentence *)sentence inStackView:(UIStackView *)stackView {
     NSLog(@"[LGHomeViewController] Creating tile for sentence: %@", sentence.text);
 
-    // Container button
+    LGThemeManager *theme = LGThemeManager.sharedManager;
+    UIColor *foreground = theme.style == LGThemeStyleLight ? [UIColor whiteColor] : theme.accentColor;
+
+    // Container button, styled to match the category grid tiles.
     UIButton *tileButton = [UIButton buttonWithType:UIButtonTypeSystem];
     tileButton.translatesAutoresizingMaskIntoConstraints = NO;
-    tileButton.backgroundColor = [UIColor systemGreenColor];
-    tileButton.tintColor = [UIColor whiteColor];
-    tileButton.layer.cornerRadius = 8;
+    tileButton.backgroundColor = theme.cellColor;
+    tileButton.layer.cornerRadius = 14;
+    tileButton.layer.borderWidth = 1;
+    tileButton.layer.borderColor = theme.accentColor.CGColor;
     tileButton.clipsToBounds = YES;
     [tileButton addTarget:self action:@selector(tileButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     objc_setAssociatedObject(tileButton, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
-    // Internal layout: icon (left) + text stack (right)
+    // Press and hold (no 3D Touch hardware exists anymore to read real
+    // pressure from) opens the fullscreen sentence + phonetics view.
+    UILongPressGestureRecognizer *press =
+        [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                       action:@selector(sentenceTileLongPressed:)];
+    press.minimumPressDuration = 0.4;
+    [tileButton addGestureRecognizer:press];
+
+    // Internal layout: icon (left) + sentence text (right)
     UIStackView *contentStack = [[UIStackView alloc] init];
     contentStack.axis = UILayoutConstraintAxisHorizontal;
     contentStack.spacing = 8;
@@ -198,11 +218,10 @@ static const CGFloat LGGridSpacing = 10;
     contentStack.translatesAutoresizingMaskIntoConstraints = NO;
     [tileButton addSubview:contentStack];
 
-    // Icon view (left third)
     UIImageView *iconView = [[UIImageView alloc] init];
     iconView.translatesAutoresizingMaskIntoConstraints = NO;
     iconView.contentMode = UIViewContentModeScaleAspectFit;
-    iconView.tintColor = [UIColor whiteColor];
+    iconView.tintColor = foreground;
     if (sentence.iconSymbolName && sentence.iconSymbolName.length > 0) {
         iconView.image = [UIImage systemImageNamed:sentence.iconSymbolName];
     }
@@ -210,30 +229,13 @@ static const CGFloat LGGridSpacing = 10;
     [iconView.widthAnchor constraintEqualToConstant:28].active = YES;
     [iconView.heightAnchor constraintEqualToConstant:28].active = YES;
 
-    // Text stack (name + translation)
-    UIStackView *textStack = [[UIStackView alloc] init];
-    textStack.axis = UILayoutConstraintAxisVertical;
-    textStack.spacing = 2;
-    textStack.alignment = UIStackViewAlignmentLeading;
-    textStack.translatesAutoresizingMaskIntoConstraints = NO;
-
-    // Bold sentence text
+    // There's no real translation to show yet, so just show the sentence itself.
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.text = sentence.text;
-    nameLabel.font = [UIFont systemFontOfSize:11 weight:UIFontWeightBold];
-    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.font = [theme fontOfSize:12 weight:UIFontWeightSemibold];
+    nameLabel.textColor = foreground;
     nameLabel.numberOfLines = 2;
-    [textStack addArrangedSubview:nameLabel];
-
-    // Smaller translation (placeholder)
-    UILabel *translationLabel = [[UILabel alloc] init];
-    translationLabel.text = @"Greek sentence";
-    translationLabel.font = [UIFont systemFontOfSize:9 weight:UIFontWeightRegular];
-    translationLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];
-    translationLabel.numberOfLines = 1;
-    [textStack addArrangedSubview:translationLabel];
-
-    [contentStack addArrangedSubview:textStack];
+    [contentStack addArrangedSubview:nameLabel];
 
     // Layout content in button
     [NSLayoutConstraint activateConstraints:@[
@@ -255,6 +257,22 @@ static const CGFloat LGGridSpacing = 10;
         NSLog(@"[LGHomeViewController] Playing audio for: %@", sentence.text);
         [[LGSpeechService sharedService] speakText:sentence.text];
     }
+}
+
+- (void)sentenceTileLongPressed:(UILongPressGestureRecognizer *)recognizer {
+    if (recognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    LGSentence *sentence = objc_getAssociatedObject(recognizer.view, "sentence");
+    if (!sentence) {
+        return;
+    }
+    UIImpactFeedbackGenerator *feedback =
+        [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+    [feedback impactOccurred];
+    LGSentenceDetailViewController *detail =
+        [[LGSentenceDetailViewController alloc] initWithSentence:sentence];
+    [self presentViewController:detail animated:YES completion:nil];
 }
 
 #pragma mark - UICollectionViewDataSource

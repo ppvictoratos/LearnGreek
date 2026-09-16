@@ -170,6 +170,16 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     return [parts componentsJoinedByString:@" "];
 }
 
+- (NSString *)chainPhonetic {
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    for (LGWord *word in self.chain) {
+        if (word.transliteration.length > 0) {
+            [parts addObject:word.transliteration];
+        }
+    }
+    return [parts componentsJoinedByString:@" "];
+}
+
 - (void)renderChain {
     BOOL hasWords = self.chain.count > 0;
     self.sentenceLabel.text = hasWords ? [self chainText] : @"…";
@@ -191,7 +201,8 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     NSString *text = [self chainText];
     NSLog(@"[LGSentenceBuilderViewController] Creating sentence with text: %@", text);
     LGSentence *sentence = [[LGSentence alloc] initWithText:text
-                                              iconSymbolName:@"ellipsis.bubble"];
+                                              iconSymbolName:@"ellipsis.bubble"
+                                                    phonetic:[self chainPhonetic]];
     NSLog(@"[LGSentenceBuilderViewController] Calling addSentence");
     [LGDataStore.sharedStore addSentence:sentence];
     NSLog(@"[LGSentenceBuilderViewController] addSentence returned, clearing chain");
@@ -203,7 +214,8 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 - (void)saveChainWithIcon:(NSString *)icon {
     if (self.chain.count == 0) return;
     LGSentence *sentence = [[LGSentence alloc] initWithText:[self chainText]
-                                              iconSymbolName:icon];
+                                              iconSymbolName:icon
+                                                    phonetic:[self chainPhonetic]];
     [LGDataStore.sharedStore addSentence:sentence];
     [self clearChain];
     [self reloadData];

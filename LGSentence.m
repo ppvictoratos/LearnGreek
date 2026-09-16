@@ -14,11 +14,22 @@
     return self;
 }
 
+- (instancetype)initWithText:(NSString *)text
+                 iconSymbolName:(NSString *)iconSymbolName
+                       phonetic:(NSString *)phonetic {
+    self = [self initWithText:text iconSymbolName:iconSymbolName];
+    if (self) {
+        _phonetic = [phonetic copy];
+    }
+    return self;
+}
+
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.text forKey:@"text"];
     [coder encodeObject:self.iconSymbolName forKey:@"iconSymbolName"];
     [coder encodeObject:self.sentenceID forKey:@"sentenceID"];
     [coder encodeObject:self.createdAt forKey:@"createdAt"];
+    [coder encodeObject:self.phonetic forKey:@"phonetic"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -28,6 +39,7 @@
         _iconSymbolName = [decoder decodeObjectForKey:@"iconSymbolName"];
         _sentenceID = [decoder decodeObjectForKey:@"sentenceID"];
         _createdAt = [decoder decodeObjectForKey:@"createdAt"];
+        _phonetic = [decoder decodeObjectForKey:@"phonetic"];
     }
     return self;
 }

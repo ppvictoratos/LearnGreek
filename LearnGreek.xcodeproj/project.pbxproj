@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A21843A305A1CEE00C4EAB1 /* LGSentenceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A218439305A1C5800C4EAB1 /* LGSentenceDetailViewController.m */; };
 		4C0001 /* LGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0002 /* LGAppDelegate.m */; };
 		4C0003 /* LGSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0004 /* LGSceneDelegate.m */; };
 		4C0005 /* LGHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0006 /* LGHomeViewController.m */; };
@@ -26,18 +27,20 @@
 		4C0023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0024 /* Assets.xcassets */; };
 		4C0025 /* Resources/words.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0026 /* Resources/words.json */; };
 		4C0036 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0037 /* main.m */; };
-		4C0040 /* LGGrammarCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0041 /* LGGrammarCorrector.m */; };
-		4C0042 /* GreekCorrectorEncoder.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4C0043 /* GreekCorrectorEncoder.mlpackage */; };
-		4C0044 /* GreekCorrectorDecoder.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4C0045 /* GreekCorrectorDecoder.mlpackage */; };
-		4C0046 /* corrector_vocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0047 /* corrector_vocab.json */; };
 		4C0038 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003A /* UIKit.framework */; };
 		4C0039 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003B /* Foundation.framework */; };
 		4C003E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003C /* CoreGraphics.framework */; };
 		4C003F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003D /* AVFoundation.framework */; };
+		4C0040 /* LGGrammarCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0041 /* LGGrammarCorrector.m */; };
+		4C0042 /* Resources/GreekCorrectorEncoder.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4C0043 /* Resources/GreekCorrectorEncoder.mlpackage */; };
+		4C0044 /* Resources/GreekCorrectorDecoder.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 4C0045 /* Resources/GreekCorrectorDecoder.mlpackage */; };
+		4C0046 /* Resources/corrector_vocab.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0047 /* Resources/corrector_vocab.json */; };
 		4C0049 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C004A /* CoreML.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A218438305A1C4F00C4EAB1 /* LGSentenceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGSentenceDetailViewController.h; sourceTree = "<group>"; };
+		1A218439305A1C5800C4EAB1 /* LGSentenceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSentenceDetailViewController.m; sourceTree = "<group>"; };
 		4C0002 /* LGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		4C0004 /* LGSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSceneDelegate.m; sourceTree = SOURCE_ROOT; };
 		4C0006 /* LGHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGHomeViewController.m; sourceTree = SOURCE_ROOT; };
@@ -59,15 +62,15 @@
 		4C0026 /* Resources/words.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/words.json; sourceTree = SOURCE_ROOT; };
 		4C0028 /* LearnGreek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnGreek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0037 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
-		4C0041 /* LGGrammarCorrector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGGrammarCorrector.m; sourceTree = SOURCE_ROOT; };
-		4C0048 /* LGGrammarCorrector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGGrammarCorrector.h; sourceTree = SOURCE_ROOT; };
-		4C0043 /* GreekCorrectorEncoder.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Resources/GreekCorrectorEncoder.mlpackage; sourceTree = SOURCE_ROOT; };
-		4C0045 /* GreekCorrectorDecoder.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Resources/GreekCorrectorDecoder.mlpackage; sourceTree = SOURCE_ROOT; };
-		4C0047 /* corrector_vocab.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/corrector_vocab.json; sourceTree = SOURCE_ROOT; };
 		4C003A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4C003B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C003C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4C003D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4C0041 /* LGGrammarCorrector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGGrammarCorrector.m; sourceTree = SOURCE_ROOT; };
+		4C0043 /* Resources/GreekCorrectorEncoder.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Resources/GreekCorrectorEncoder.mlpackage; sourceTree = SOURCE_ROOT; };
+		4C0045 /* Resources/GreekCorrectorDecoder.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Resources/GreekCorrectorDecoder.mlpackage; sourceTree = SOURCE_ROOT; };
+		4C0047 /* Resources/corrector_vocab.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/corrector_vocab.json; sourceTree = SOURCE_ROOT; };
+		4C0048 /* LGGrammarCorrector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGGrammarCorrector.h; sourceTree = SOURCE_ROOT; };
 		4C004A /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -124,9 +127,9 @@
 				4C0026 /* Resources/words.json */,
 				4C0048 /* LGGrammarCorrector.h */,
 				4C0041 /* LGGrammarCorrector.m */,
-				4C0043 /* GreekCorrectorEncoder.mlpackage */,
-				4C0045 /* GreekCorrectorDecoder.mlpackage */,
-				4C0047 /* corrector_vocab.json */,
+				4C0043 /* Resources/GreekCorrectorEncoder.mlpackage */,
+				4C0045 /* Resources/GreekCorrectorDecoder.mlpackage */,
+				4C0047 /* Resources/corrector_vocab.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +147,8 @@
 				4C0029,
 				4C002A /* Products */,
 				1A712598304DF9C70009096F /* Recovered References */,
+				1A218438305A1C4F00C4EAB1 /* LGSentenceDetailViewController.h */,
+				1A218439305A1C5800C4EAB1 /* LGSentenceDetailViewController.m */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,7 +211,7 @@
 			files = (
 				4C0025 /* Resources/words.json in Resources */,
 				4C0023 /* Assets.xcassets in Resources */,
-				4C0046 /* corrector_vocab.json in Resources */,
+				4C0046 /* Resources/corrector_vocab.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +238,11 @@
 				4C0019 /* LGWordListViewController.m in Sources */,
 				4C001B /* LGCategoryCell.m in Sources */,
 				4C001D /* LGWordCell.m in Sources */,
+				1A21843A305A1CEE00C4EAB1 /* LGSentenceDetailViewController.m in Sources */,
 				4C001F /* LGInfoViewController.m in Sources */,
 				4C0040 /* LGGrammarCorrector.m in Sources */,
-				4C0042 /* GreekCorrectorEncoder.mlpackage in Sources */,
-				4C0044 /* GreekCorrectorDecoder.mlpackage in Sources */,
+				4C0042 /* Resources/GreekCorrectorEncoder.mlpackage in Sources */,
+				4C0044 /* Resources/GreekCorrectorDecoder.mlpackage in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +264,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreek;
 				PRODUCT_NAME = LearnGreek;
@@ -281,7 +287,7 @@
 				DEVELOPMENT_TEAM = 5R6CF59GRY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreek;
 				PRODUCT_NAME = LearnGreek;
 				PROVISIONING_PROFILE_SPECIFIER = "";
