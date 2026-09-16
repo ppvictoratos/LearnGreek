@@ -208,6 +208,7 @@ static const CGFloat LGGridSpacing = 10;
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                        action:@selector(sentenceTileLongPressed:)];
     press.minimumPressDuration = 0.4;
+    objc_setAssociatedObject(press, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [tileButton addGestureRecognizer:press];
 
     // Internal layout: icon (left) + sentence text (right)
@@ -263,7 +264,7 @@ static const CGFloat LGGridSpacing = 10;
     if (recognizer.state != UIGestureRecognizerStateBegan) {
         return;
     }
-    LGSentence *sentence = objc_getAssociatedObject(recognizer.view, "sentence");
+    LGSentence *sentence = objc_getAssociatedObject(recognizer, "sentence");
     if (!sentence) {
         return;
     }
