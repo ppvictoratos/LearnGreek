@@ -56,6 +56,24 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
             @"fr" : @"Étoile des mots dans n'importe quelle catégorie pour les utiliser ici.",
             @"yue" : @"喺任何分類撳星，啲字就會喺呢度出現。",
         },
+        @"flushTitle" : @{
+            @"en" : @"Flush all data?",
+            @"es" : @"¿Eliminar todos los datos?",
+            @"it" : @"Svuotare tutti i dati?",
+            @"fr" : @"Vider toutes les données?",
+        },
+        @"flushMessage" : @{
+            @"en" : @"Deletes all sentences and unfavorites all words. Cannot be undone.",
+            @"es" : @"Elimina todas las frases y desmarcar todas las palabras. No se puede deshacer.",
+            @"it" : @"Elimina tutte le frasi e deseleziona tutte le parole preferite. Non è possibile annullare.",
+            @"fr" : @"Supprime toutes les phrases et défavorise tous les mots. Impossible à annuler.",
+        },
+        @"flushButton" : @{
+            @"en" : @"Flush",
+            @"es" : @"Eliminar",
+            @"it" : @"Svuotare",
+            @"fr" : @"Vider",
+        },
     };
 }
 
@@ -236,13 +254,13 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 
 - (void)deleteAllSentences {
     UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:@"Flush all data?"
-                                            message:@"Deletes all sentences and unfavorites all words. Cannot be undone."
+        [UIAlertController alertControllerWithTitle:[[self class] string:@"flushTitle"]
+                                            message:[[self class] string:@"flushMessage"]
                                      preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
                                               style:UIAlertActionStyleCancel
                                             handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Flush"
+    [alert addAction:[UIAlertAction actionWithTitle:[[self class] string:@"flushButton"]
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction *action) {
         [LGDataStore.sharedStore deleteAllSentences];
