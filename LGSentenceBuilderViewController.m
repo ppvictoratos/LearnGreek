@@ -118,6 +118,14 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
         [layout.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
+    UIBarButtonItem *deleteButton =
+        [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"toilet"]
+                                        style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(deleteAllSentences)];
+    deleteButton.tintColor = [UIColor systemRedColor];
+    self.navigationItem.rightBarButtonItem = deleteButton;
+
     [self reloadData];
     [self renderChain];
     [self applyTheme];
@@ -224,6 +232,23 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 - (void)clearChain {
     [self.chain removeAllObjects];
     [self renderChain];
+}
+
+- (void)deleteAllSentences {
+    UIAlertController *alert =
+        [UIAlertController alertControllerWithTitle:@"Delete all sentences?"
+                                            message:@"This cannot be undone."
+                                     preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                              style:UIAlertActionStyleCancel
+                                            handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Delete"
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *action) {
+        [LGDataStore.sharedStore deleteAllSentences];
+        [self reloadData];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)applyTheme {
