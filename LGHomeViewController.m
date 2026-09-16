@@ -62,7 +62,8 @@ static const CGFloat LGGridSpacing = 10;
                                              collectionViewLayout:layout];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.alwaysBounceVertical = NO;
+    self.collectionView.alwaysBounceVertical = YES;
+    self.collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     self.collectionView.accessibilityIdentifier = @"home.grid";
     [self.collectionView registerClass:[LGCategoryCell class]
             forCellWithReuseIdentifier:[LGCategoryCell reuseIdentifier]];
