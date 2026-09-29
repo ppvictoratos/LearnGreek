@@ -152,6 +152,7 @@ static const CGFloat LGGridSpacing = 10;
     NSSet<NSString *> *homeScreenIDs = store.sentencesOnHomeScreen;
 
     NSLog(@"[LGHomeViewController] Home screen sentence count: %lu", (unsigned long)homeScreenIDs.count);
+    NSLog(@"[LGHomeViewController] Total saved sentences: %lu", (unsigned long)store.savedSentencesWithIcons.count);
 
     if (homeScreenIDs.count == 0) {
         NSLog(@"[LGHomeViewController] No home screen sentences to display");
@@ -193,22 +194,25 @@ static const CGFloat LGGridSpacing = 10;
     UIColor *foreground = theme.style == LGThemeStyleLight ? [UIColor whiteColor] : theme.accentColor;
 
     // Container button, styled to match the category grid tiles.
-    UIButton *tileButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIButton *tileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     tileButton.translatesAutoresizingMaskIntoConstraints = NO;
     tileButton.backgroundColor = theme.cellColor;
     tileButton.layer.cornerRadius = 14;
     tileButton.layer.borderWidth = 1;
     tileButton.layer.borderColor = theme.accentColor.CGColor;
     tileButton.clipsToBounds = YES;
+    tileButton.userInteractionEnabled = YES;
     [tileButton addTarget:self action:@selector(tileButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     objc_setAssociatedObject(tileButton, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    NSLog(@"[LGHomeViewController] Tile button created for: %@ (text: %@)", sentence.sentenceID, sentence.text);
 
     // Press and hold (no 3D Touch hardware exists anymore to read real
     // pressure from) opens the fullscreen sentence + phonetics view.
     UILongPressGestureRecognizer *press =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                        action:@selector(sentenceTileLongPressed:)];
-    press.minimumPressDuration = 0.4;
+    press.minimumPressDuration = 0.5;
+    press.cancelsTouchesInView = NO;
     objc_setAssociatedObject(press, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [tileButton addGestureRecognizer:press];
 
