@@ -194,7 +194,7 @@ static const CGFloat LGGridSpacing = 10;
     UIColor *foreground = theme.style == LGThemeStyleLight ? [UIColor whiteColor] : theme.accentColor;
 
     // Container button, styled to match the category grid tiles.
-    UIButton *tileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIView *tileButton = [[UIView alloc] init];
     tileButton.translatesAutoresizingMaskIntoConstraints = NO;
     tileButton.backgroundColor = theme.cellColor;
     tileButton.layer.cornerRadius = 14;
@@ -202,9 +202,11 @@ static const CGFloat LGGridSpacing = 10;
     tileButton.layer.borderColor = theme.accentColor.CGColor;
     tileButton.clipsToBounds = YES;
     tileButton.userInteractionEnabled = YES;
-    [tileButton addTarget:self action:@selector(tileButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     objc_setAssociatedObject(tileButton, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    NSLog(@"[LGHomeViewController] Tile button created for: %@ (text: %@)", sentence.sentenceID, sentence.text);
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sentenceTileTapped:)];
+    [tileButton addGestureRecognizer:tap];
+    NSLog(@"[LGHomeViewController] Tile created for: %@ (text: %@)", sentence.sentenceID, sentence.text);
 
     // Press and hold (no 3D Touch hardware exists anymore to read real
     // pressure from) opens the fullscreen sentence + phonetics view.
@@ -257,11 +259,11 @@ static const CGFloat LGGridSpacing = 10;
     [tileButton.heightAnchor constraintGreaterThanOrEqualToConstant:80].active = YES;
 }
 
-- (void)tileButtonTapped:(UIButton *)button {
+- (void)sentenceTileTapped:(UITapGestureRecognizer *)recognizer {
     if (self.isPlayingAudio) {
         return;
     }
-    LGSentence *sentence = objc_getAssociatedObject(button, "sentence");
+    LGSentence *sentence = objc_getAssociatedObject(recognizer.view, "sentence");
     if (!sentence || !sentence.text || sentence.text.length == 0) {
         NSLog(@"[LGHomeViewController] No sentence or empty text for tile");
         return;
