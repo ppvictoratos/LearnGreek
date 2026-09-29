@@ -254,11 +254,20 @@ static const CGFloat LGGridSpacing = 10;
 }
 
 - (void)tileButtonTapped:(UIButton *)button {
-    LGSentence *sentence = objc_getAssociatedObject(button, "sentence");
-    if (sentence) {
-        NSLog(@"[LGHomeViewController] Playing audio for: %@", sentence.text);
-        [[LGSpeechService sharedService] speakText:sentence.text];
+    if (self.isPlayingAudio) {
+        return;
     }
+    LGSentence *sentence = objc_getAssociatedObject(button, "sentence");
+    if (!sentence || !sentence.text || sentence.text.length == 0) {
+        NSLog(@"[LGHomeViewController] No sentence or empty text for tile");
+        return;
+    }
+    self.isPlayingAudio = YES;
+    NSLog(@"[LGHomeViewController] Playing audio for: %@", sentence.text);
+    [[LGSpeechService sharedService] speakText:sentence.text];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.isPlayingAudio = NO;
+    });
 }
 
 - (void)sentenceTileLongPressed:(UILongPressGestureRecognizer *)recognizer {
