@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class LGCategory, LGWord, LGSentence;
+@class LGCategory, LGWord, LGSentence, LGPhrase;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -9,6 +9,9 @@ extern NSNotificationName const LGFavoritesDidChangeNotification;
 
 /// Posted whenever a practice sentence is saved or deleted.
 extern NSNotificationName const LGSentencesDidChangeNotification;
+
+/// Posted whenever a phrase is saved, updated, or deleted.
+extern NSNotificationName const LGPhrasesDidChangeNotification;
 
 @interface LGDataStore : NSObject
 
@@ -46,6 +49,14 @@ extern NSNotificationName const LGSentencesDidChangeNotification;
 
 /// Move sentence from home screen back to saved list (Phase 3)
 - (void)removeSentenceFromHomeScreen:(NSString *)sentenceID;
+
+/// Phrases in the learner's phrase bank
+@property (nonatomic, copy, readonly) NSArray<LGPhrase *> *phrases;
+
+- (void)addPhrase:(LGPhrase *)phrase;
+- (void)updatePhrase:(LGPhrase *)phrase;
+- (void)deletePhrase:(LGPhrase *)phrase;
+- (void)deleteAllPhrases;
 
 /// For tests: load from an explicit bundle and defaults suite.
 - (instancetype)initWithBundle:(NSBundle *)bundle userDefaults:(NSUserDefaults *)defaults;
