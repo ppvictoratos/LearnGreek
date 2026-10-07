@@ -152,6 +152,7 @@ static const CGFloat LGGridSpacing = 10;
     NSSet<NSString *> *homeScreenIDs = store.sentencesOnHomeScreen;
 
     NSLog(@"[LGHomeViewController] Home screen sentence count: %lu", (unsigned long)homeScreenIDs.count);
+    NSLog(@"[LGHomeViewController] Total saved sentences: %lu", (unsigned long)store.savedSentencesWithIcons.count);
 
     if (homeScreenIDs.count == 0) {
         NSLog(@"[LGHomeViewController] No home screen sentences to display");
@@ -193,22 +194,27 @@ static const CGFloat LGGridSpacing = 10;
     UIColor *foreground = theme.style == LGThemeStyleLight ? [UIColor whiteColor] : theme.accentColor;
 
     // Container button, styled to match the category grid tiles.
-    UIButton *tileButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIView *tileButton = [[UIView alloc] init];
     tileButton.translatesAutoresizingMaskIntoConstraints = NO;
     tileButton.backgroundColor = theme.cellColor;
     tileButton.layer.cornerRadius = 14;
     tileButton.layer.borderWidth = 1;
     tileButton.layer.borderColor = theme.accentColor.CGColor;
     tileButton.clipsToBounds = YES;
-    [tileButton addTarget:self action:@selector(tileButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    tileButton.userInteractionEnabled = YES;
     objc_setAssociatedObject(tileButton, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sentenceTileTapped:)];
+    [tileButton addGestureRecognizer:tap];
+    NSLog(@"[LGHomeViewController] Tile created for: %@ (text: %@)", sentence.sentenceID, sentence.text);
 
     // Press and hold (no 3D Touch hardware exists anymore to read real
     // pressure from) opens the fullscreen sentence + phonetics view.
     UILongPressGestureRecognizer *press =
         [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                        action:@selector(sentenceTileLongPressed:)];
-    press.minimumPressDuration = 0.4;
+    press.minimumPressDuration = 0.5;
+    press.cancelsTouchesInView = NO;
     objc_setAssociatedObject(press, "sentence", sentence, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [tileButton addGestureRecognizer:press];
 
@@ -253,12 +259,21 @@ static const CGFloat LGGridSpacing = 10;
     [tileButton.heightAnchor constraintGreaterThanOrEqualToConstant:80].active = YES;
 }
 
-- (void)tileButtonTapped:(UIButton *)button {
-    LGSentence *sentence = objc_getAssociatedObject(button, "sentence");
-    if (sentence) {
-        NSLog(@"[LGHomeViewController] Playing audio for: %@", sentence.text);
-        [[LGSpeechService sharedService] speakText:sentence.text];
+- (void)sentenceTileTapped:(UITapGestureRecognizer *)recognizer {
+    if (self.isPlayingAudio) {
+        return;
     }
+    LGSentence *sentence = objc_getAssociatedObject(recognizer.view, "sentence");
+    if (!sentence || !sentence.text || sentence.text.length == 0) {
+        NSLog(@"[LGHomeViewController] No sentence or empty text for tile");
+        return;
+    }
+    self.isPlayingAudio = YES;
+    NSLog(@"[LGHomeViewController] Playing audio for: %@", sentence.text);
+    [[LGSpeechService sharedService] speakText:sentence.text];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.isPlayingAudio = NO;
+    });
 }
 
 - (void)sentenceTileLongPressed:(UILongPressGestureRecognizer *)recognizer {
