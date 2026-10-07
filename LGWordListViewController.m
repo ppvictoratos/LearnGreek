@@ -84,6 +84,14 @@
                selector:@selector(languageDidChange)
                    name:LGLanguageDidChangeNotification
                  object:nil];
+    [center addObserver:self
+               selector:@selector(wordListNeedsReload)
+                   name:@"LGWordListNeedsReloadNotification"
+                 object:nil];
+}
+
+- (void)wordListNeedsReload {
+    [self.tableView reloadData];
 }
 
 - (void)languageDidChange {

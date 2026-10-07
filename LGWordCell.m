@@ -65,8 +65,12 @@
 
     NSString *translation =
         [word translationForLanguage:LGLanguageManager.sharedManager.languageCode];
-    self.detailLabel.text =
-        [NSString stringWithFormat:@"%@ · %@", word.transliteration, translation];
+    if ([LGThemeManager sharedManager].showPronunciation) {
+        self.detailLabel.text =
+            [NSString stringWithFormat:@"%@ · %@", word.transliteration, translation];
+    } else {
+        self.detailLabel.text = translation;
+    }
 
     // The noun is the star; its article is shown small and dimmed so learners
     // see the core word immediately but still absorb the gender.

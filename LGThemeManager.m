@@ -3,6 +3,7 @@
 NSNotificationName const LGThemeDidChangeNotification = @"LGThemeDidChangeNotification";
 
 static NSString *const LGThemeDefaultsKey = @"LGSelectedTheme";
+static NSString *const LGShowPronunciationDefaultsKey = @"LGShowPronunciation";
 
 static UIColor *LGColorFromHex(NSUInteger hex) {
     return [UIColor colorWithRed:((hex >> 16) & 0xFF) / 255.0
@@ -14,6 +15,7 @@ static UIColor *LGColorFromHex(NSUInteger hex) {
 @interface LGThemeManager ()
 @property (nonatomic, strong) NSUserDefaults *defaults;
 @property (nonatomic, assign) LGThemeStyle style;
+@property (nonatomic, assign) BOOL showPronunciation;
 @end
 
 @implementation LGThemeManager
@@ -32,6 +34,7 @@ static UIColor *LGColorFromHex(NSUInteger hex) {
     if (self) {
         _defaults = defaults;
         _style = (LGThemeStyle)[defaults integerForKey:LGThemeDefaultsKey];
+        _showPronunciation = [defaults boolForKey:LGShowPronunciationDefaultsKey] || ![defaults objectForKey:LGShowPronunciationDefaultsKey];
     }
     return self;
 }
@@ -39,6 +42,12 @@ static UIColor *LGColorFromHex(NSUInteger hex) {
 - (void)toggleTheme {
     self.style = (self.style == LGThemeStyleLight) ? LGThemeStyleDark : LGThemeStyleLight;
     [self.defaults setInteger:self.style forKey:LGThemeDefaultsKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LGThemeDidChangeNotification object:self];
+}
+
+- (void)togglePronunciation {
+    self.showPronunciation = !self.showPronunciation;
+    [self.defaults setBool:self.showPronunciation forKey:LGShowPronunciationDefaultsKey];
     [[NSNotificationCenter defaultCenter] postNotificationName:LGThemeDidChangeNotification object:self];
 }
 

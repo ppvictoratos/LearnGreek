@@ -8,6 +8,7 @@
 @property (nonatomic, strong) UILabel *builtLabel;
 @property (nonatomic, strong) UILabel *quoteLabel;
 @property (nonatomic, strong) UILabel *quoteTranslationLabel;
+@property (nonatomic, strong) UISwitch *pronunciationToggle;
 @end
 
 @implementation LGInfoViewController
@@ -107,8 +108,19 @@
     self.quoteTranslationLabel.textAlignment = NSTextAlignmentCenter;
     self.quoteTranslationLabel.accessibilityIdentifier = @"credits.quoteTranslation";
 
+    UILabel *pronunciationLabel = [[UILabel alloc] init];
+    pronunciationLabel.text = @"Show Pronunciation";
+    pronunciationLabel.textAlignment = NSTextAlignmentCenter;
+    self.pronunciationToggle = [[UISwitch alloc] init];
+    self.pronunciationToggle.on = [LGThemeManager sharedManager].showPronunciation;
+    [self.pronunciationToggle addTarget:self action:@selector(pronunciationToggled) forControlEvents:UIControlEventValueChanged];
+    UIStackView *toggleStack = [[UIStackView alloc] initWithArrangedSubviews:@[pronunciationLabel, self.pronunciationToggle]];
+    toggleStack.axis = UILayoutConstraintAxisVertical;
+    toggleStack.spacing = 8;
+    toggleStack.alignment = UIStackViewAlignmentCenter;
+
     UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:@[
-        self.nameLabel, self.blurbLabel, self.builtLabel, self.quoteLabel,
+        self.nameLabel, self.blurbLabel, toggleStack, self.builtLabel, self.quoteLabel,
         self.quoteTranslationLabel
     ]];
     stack.axis = UILayoutConstraintAxisVertical;
@@ -125,6 +137,11 @@
     [self applyTheme];
 }
 
+- (void)pronunciationToggled {
+    [[LGThemeManager sharedManager] togglePronunciation];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LGWordListNeedsReloadNotification" object:nil];
+}
+
 - (void)applyTheme {
     LGThemeManager *theme = LGThemeManager.sharedManager;
     self.view.backgroundColor = theme.backgroundColor;
@@ -138,6 +155,7 @@
     self.quoteLabel.font = [theme fontOfSize:20 weight:UIFontWeightSemibold];
     self.quoteTranslationLabel.textColor = theme.secondaryTextColor;
     self.quoteTranslationLabel.font = [theme fontOfSize:14 weight:UIFontWeightRegular];
+    self.pronunciationToggle.onTintColor = theme.accentColor;
 }
 
 @end
