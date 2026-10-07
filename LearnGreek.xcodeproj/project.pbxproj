@@ -31,6 +31,8 @@
 		4C0039 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003B /* Foundation.framework */; };
 		4C003E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003C /* CoreGraphics.framework */; };
 		4C003F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003D /* AVFoundation.framework */; };
+		4C0201 /* LGPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0200 /* LGPhrase.m */; };
+		4C0204 /* LGPhrasesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0203 /* LGPhrasesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,10 @@
 		4C003B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4C003C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4C003D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4C0200 /* LGPhrase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGPhrase.m; sourceTree = SOURCE_ROOT; };
+		4C0202 /* LGPhrase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPhrase.h; sourceTree = SOURCE_ROOT; };
+		4C0203 /* LGPhrasesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGPhrasesViewController.m; sourceTree = SOURCE_ROOT; };
+		4C0205 /* LGPhrasesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPhrasesViewController.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,10 @@
 				4C000E /* LGSentenceEditModalViewController.m */,
 				4C0010 /* LGCategory.m */,
 				4C0012 /* LGWord.m */,
+				4C0200 /* LGPhrase.m */,
+				4C0202 /* LGPhrase.h */,
+				4C0203 /* LGPhrasesViewController.m */,
+				4C0205 /* LGPhrasesViewController.h */,
 				4C0014 /* LGThemeManager.m */,
 				4C0016 /* LGLanguageManager.m */,
 				4C0018 /* LGSpeechService.m */,
@@ -209,6 +219,8 @@
 				4C0005 /* LGHomeViewController.m in Sources */,
 				4C0007 /* LGDataStore.m in Sources */,
 				4C0009 /* LGSentence.m in Sources */,
+				4C0201 /* LGPhrase.m in Sources */,
+				4C0204 /* LGPhrasesViewController.m in Sources */,
 				4C000B /* LGSentenceBuilderViewController.m in Sources */,
 				4C000D /* LGSentenceEditModalViewController.m in Sources */,
 				4C000F /* LGCategory.m in Sources */,
