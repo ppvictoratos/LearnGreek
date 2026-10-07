@@ -2,13 +2,16 @@
 #import "LGCategory.h"
 #import "LGWord.h"
 #import "LGSentence.h"
+#import "LGPhrase.h"
 
 NSNotificationName const LGFavoritesDidChangeNotification = @"LGFavoritesDidChangeNotification";
 NSNotificationName const LGSentencesDidChangeNotification = @"LGSentencesDidChangeNotification";
+NSNotificationName const LGPhrasesDidChangeNotification = @"LGPhrasesDidChangeNotification";
 
 static NSString *const LGFavoritesDefaultsKey = @"LGFavoriteWordIDs";
 static NSString *const LGSentencesDefaultsKey = @"LGSavedSentences";
 static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentences";
+static NSString *const LGPhrasesDefaultsKey = @"LGPhrases";
 
 @interface LGDataStore ()
 @property (nonatomic, strong) NSUserDefaults *defaults;
@@ -16,6 +19,7 @@ static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentence
 @property (nonatomic, strong) NSMutableOrderedSet<NSString *> *sentences;
 @property (nonatomic, strong) NSMutableArray<LGSentence *> *savedSentencesWithIconsMutable;
 @property (nonatomic, strong) NSMutableSet<NSString *> *sentencesOnHomeScreenMutable;
+@property (nonatomic, strong) NSMutableArray<LGPhrase *> *phrasesMutable;
 @property (nonatomic, copy) NSArray<LGCategory *> *categories;
 @end
 
@@ -53,6 +57,9 @@ static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentence
         NSLog(@"[LGDataStore] Loading home screen sentences...");
         [self loadHomeScreenSentences];
         NSLog(@"[LGDataStore] Loaded %lu home screen sentences", (unsigned long)_sentencesOnHomeScreenMutable.count);
+        NSLog(@"[LGDataStore] Loading phrases...");
+        [self loadPhrases];
+        NSLog(@"[LGDataStore] Loaded %lu phrases", (unsigned long)_phrasesMutable.count);
     }
     return self;
 }
@@ -288,6 +295,72 @@ static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentence
     NSLog(@"[LGDataStore] removeSentenceFromHomeScreen: %@", sentenceID);
     [self.sentencesOnHomeScreenMutable removeObject:sentenceID];
     [self persistHomeScreenSentences];
+}
+
+#pragma mark - Phrases
+
+- (void)loadPhrases {
+    NSLog(@"[LGDataStore] loadPhrases called");
+    _phrasesMutable = [NSMutableArray array];
+    NSArray *saved = [self.defaults arrayForKey:LGPhrasesDefaultsKey];
+    if (saved) {
+        for (NSData *phraseData in saved) {
+            @try {
+                LGPhrase *phrase = [NSKeyedUnarchiver unarchivedObjectOfClass:LGPhrase.class fromData:phraseData error:nil];
+                if (phrase) {
+                    [_phrasesMutable addObject:phrase];
+                }
+            } @catch (NSException *e) {
+                NSLog(@"[LGDataStore] Failed to decode phrase: %@", e);
+            }
+        }
+        NSLog(@"[LGDataStore] Loaded %lu phrases", (unsigned long)_phrasesMutable.count);
+    }
+}
+
+- (NSArray<LGPhrase *> *)phrases {
+    if (!self.phrasesMutable) {
+        _phrasesMutable = [NSMutableArray array];
+    }
+    return [self.phrasesMutable copy];
+}
+
+- (void)persistPhrases {
+    NSMutableArray *encoded = [NSMutableArray array];
+    for (LGPhrase *phrase in self.phrasesMutable) {
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:phrase requiringSecureCoding:NO error:nil];
+        if (data) {
+            [encoded addObject:data];
+        }
+    }
+    [self.defaults setObject:encoded forKey:LGPhrasesDefaultsKey];
+    [self.defaults synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:LGPhrasesDidChangeNotification object:self];
+}
+
+- (void)addPhrase:(LGPhrase *)phrase {
+    [self.phrasesMutable addObject:phrase];
+    [self persistPhrases];
+}
+
+- (void)updatePhrase:(LGPhrase *)phrase {
+    NSUInteger index = [self.phrasesMutable indexOfObjectPassingTest:^BOOL(LGPhrase *p, NSUInteger idx, BOOL *stop) {
+        return [p.phraseID isEqualToString:phrase.phraseID];
+    }];
+    if (index != NSNotFound) {
+        [self.phrasesMutable replaceObjectAtIndex:index withObject:phrase];
+        [self persistPhrases];
+    }
+}
+
+- (void)deletePhrase:(LGPhrase *)phrase {
+    [self.phrasesMutable removeObject:phrase];
+    [self persistPhrases];
+}
+
+- (void)deleteAllPhrases {
+    [self.phrasesMutable removeAllObjects];
+    [self persistPhrases];
 }
 
 @end
