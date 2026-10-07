@@ -42,6 +42,19 @@
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
+- (void)testShowPronunciationDefaultsToTrue {
+    LGThemeManager *manager = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
+    XCTAssertTrue(manager.showPronunciation);
+}
+
+- (void)testTogglePronunciationFlipsAndPersists {
+    LGThemeManager *manager = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
+    [manager togglePronunciation];
+    XCTAssertFalse(manager.showPronunciation);
+    LGThemeManager *reloaded = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
+    XCTAssertFalse(reloaded.showPronunciation);
+}
+
 - (void)testThemesHaveDistinctPalettes {
     LGThemeManager *manager = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
     UIColor *greekBackground = manager.backgroundColor;

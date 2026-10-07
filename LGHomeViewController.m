@@ -367,7 +367,7 @@ static const CGFloat LGGridSpacing = 10;
     NSInteger rows = (items + LGGridColumns - 1) / LGGridColumns;
     CGFloat width = (bounds.width - LGGridSpacing * (LGGridColumns + 1)) / LGGridColumns;
     CGFloat height = (bounds.height - LGGridSpacing * (rows + 1)) / rows;
-    return CGSizeMake(floor(width), floor(MAX(height, 58)));
+    return CGSizeMake(floor(width), floor(MAX(height, 52)));
 }
 
 - (void)collectionView:(UICollectionView *)collectionView

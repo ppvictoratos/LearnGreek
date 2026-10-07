@@ -2,6 +2,7 @@
 #import "LGCategory.h"
 #import "LGDataStore.h"
 #import "LGLanguageManager.h"
+#import "LGPhrase.h"
 #import "LGWord.h"
 
 @interface LGDataStoreTests : XCTestCase
@@ -183,6 +184,48 @@
                              handler:nil];
     [self.store toggleFavorite:word];
     [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+- (void)testAddPhraseStoresItAndPostsNotification {
+    XCTAssertEqual(self.store.phrases.count, 0u);
+    [self expectationForNotification:LGPhrasesDidChangeNotification object:self.store handler:nil];
+    [self.store addPhrase:[[LGPhrase alloc] initWithText:@"Good morning" language:LGPhraseLanguageEnglish]];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+    XCTAssertEqual(self.store.phrases.count, 1u);
+    XCTAssertEqualObjects(self.store.phrases.firstObject.text, @"Good morning");
+}
+
+- (void)testPhrasesSurviveReload {
+    [self.store addPhrase:[[LGPhrase alloc] initWithText:@"Καλημέρα" language:LGPhraseLanguageGreek]];
+    LGDataStore *reloaded = [[LGDataStore alloc] initWithBundle:[NSBundle bundleForClass:[LGDataStore class]]
+                                                   userDefaults:self.defaults];
+    XCTAssertEqual(reloaded.phrases.count, 1u);
+    XCTAssertEqualObjects(reloaded.phrases.firstObject.text, @"Καλημέρα");
+    XCTAssertEqual(reloaded.phrases.firstObject.language, LGPhraseLanguageGreek);
+}
+
+- (void)testUpdatePhraseReplacesMatchingID {
+    LGPhrase *phrase = [[LGPhrase alloc] initWithText:@"Thanks" language:LGPhraseLanguageEnglish];
+    [self.store addPhrase:phrase];
+    LGPhrase *edited = [[LGPhrase alloc] initWithText:@"Thank you" language:LGPhraseLanguageEnglish];
+    edited.phraseID = phrase.phraseID;
+    [self.store updatePhrase:edited];
+    XCTAssertEqual(self.store.phrases.count, 1u);
+    XCTAssertEqualObjects(self.store.phrases.firstObject.text, @"Thank you");
+}
+
+- (void)testDeletePhraseRemovesIt {
+    LGPhrase *phrase = [[LGPhrase alloc] initWithText:@"Bye" language:LGPhraseLanguageEnglish];
+    [self.store addPhrase:phrase];
+    [self.store deletePhrase:phrase];
+    XCTAssertEqual(self.store.phrases.count, 0u);
+}
+
+- (void)testDeleteAllPhrasesClearsEveryPhrase {
+    [self.store addPhrase:[[LGPhrase alloc] initWithText:@"One" language:LGPhraseLanguageEnglish]];
+    [self.store addPhrase:[[LGPhrase alloc] initWithText:@"Ena" language:LGPhraseLanguageGreek]];
+    [self.store deleteAllPhrases];
+    XCTAssertEqual(self.store.phrases.count, 0u);
 }
 
 @end

@@ -50,11 +50,11 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
             @"fr" : @"Tes favoris", @"yue" : @"你嘅最愛",
         },
         @"noFavorites" : @{
-            @"en" : @"Star words in any category to use them here.",
-            @"es" : @"Marca palabras en cualquier categoría para usarlas aquí.",
-            @"it" : @"Aggiungi preferiti da qualsiasi categoria per usarli qui.",
-            @"fr" : @"Étoile des mots dans n'importe quelle catégorie pour les utiliser ici.",
-            @"yue" : @"喺任何分類撳星，啲字就會喺呢度出現。",
+            @"en" : @"Favorite words and phrases to build sentences",
+            @"es" : @"Marca palabras y frases favoritas para crear oraciones",
+            @"it" : @"Aggiungi parole e frasi preferite per costruire frasi",
+            @"fr" : @"Ajoute des mots et phrases favoris pour construire des phrases",
+            @"yue" : @"撳最愛嘅字同短語，用嚟組成句子",
         },
         @"flushTitle" : @{
             @"en" : @"Flush all data?",

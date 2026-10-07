@@ -1,5 +1,6 @@
 #import "LGPhrasesViewController.h"
 #import "LGDataStore.h"
+#import "LGLanguageManager.h"
 #import "LGPhrase.h"
 #import "LGThemeManager.h"
 
@@ -13,10 +14,21 @@
 
 @implementation LGPhrasesViewController
 
++ (NSString *)localizedTitle {
+    NSDictionary<NSString *, NSString *> *titles = @{
+        @"en" : @"LearnGreek Phrase Bank",
+        @"es" : @"Banco de frases de LearnGreek",
+        @"it" : @"Banca delle frasi di LearnGreek",
+        @"fr" : @"Banque de phrases LearnGreek",
+        @"yue" : @"LearnGreek 句子庫",
+    };
+    return titles[LGLanguageManager.sharedManager.languageCode] ?: titles[@"en"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"Phrases";
+    self.title = [[self class] localizedTitle];
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.view.backgroundColor = [LGThemeManager sharedManager].backgroundColor;
 
