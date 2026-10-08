@@ -77,20 +77,17 @@
                    name:LGFavoritesDidChangeNotification
                  object:nil];
     [center addObserver:self
-               selector:@selector(applyTheme)
+               selector:@selector(themeDidChange)
                    name:LGThemeDidChangeNotification
                  object:nil];
     [center addObserver:self
                selector:@selector(languageDidChange)
                    name:LGLanguageDidChangeNotification
                  object:nil];
-    [center addObserver:self
-               selector:@selector(wordListNeedsReload)
-                   name:@"LGWordListNeedsReloadNotification"
-                 object:nil];
 }
 
-- (void)wordListNeedsReload {
+- (void)themeDidChange {
+    [self applyTheme];
     [self.tableView reloadData];
 }
 

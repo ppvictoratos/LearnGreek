@@ -13,6 +13,9 @@ extern NSNotificationName const LGSentencesDidChangeNotification;
 /// Posted whenever a phrase is saved, updated, or deleted.
 extern NSNotificationName const LGPhrasesDidChangeNotification;
 
+/// Number of sentence slots on the home screen.
+extern NSUInteger const LGHomeScreenSlotCount;
+
 @interface LGDataStore : NSObject
 
 @property (class, nonatomic, readonly) LGDataStore *sharedStore;
@@ -41,13 +44,13 @@ extern NSNotificationName const LGPhrasesDidChangeNotification;
 - (void)deleteSentenceWithID:(LGSentence *)sentence;
 - (void)deleteAllSentences;
 
-/// Sentences pinned to home screen, by ID
-@property (nonatomic, copy, readonly) NSSet<NSString *> *sentencesOnHomeScreen;
+/// Sentences pinned to the home screen, oldest pin first. Pinned sentences are not listed in savedSentencesWithIcons.
+@property (nonatomic, copy, readonly) NSArray<LGSentence *> *homeScreenSentences;
 
-/// Move sentence from saved list to home screen
+/// Pins a sentence to the home screen. Pinning beyond LGHomeScreenSlotCount returns the oldest pinned sentence to the saved list.
 - (void)addSentenceToHomeScreen:(LGSentence *)sentence;
 
-/// Move sentence from home screen back to saved list (Phase 3)
+/// Unpins a sentence, returning it to the saved list.
 - (void)removeSentenceFromHomeScreen:(NSString *)sentenceID;
 
 /// Phrases in the learner's phrase bank

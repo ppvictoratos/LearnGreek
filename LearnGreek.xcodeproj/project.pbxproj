@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		121648FA4C7374077675976E /* LGFunctionalHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C57EC6F4756649AC29DFC4 /* LGFunctionalHelpers.m */; };
 		1A21843A305A1CEE00C4EAB1 /* LGSentenceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A218439305A1C5800C4EAB1 /* LGSentenceDetailViewController.m */; };
+		2F4A5D5E42DF19DFCCC73E9E /* LGDataStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B20963EC8C3A83F07EAD57 /* LGDataStoreTests.m */; };
+		310468A1DDFBACF262C02DB3 /* LGPhraseBankTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B012BF9D0052CCB31B859B7 /* LGPhraseBankTests.m */; };
+		310FB37C381AE5F55ABA1BAD /* LGPerformanceBudgetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 532CA685F6C358C04CEC7066 /* LGPerformanceBudgetTests.m */; };
+		38106A9BFD30E358763D0F87 /* LGWordListRefreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 787248172E9A9104736A11FC /* LGWordListRefreshTests.m */; };
+		49C31F3BE4396C5B9C3BAA04 /* LGSentenceBuilderCopyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5863591ABE5876BB19369589 /* LGSentenceBuilderCopyTests.m */; };
 		4C0001 /* LGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0002 /* LGAppDelegate.m */; };
 		4C0003 /* LGSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0004 /* LGSceneDelegate.m */; };
 		4C0005 /* LGHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0006 /* LGHomeViewController.m */; };
@@ -25,7 +31,7 @@
 		4C001D /* LGWordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C001E /* LGWordCell.m */; };
 		4C001F /* LGInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0020 /* LGInfoViewController.m */; };
 		4C0023 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C0024 /* Assets.xcassets */; };
-		4C0025 /* Resources/words.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0026 /* Resources/words.json */; };
+		4C0025 /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C0026 /* words.json */; };
 		4C0036 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0037 /* main.m */; };
 		4C0038 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003A /* UIKit.framework */; };
 		4C0039 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003B /* Foundation.framework */; };
@@ -33,11 +39,35 @@
 		4C003F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003D /* AVFoundation.framework */; };
 		4C0201 /* LGPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0200 /* LGPhrase.m */; };
 		4C0204 /* LGPhrasesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0203 /* LGPhrasesViewController.m */; };
+		62EB57D575A238A5252FE839 /* LGLanguageManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B61882696B4E644E7FD090C /* LGLanguageManagerTests.m */; };
+		892AF9113EB204F003CCD78D /* LGThemeManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA8B71AA355F15BF4A7C0F5 /* LGThemeManagerTests.m */; };
+		9404C144BA7C22242C4828CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0BC73DC6FC389F2F24B6C6 /* Foundation.framework */; };
+		9F6F095AEB6C7E88BC43F440 /* LGHomeScreenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F2CD85BC2C32EBBC4247CB /* LGHomeScreenTests.m */; };
+		A7BB672FF2E25789B0B65A90 /* LGCategoryDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D6281685FF860DD055B2353 /* LGCategoryDataTests.m */; };
+		AC2D5ABE1410094E38F12952 /* LGHelpScreenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ECCCD8975A3AF63C00926D4 /* LGHelpScreenTests.m */; };
+		B63BF754EFD544E8AA9A7B54 /* flush.wav in Resources */ = {isa = PBXBuildFile; fileRef = 04DF50991A5E7836EAD5AED8 /* flush.wav */; };
+		C89219CD9A7CAF1CE823A0EE /* LGWordCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C34F8D98140E71349515CEA /* LGWordCellTests.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6E7B11675D387839319662D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C0035 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C002C;
+			remoteInfo = LearnGreek;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		04DF50991A5E7836EAD5AED8 /* flush.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = flush.wav; path = Resources/flush.wav; sourceTree = "<group>"; };
+		06C57EC6F4756649AC29DFC4 /* LGFunctionalHelpers.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGFunctionalHelpers.m; sourceTree = "<group>"; };
+		0B61882696B4E644E7FD090C /* LGLanguageManagerTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGLanguageManagerTests.m; sourceTree = "<group>"; };
 		1A218438305A1C4F00C4EAB1 /* LGSentenceDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGSentenceDetailViewController.h; sourceTree = "<group>"; };
 		1A218439305A1C5800C4EAB1 /* LGSentenceDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSentenceDetailViewController.m; sourceTree = "<group>"; };
+		28F2CD85BC2C32EBBC4247CB /* LGHomeScreenTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGHomeScreenTests.m; sourceTree = "<group>"; };
+		2B012BF9D0052CCB31B859B7 /* LGPhraseBankTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGPhraseBankTests.m; sourceTree = "<group>"; };
+		2C34F8D98140E71349515CEA /* LGWordCellTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGWordCellTests.m; sourceTree = "<group>"; };
 		4C0002 /* LGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		4C0004 /* LGSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGSceneDelegate.m; sourceTree = SOURCE_ROOT; };
 		4C0006 /* LGHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGHomeViewController.m; sourceTree = SOURCE_ROOT; };
@@ -56,7 +86,7 @@
 		4C0020 /* LGInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGInfoViewController.m; sourceTree = SOURCE_ROOT; };
 		4C0022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		4C0024 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		4C0026 /* Resources/words.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/words.json; sourceTree = SOURCE_ROOT; };
+		4C0026 /* words.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = Resources/words.json; sourceTree = SOURCE_ROOT; };
 		4C0028 /* LearnGreek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnGreek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0037 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
 		4C003A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -67,9 +97,27 @@
 		4C0202 /* LGPhrase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPhrase.h; sourceTree = SOURCE_ROOT; };
 		4C0203 /* LGPhrasesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGPhrasesViewController.m; sourceTree = SOURCE_ROOT; };
 		4C0205 /* LGPhrasesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPhrasesViewController.h; sourceTree = SOURCE_ROOT; };
+		532CA685F6C358C04CEC7066 /* LGPerformanceBudgetTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGPerformanceBudgetTests.m; sourceTree = "<group>"; };
+		5863591ABE5876BB19369589 /* LGSentenceBuilderCopyTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGSentenceBuilderCopyTests.m; sourceTree = "<group>"; };
+		6ECCCD8975A3AF63C00926D4 /* LGHelpScreenTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGHelpScreenTests.m; sourceTree = "<group>"; };
+		787248172E9A9104736A11FC /* LGWordListRefreshTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGWordListRefreshTests.m; sourceTree = "<group>"; };
+		82B20963EC8C3A83F07EAD57 /* LGDataStoreTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGDataStoreTests.m; sourceTree = "<group>"; };
+		9BA8B71AA355F15BF4A7C0F5 /* LGThemeManagerTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGThemeManagerTests.m; sourceTree = "<group>"; };
+		9D6281685FF860DD055B2353 /* LGCategoryDataTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGCategoryDataTests.m; sourceTree = "<group>"; };
+		C628BA4438AA637AF2174A21 /* LGFunctionalHelpers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = LGFunctionalHelpers.h; sourceTree = "<group>"; };
+		CB3A0C2FBA2BD2E2C648766B /* LearnGreekTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnGreekTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0BC73DC6FC389F2F24B6C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		14F73CCE5D1287B454180C29 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9404C144BA7C22242C4828CF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C0027 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,7 +144,7 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		4C0029 = {
+		4C0029 /*  */ = {
 			isa = PBXGroup;
 			children = (
 				4C0002 /* LGAppDelegate.m */,
@@ -121,7 +169,7 @@
 				4C0020 /* LGInfoViewController.m */,
 				4C0022 /* Info.plist */,
 				4C0024 /* Assets.xcassets */,
-				4C0026 /* Resources/words.json */,
+				4C0026 /* words.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				4C0028 /* LearnGreek.app */,
+				CB3A0C2FBA2BD2E2C648766B /* LearnGreekTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,12 +185,52 @@
 		4C002B = {
 			isa = PBXGroup;
 			children = (
-				4C0029,
+				4C0029 /*  */,
 				4C002A /* Products */,
 				1A712598304DF9C70009096F /* Recovered References */,
 				1A218438305A1C4F00C4EAB1 /* LGSentenceDetailViewController.h */,
 				1A218439305A1C5800C4EAB1 /* LGSentenceDetailViewController.m */,
+				EF7F0722138C7EBA85926470 /* Frameworks */,
+				5108551F0591AD591A535A31 /* LearnGreekTests */,
+				04DF50991A5E7836EAD5AED8 /* flush.wav */,
 			);
+			sourceTree = "<group>";
+		};
+		5108551F0591AD591A535A31 /* LearnGreekTests */ = {
+			isa = PBXGroup;
+			children = (
+				9D6281685FF860DD055B2353 /* LGCategoryDataTests.m */,
+				82B20963EC8C3A83F07EAD57 /* LGDataStoreTests.m */,
+				C628BA4438AA637AF2174A21 /* LGFunctionalHelpers.h */,
+				06C57EC6F4756649AC29DFC4 /* LGFunctionalHelpers.m */,
+				6ECCCD8975A3AF63C00926D4 /* LGHelpScreenTests.m */,
+				28F2CD85BC2C32EBBC4247CB /* LGHomeScreenTests.m */,
+				0B61882696B4E644E7FD090C /* LGLanguageManagerTests.m */,
+				532CA685F6C358C04CEC7066 /* LGPerformanceBudgetTests.m */,
+				2B012BF9D0052CCB31B859B7 /* LGPhraseBankTests.m */,
+				5863591ABE5876BB19369589 /* LGSentenceBuilderCopyTests.m */,
+				9BA8B71AA355F15BF4A7C0F5 /* LGThemeManagerTests.m */,
+				2C34F8D98140E71349515CEA /* LGWordCellTests.m */,
+				787248172E9A9104736A11FC /* LGWordListRefreshTests.m */,
+			);
+			name = LearnGreekTests;
+			path = LearnGreekTests;
+			sourceTree = "<group>";
+		};
+		EF7F0722138C7EBA85926470 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFDCF831FA63C52FE7B569AE /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFDCF831FA63C52FE7B569AE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				DC0BC73DC6FC389F2F24B6C6 /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +252,24 @@
 			productName = LearnGreek;
 			productReference = 4C0028 /* LearnGreek.app */;
 			productType = "com.apple.product-type.application";
+		};
+		88CB17289058650B52610370 /* LearnGreekTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDC90A6381907251F17FF91B /* Build configuration list for PBXNativeTarget "LearnGreekTests" */;
+			buildPhases = (
+				13016B2AD2358A0C5550FB2A /* Sources */,
+				14F73CCE5D1287B454180C29 /* Frameworks */,
+				293BF10D78B9802CCB78E01E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23885FC063E222F876FE5230 /* PBXTargetDependency */,
+			);
+			name = LearnGreekTests;
+			productName = LearnGreekTests;
+			productReference = CB3A0C2FBA2BD2E2C648766B /* LearnGreekTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -192,23 +299,51 @@
 			projectRoot = "";
 			targets = (
 				4C002C /* LearnGreek */,
+				88CB17289058650B52610370 /* LearnGreekTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		293BF10D78B9802CCB78E01E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C002F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C0025 /* Resources/words.json in Resources */,
+				4C0025 /* words.json in Resources */,
 				4C0023 /* Assets.xcassets in Resources */,
+				B63BF754EFD544E8AA9A7B54 /* flush.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		13016B2AD2358A0C5550FB2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7BB672FF2E25789B0B65A90 /* LGCategoryDataTests.m in Sources */,
+				2F4A5D5E42DF19DFCCC73E9E /* LGDataStoreTests.m in Sources */,
+				121648FA4C7374077675976E /* LGFunctionalHelpers.m in Sources */,
+				AC2D5ABE1410094E38F12952 /* LGHelpScreenTests.m in Sources */,
+				9F6F095AEB6C7E88BC43F440 /* LGHomeScreenTests.m in Sources */,
+				62EB57D575A238A5252FE839 /* LGLanguageManagerTests.m in Sources */,
+				310FB37C381AE5F55ABA1BAD /* LGPerformanceBudgetTests.m in Sources */,
+				310468A1DDFBACF262C02DB3 /* LGPhraseBankTests.m in Sources */,
+				49C31F3BE4396C5B9C3BAA04 /* LGSentenceBuilderCopyTests.m in Sources */,
+				892AF9113EB204F003CCD78D /* LGThemeManagerTests.m in Sources */,
+				C89219CD9A7CAF1CE823A0EE /* LGWordCellTests.m in Sources */,
+				38106A9BFD30E358763D0F87 /* LGWordListRefreshTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C002E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +373,15 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		23885FC063E222F876FE5230 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LearnGreek;
+			target = 4C002C /* LearnGreek */;
+			targetProxy = 6E7B11675D387839319662D4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		4C0030 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -248,11 +392,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5R6CF59GRY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -273,9 +419,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5R6CF59GRY;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreek;
@@ -299,6 +447,59 @@
 			};
 			name = Release;
 		};
+		80D3F4F1DC3B226AE60C0F63 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					UIKit,
+					"-framework",
+					AVFoundation,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreekTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LearnGreek.app/LearnGreek";
+			};
+			name = Debug;
+		};
+		98115F8D3C73674870920D50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					UIKit,
+					"-framework",
+					AVFoundation,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.portokali.LearnGreekTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LearnGreek.app/LearnGreek";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -319,6 +520,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		FDC90A6381907251F17FF91B /* Build configuration list for PBXNativeTarget "LearnGreekTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98115F8D3C73674870920D50 /* Release */,
+				80D3F4F1DC3B226AE60C0F63 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -65,12 +65,10 @@
 
     NSString *translation =
         [word translationForLanguage:LGLanguageManager.sharedManager.languageCode];
-    if ([LGThemeManager sharedManager].showPronunciation) {
-        self.detailLabel.text =
-            [NSString stringWithFormat:@"%@ · %@", word.transliteration, translation];
-    } else {
-        self.detailLabel.text = translation;
-    }
+    self.detailLabel.text = [[self class] detailTextForTransliteration:word.transliteration
+                                                           translation:translation
+                                                        showPronunciation:[LGThemeManager sharedManager].showPronunciation
+                                                         showTranslation:[LGThemeManager sharedManager].showTranslation];
 
     // The noun is the star; its article is shown small and dimmed so learners
     // see the core word immediately but still absorb the gender.
@@ -106,6 +104,20 @@
     self.favoriteButton.accessibilityValue = favorite ? @"favorited" : @"not favorited";
 
     self.accessibilityIdentifier = [NSString stringWithFormat:@"word.%@", word.wordID];
+}
+
++ (NSString *)detailTextForTransliteration:(NSString *)transliteration
+                                translation:(NSString *)translation
+                          showPronunciation:(BOOL)showPronunciation
+                            showTranslation:(BOOL)showTranslation {
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    if (showPronunciation && transliteration.length > 0) {
+        [parts addObject:transliteration];
+    }
+    if (showTranslation && translation.length > 0) {
+        [parts addObject:translation];
+    }
+    return [parts componentsJoinedByString:@" · "];
 }
 
 - (void)favoriteTapped {

@@ -1581,6 +1581,80 @@
       ]
     },
     {
+      "id": "verbs",
+      "nameGreek": "Ρήματα",
+      "symbol": "play.fill",
+      "names": {
+        "en": "Verbs",
+        "es": "Verbos",
+        "it": "Verbi",
+        "fr": "Verbes",
+        "yue": "動詞"
+      },
+      "words": [
+        {
+          "el": "είμαι",
+          "art": "",
+          "translit": "ímai",
+          "en": "I am",
+          "es": "Soy",
+          "it": "Sono",
+          "fr": "Je suis",
+          "yue": "我係"
+        },
+        {
+          "el": "έχω",
+          "art": "",
+          "translit": "écho",
+          "en": "I have",
+          "es": "Tengo",
+          "it": "Ho",
+          "fr": "J'ai",
+          "yue": "我有"
+        },
+        {
+          "el": "πάω",
+          "art": "",
+          "translit": "páo",
+          "en": "I go",
+          "es": "Voy",
+          "it": "Vado",
+          "fr": "Je vais",
+          "yue": "我去"
+        },
+        {
+          "el": "κάνω",
+          "art": "",
+          "translit": "káno",
+          "en": "I do",
+          "es": "Hago",
+          "it": "Faccio",
+          "fr": "Je fais",
+          "yue": "我做"
+        },
+        {
+          "el": "θέλω",
+          "art": "",
+          "translit": "thélo",
+          "en": "I want",
+          "es": "Quiero",
+          "it": "Voglio",
+          "fr": "Je veux",
+          "yue": "我要"
+        },
+        {
+          "el": "μπορώ",
+          "art": "",
+          "translit": "boró",
+          "en": "I can",
+          "es": "Puedo",
+          "it": "Posso",
+          "fr": "Je peux",
+          "yue": "我可以"
+        }
+      ]
+    },
+    {
       "id": "emergency",
       "nameGreek": "Έκτακτα",
       "symbol": "cross.case.fill",
@@ -1689,89 +1763,15 @@
       ]
     },
     {
-      "id": "verbs",
-      "nameGreek": "Ρήματα",
-      "symbol": "bolt.fill",
+      "id": "prepositions",
+      "nameGreek": "Προθέσεις",
+      "symbol": "location.fill",
       "names": {
-        "en": "Verbs",
-        "es": "Verbos",
-        "it": "Verbi",
-        "fr": "Verbes",
-        "yue": "動詞"
-      },
-      "words": [
-        {
-          "el": "είμαι",
-          "art": "",
-          "translit": "ímai",
-          "en": "I am",
-          "es": "Soy",
-          "it": "Sono",
-          "fr": "Je suis",
-          "yue": "我係"
-        },
-        {
-          "el": "έχω",
-          "art": "",
-          "translit": "écho",
-          "en": "I have",
-          "es": "Tengo",
-          "it": "Ho",
-          "fr": "J'ai",
-          "yue": "我有"
-        },
-        {
-          "el": "πάω",
-          "art": "",
-          "translit": "páo",
-          "en": "I go",
-          "es": "Voy",
-          "it": "Vado",
-          "fr": "Je vais",
-          "yue": "我去"
-        },
-        {
-          "el": "κάνω",
-          "art": "",
-          "translit": "káno",
-          "en": "I do",
-          "es": "Hago",
-          "it": "Faccio",
-          "fr": "Je fais",
-          "yue": "我做"
-        },
-        {
-          "el": "θέλω",
-          "art": "",
-          "translit": "thélo",
-          "en": "I want",
-          "es": "Quiero",
-          "it": "Voglio",
-          "fr": "Je veux",
-          "yue": "我要"
-        },
-        {
-          "el": "μπορώ",
-          "art": "",
-          "translit": "boró",
-          "en": "I can",
-          "es": "Puedo",
-          "it": "Posso",
-          "fr": "Je peux",
-          "yue": "我可以"
-        }
-      ]
-    },
-    {
-      "id": "prepositions_adverbs",
-      "nameGreek": "Προθέσεις & Επιρρήματα",
-      "symbol": "link",
-      "names": {
-        "en": "Prepositions & Adverbs",
-        "es": "Preposiciones & Adverbios",
-        "it": "Preposizioni & Avverbi",
-        "fr": "Prépositions & Adverbes",
-        "yue": "前置詞 & 副詞"
+        "en": "Prepositions",
+        "es": "Preposiciones",
+        "it": "Preposizioni",
+        "fr": "Prépositions",
+        "yue": "前置詞"
       },
       "words": [
         {
@@ -1814,6 +1814,140 @@
           "fr": "pour",
           "yue": "為左"
         },
+        {
+          "el": "κάτω",
+          "art": "",
+          "translit": "káto",
+          "en": "under/down",
+          "es": "debajo",
+          "it": "sotto",
+          "fr": "sous",
+          "yue": "喺下面"
+        },
+        {
+          "el": "πάνω",
+          "art": "",
+          "translit": "páno",
+          "en": "over/on/up",
+          "es": "encima",
+          "it": "sopra",
+          "fr": "sur",
+          "yue": "上面"
+        },
+        {
+          "el": "μέσα",
+          "art": "",
+          "translit": "mésa",
+          "en": "inside",
+          "es": "dentro",
+          "it": "dentro",
+          "fr": "dedans",
+          "yue": "入面"
+        },
+        {
+          "el": "έξω",
+          "art": "",
+          "translit": "éxo",
+          "en": "outside",
+          "es": "fuera",
+          "it": "fuori",
+          "fr": "dehors",
+          "yue": "外面"
+        },
+        {
+          "el": "δίπλα",
+          "art": "",
+          "translit": "dípla",
+          "en": "next to",
+          "es": "al lado",
+          "it": "accanto",
+          "fr": "à côté",
+          "yue": "隔籬"
+        },
+        {
+          "el": "μπροστά",
+          "art": "",
+          "translit": "brostá",
+          "en": "in front of",
+          "es": "delante",
+          "it": "davanti",
+          "fr": "devant",
+          "yue": "前面"
+        },
+        {
+          "el": "πίσω",
+          "art": "",
+          "translit": "píso",
+          "en": "behind",
+          "es": "detrás",
+          "it": "dietro",
+          "fr": "derrière",
+          "yue": "後面"
+        },
+        {
+          "el": "ανάμεσα",
+          "art": "",
+          "translit": "anámesa",
+          "en": "between",
+          "es": "entre",
+          "it": "tra",
+          "fr": "entre",
+          "yue": "之間"
+        },
+        {
+          "el": "κοντά",
+          "art": "",
+          "translit": "kontá",
+          "en": "near",
+          "es": "cerca",
+          "it": "vicino",
+          "fr": "près",
+          "yue": "近"
+        },
+        {
+          "el": "μακριά",
+          "art": "",
+          "translit": "makriá",
+          "en": "far",
+          "es": "lejos",
+          "it": "lontano",
+          "fr": "loin",
+          "yue": "遠"
+        },
+        {
+          "el": "γύρω",
+          "art": "",
+          "translit": "gýro",
+          "en": "around",
+          "es": "alrededor",
+          "it": "intorno",
+          "fr": "autour",
+          "yue": "周圍"
+        },
+        {
+          "el": "απέναντι",
+          "art": "",
+          "translit": "apénanti",
+          "en": "opposite",
+          "es": "enfrente",
+          "it": "di fronte",
+          "fr": "en face",
+          "yue": "對面"
+        }
+      ]
+    },
+    {
+      "id": "adverbs_connectors",
+      "nameGreek": "Επιρρήματα",
+      "symbol": "text.bubble.fill",
+      "names": {
+        "en": "Adverbs",
+        "es": "Adverbios",
+        "it": "Avverbi",
+        "fr": "Adverbes",
+        "yue": "副詞"
+      },
+      "words": [
         {
           "el": "και",
           "art": "",
@@ -1873,6 +2007,26 @@
           "it": "lì",
           "fr": "là",
           "yue": "嗰度"
+        },
+        {
+          "el": "ό,τι",
+          "art": "",
+          "translit": "ó,ti",
+          "en": "whatever",
+          "es": "lo que sea",
+          "it": "qualunque cosa",
+          "fr": "n'importe quoi",
+          "yue": "任何嘢"
+        },
+        {
+          "el": "λοιπόν",
+          "art": "",
+          "translit": "lipón",
+          "en": "so/well",
+          "es": "entonces",
+          "it": "allora",
+          "fr": "alors",
+          "yue": "咁"
         }
       ]
     }

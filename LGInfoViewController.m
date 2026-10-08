@@ -9,6 +9,7 @@
 @property (nonatomic, strong) UILabel *quoteLabel;
 @property (nonatomic, strong) UILabel *quoteTranslationLabel;
 @property (nonatomic, strong) UISwitch *pronunciationToggle;
+@property (nonatomic, strong) UISwitch *translationToggle;
 @end
 
 @implementation LGInfoViewController
@@ -19,6 +20,8 @@
             @"en" : @"Give yourself a schedule, then practice out loud.\n\n"
                     @"Tap a word to hear it. Star the ones worth keeping — the small grey "
                     @"word in front is its article, which tells you the gender.\n\n"
+                    @"O (masculine) and H (feminine) are the articles you'll meet most; "
+                    @"Το (neuter) is the third.\n\n"
                     @"In Προτάσεις, tap your starred words to chain them into a sentence. "
                     @"Play it, then tap the bookmark to save it. Saved sentences stay put — "
                     @"tap one to hear it again, swipe to delete.",
@@ -114,14 +117,26 @@
     self.pronunciationToggle = [[UISwitch alloc] init];
     self.pronunciationToggle.on = [LGThemeManager sharedManager].showPronunciation;
     [self.pronunciationToggle addTarget:self action:@selector(pronunciationToggled) forControlEvents:UIControlEventValueChanged];
-    UIStackView *toggleStack = [[UIStackView alloc] initWithArrangedSubviews:@[pronunciationLabel, self.pronunciationToggle]];
-    toggleStack.axis = UILayoutConstraintAxisVertical;
-    toggleStack.spacing = 8;
-    toggleStack.alignment = UIStackViewAlignmentCenter;
+    UIStackView *pronunciationStack = [[UIStackView alloc] initWithArrangedSubviews:@[pronunciationLabel, self.pronunciationToggle]];
+    pronunciationStack.axis = UILayoutConstraintAxisVertical;
+    pronunciationStack.spacing = 8;
+    pronunciationStack.alignment = UIStackViewAlignmentCenter;
+
+    UILabel *translationLabel = [[UILabel alloc] init];
+    translationLabel.text = @"Show Translation";
+    translationLabel.textAlignment = NSTextAlignmentCenter;
+    self.translationToggle = [[UISwitch alloc] init];
+    self.translationToggle.on = [LGThemeManager sharedManager].showTranslation;
+    self.translationToggle.accessibilityIdentifier = @"info.translationToggle";
+    [self.translationToggle addTarget:self action:@selector(translationToggled) forControlEvents:UIControlEventValueChanged];
+    UIStackView *translationStack = [[UIStackView alloc] initWithArrangedSubviews:@[translationLabel, self.translationToggle]];
+    translationStack.axis = UILayoutConstraintAxisVertical;
+    translationStack.spacing = 8;
+    translationStack.alignment = UIStackViewAlignmentCenter;
 
     UIStackView *stack = [[UIStackView alloc] initWithArrangedSubviews:@[
-        self.nameLabel, self.blurbLabel, toggleStack, self.builtLabel, self.quoteLabel,
-        self.quoteTranslationLabel
+        self.nameLabel, self.blurbLabel, pronunciationStack, translationStack, self.builtLabel,
+        self.quoteLabel, self.quoteTranslationLabel
     ]];
     stack.axis = UILayoutConstraintAxisVertical;
     stack.spacing = 24;
@@ -139,7 +154,10 @@
 
 - (void)pronunciationToggled {
     [[LGThemeManager sharedManager] togglePronunciation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"LGWordListNeedsReloadNotification" object:nil];
+}
+
+- (void)translationToggled {
+    [[LGThemeManager sharedManager] toggleTranslation];
 }
 
 - (void)applyTheme {
@@ -156,6 +174,7 @@
     self.quoteTranslationLabel.textColor = theme.secondaryTextColor;
     self.quoteTranslationLabel.font = [theme fontOfSize:14 weight:UIFontWeightRegular];
     self.pronunciationToggle.onTintColor = theme.accentColor;
+    self.translationToggle.onTintColor = theme.accentColor;
 }
 
 @end

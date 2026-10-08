@@ -13,12 +13,14 @@ static NSString *const LGSentencesDefaultsKey = @"LGSavedSentences";
 static NSString *const LGHomeScreenSentencesDefaultsKey = @"LGHomeScreenSentences";
 static NSString *const LGPhrasesDefaultsKey = @"LGPhrases";
 
+NSUInteger const LGHomeScreenSlotCount = 4;
+
 @interface LGDataStore ()
 @property (nonatomic, strong) NSUserDefaults *defaults;
 @property (nonatomic, strong) NSMutableOrderedSet<NSString *> *favoriteIDs;
 @property (nonatomic, strong) NSMutableOrderedSet<NSString *> *sentences;
 @property (nonatomic, strong) NSMutableArray<LGSentence *> *savedSentencesWithIconsMutable;
-@property (nonatomic, strong) NSMutableSet<NSString *> *sentencesOnHomeScreenMutable;
+@property (nonatomic, strong) NSMutableArray<NSString *> *pinnedIDsMutable;
 @property (nonatomic, strong) NSMutableArray<LGPhrase *> *phrasesMutable;
 @property (nonatomic, copy) NSArray<LGCategory *> *categories;
 @end
@@ -56,7 +58,7 @@ static NSString *const LGPhrasesDefaultsKey = @"LGPhrases";
         NSLog(@"[LGDataStore] Loaded %lu saved sentences", (unsigned long)_savedSentencesWithIconsMutable.count);
         NSLog(@"[LGDataStore] Loading home screen sentences...");
         [self loadHomeScreenSentences];
-        NSLog(@"[LGDataStore] Loaded %lu home screen sentences", (unsigned long)_sentencesOnHomeScreenMutable.count);
+        NSLog(@"[LGDataStore] Loaded %lu home screen sentences", (unsigned long)_pinnedIDsMutable.count);
         NSLog(@"[LGDataStore] Loading phrases...");
         [self loadPhrases];
         NSLog(@"[LGDataStore] Loaded %lu phrases", (unsigned long)_phrasesMutable.count);
@@ -165,7 +167,11 @@ static NSString *const LGPhrasesDefaultsKey = @"LGPhrases";
     if (!self.savedSentencesWithIconsMutable || ![self.savedSentencesWithIconsMutable isKindOfClass:[NSMutableArray class]]) {
         _savedSentencesWithIconsMutable = [NSMutableArray array];
     }
-    return [self.savedSentencesWithIconsMutable copy];
+    NSSet<NSString *> *pinned = [NSSet setWithArray:self.pinnedIDsMutable];
+    return [self.savedSentencesWithIconsMutable filteredArrayUsingPredicate:
+        [NSPredicate predicateWithBlock:^BOOL(LGSentence *sentence, NSDictionary *bindings) {
+            return ![pinned containsObject:sentence.sentenceID];
+        }]];
 }
 
 - (void)loadSavedSentencesWithIcons {
@@ -213,19 +219,24 @@ static NSString *const LGPhrasesDefaultsKey = @"LGPhrases";
 }
 
 - (void)deleteSentenceWithID:(LGSentence *)sentence {
+    [self removeSentenceWithID:sentence.sentenceID];
+    [self.pinnedIDsMutable removeObject:sentence.sentenceID];
+    [self persistHomeScreenSentences];
+}
+
+- (void)removeSentenceWithID:(NSString *)sentenceID {
     NSUInteger idx = [self.savedSentencesWithIconsMutable indexOfObjectPassingTest:^BOOL(LGSentence *s, NSUInteger i, BOOL *stop) {
-        return [s.sentenceID isEqualToString:sentence.sentenceID];
+        return [s.sentenceID isEqualToString:sentenceID];
     }];
     if (idx != NSNotFound) {
         [self.savedSentencesWithIconsMutable removeObjectAtIndex:idx];
-        [self persistSentencesWithIcons];
     }
 }
 
 - (void)deleteAllSentences {
     NSLog(@"[LGDataStore] deleteAllSentences called");
     [self.savedSentencesWithIconsMutable removeAllObjects];
-    [self.sentencesOnHomeScreenMutable removeAllObjects];
+    [self.pinnedIDsMutable removeAllObjects];
     [self.sentences removeAllObjects];
     [self.favoriteIDs removeAllObjects];
     [self persistSentencesWithIcons];
@@ -257,43 +268,44 @@ static NSString *const LGPhrasesDefaultsKey = @"LGPhrases";
 #pragma mark - Home screen sentences
 
 - (void)loadHomeScreenSentences {
-    NSLog(@"[LGDataStore] loadHomeScreenSentences called");
-    _sentencesOnHomeScreenMutable = [NSMutableSet set];
-    NSArray *saved = [self.defaults arrayForKey:LGHomeScreenSentencesDefaultsKey];
-    if (saved) {
-        _sentencesOnHomeScreenMutable = [NSMutableSet setWithArray:saved];
-        NSLog(@"[LGDataStore] Loaded %lu home screen sentence IDs", (unsigned long)_sentencesOnHomeScreenMutable.count);
-    }
+    NSArray<NSString *> *saved = [self.defaults arrayForKey:LGHomeScreenSentencesDefaultsKey] ?: @[];
+    _pinnedIDsMutable = [saved mutableCopy];
 }
 
-- (NSSet<NSString *> *)sentencesOnHomeScreen {
-    if (!self.sentencesOnHomeScreenMutable) {
-        _sentencesOnHomeScreenMutable = [NSMutableSet set];
+- (NSArray<LGSentence *> *)homeScreenSentences {
+    NSMutableArray<LGSentence *> *pinned = [NSMutableArray array];
+    for (NSString *pinnedID in self.pinnedIDsMutable) {
+        for (LGSentence *sentence in self.savedSentencesWithIconsMutable) {
+            if ([sentence.sentenceID isEqualToString:pinnedID]) {
+                [pinned addObject:sentence];
+                break;
+            }
+        }
     }
-    return [self.sentencesOnHomeScreenMutable copy];
+    return [pinned copy];
 }
 
 - (void)persistHomeScreenSentences {
-    NSLog(@"[LGDataStore] persistHomeScreenSentences called, count: %lu", (unsigned long)self.sentencesOnHomeScreenMutable.count);
-    [self.defaults setObject:self.sentencesOnHomeScreenMutable.allObjects forKey:LGHomeScreenSentencesDefaultsKey];
-    [self.defaults synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:LGSentencesDidChangeNotification object:self];
+    [self.defaults setObject:[self.pinnedIDsMutable copy] forKey:LGHomeScreenSentencesDefaultsKey];
+    [self persistSentencesWithIcons];
 }
 
 - (void)addSentenceToHomeScreen:(LGSentence *)sentence {
-    NSLog(@"[LGDataStore] addSentenceToHomeScreen: %@", sentence.sentenceID);
-
-    // Add to home screen set (keep in saved list too for display)
-    [self.sentencesOnHomeScreenMutable addObject:sentence.sentenceID];
-
-    // Persist and notify
+    if ([self.pinnedIDsMutable containsObject:sentence.sentenceID]) {
+        return;
+    }
+    [self.pinnedIDsMutable addObject:sentence.sentenceID];
+    while (self.pinnedIDsMutable.count > LGHomeScreenSlotCount) {
+        [self.pinnedIDsMutable removeObjectAtIndex:0];
+    }
     [self persistHomeScreenSentences];
-    NSLog(@"[LGDataStore] Added sentence to home screen");
 }
 
 - (void)removeSentenceFromHomeScreen:(NSString *)sentenceID {
-    NSLog(@"[LGDataStore] removeSentenceFromHomeScreen: %@", sentenceID);
-    [self.sentencesOnHomeScreenMutable removeObject:sentenceID];
+    if (![self.pinnedIDsMutable containsObject:sentenceID]) {
+        return;
+    }
+    [self.pinnedIDsMutable removeObject:sentenceID];
     [self persistHomeScreenSentences];
 }
 

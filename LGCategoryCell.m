@@ -13,13 +13,14 @@
     return @"LGCategoryCell";
 }
 
-// Only favorites (star) stays gold; everything else is monochrome for sleek marble aesthetic.
+// Only the favorites-related tiles (stars and the sentence wand) stay gold; everything else is monochrome.
 + (NSDictionary<NSString *, UIColor *> *)iconPalette {
     static NSDictionary<NSString *, UIColor *> *palette;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         palette = @{
             @"star.fill" : [UIColor colorWithRed:1.0 green:0.84 blue:0.0 alpha:1.0],
+            @"wand.and.stars" : [UIColor colorWithRed:1.0 green:0.84 blue:0.0 alpha:1.0],
         };
     });
     return palette;

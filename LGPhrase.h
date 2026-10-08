@@ -5,7 +5,7 @@ typedef NS_ENUM(NSInteger, LGPhraseLanguage) {
     LGPhraseLanguageGreek = 1,
 };
 
-@interface LGPhrase : NSObject <NSCoding>
+@interface LGPhrase : NSObject <NSSecureCoding>
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, assign) LGPhraseLanguage language;
 @property (nonatomic, copy) NSString *phraseID;

@@ -2,6 +2,10 @@
 
 @implementation LGPhrase
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithText:(NSString *)text language:(LGPhraseLanguage)language {
     self = [super init];
     if (self) {

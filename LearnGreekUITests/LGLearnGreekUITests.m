@@ -16,10 +16,10 @@
     [self.app launch];
 }
 
-- (void)testHomeShowsEighteenTiles {
+- (void)testHomeShowsTwentyTiles {
     XCUIElement *grid = self.app.collectionViews[@"home.grid"];
     XCTAssertTrue([grid waitForExistenceWithTimeout:5]);
-    XCTAssertEqual(grid.cells.count, 18u);
+    XCTAssertEqual(grid.cells.count, 20u);
     XCTAssertTrue(grid.cells[@"home.tile.favorites"].exists);
     XCTAssertTrue(grid.cells[@"home.tile.theme"].exists);
     XCTAssertTrue(grid.cells[@"home.tile.mythology"].exists);

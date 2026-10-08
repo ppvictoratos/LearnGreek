@@ -50,6 +50,17 @@
         [stack addArrangedSubview:phoneticLabel];
     }
 
+    if (theme.showTranslation && self.sentence.translation.length > 0) {
+        UILabel *translationLabel = [[UILabel alloc] init];
+        translationLabel.text = self.sentence.translation;
+        translationLabel.accessibilityIdentifier = @"sentenceDetail.translation";
+        translationLabel.textColor = theme.secondaryTextColor;
+        translationLabel.font = [theme fontOfSize:16 weight:UIFontWeightRegular];
+        translationLabel.textAlignment = NSTextAlignmentCenter;
+        translationLabel.numberOfLines = 0;
+        [stack addArrangedSubview:translationLabel];
+    }
+
     UILayoutGuide *safe = self.view.safeAreaLayoutGuide;
     [NSLayoutConstraint activateConstraints:@[
         [stack.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],

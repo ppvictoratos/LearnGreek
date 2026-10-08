@@ -12,13 +12,12 @@
 #import "LGSpeechService.h"
 #import <objc/runtime.h>
 
-// Grid layout: 2 columns. The first two tiles are fixed (Favorites, theme
-// toggle), then the word categories, then Help and Sentences close the grid.
-static const NSInteger LGTileFavorites = 0;
+// Grid layout: 2 columns. Sentences, theme toggle, and Help lead the grid,
+// followed by the word categories.
+static const NSInteger LGTileSentences = 0;
 static const NSInteger LGTileThemeToggle = 1;
-static const NSInteger LGTileSentences = 2;
-static const NSInteger LGTileHelp = 3;
-static const NSInteger LGFixedTileCount = 4;
+static const NSInteger LGTileHelp = 2;
+static const NSInteger LGFixedTileCount = 3;
 static const NSInteger LGGridColumns = 2;
 static const CGFloat LGGridSpacing = 10;
 
@@ -34,6 +33,14 @@ static const CGFloat LGGridSpacing = 10;
     NSLog(@"[LGHomeViewController] viewDidLoad called");
     [super viewDidLoad];
     self.title = @"Ελληνικά";
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"Ελληνικά";
+    titleLabel.accessibilityIdentifier = @"home.title";
+    titleLabel.userInteractionEnabled = YES;
+    [titleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(titleTapped)]];
+    [titleLabel sizeToFit];
+    self.navigationItem.titleView = titleLabel;
     NSLog(@"[LGHomeViewController] Accessing LGDataStore.sharedStore.categories.count...");
 
     // Home screen sentences container
@@ -74,7 +81,7 @@ static const CGFloat LGGridSpacing = 10;
         [self.collectionView.topAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.bottomAnchor],
         [self.collectionView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
         [self.collectionView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
-        [self.collectionView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor],
+        [self.collectionView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 
     UIBarButtonItem *languageButton =
@@ -101,6 +108,11 @@ static const CGFloat LGGridSpacing = 10;
                selector:@selector(populateHomeScreenSentences)
                    name:LGSentencesDidChangeNotification
                  object:nil];
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, self.view.safeAreaInsets.bottom, 0);
 }
 
 - (void)languageDidChange {
@@ -136,32 +148,32 @@ static const CGFloat LGGridSpacing = 10;
     if (self.navigationController) {
         [theme applyToNavigationController:self.navigationController];
     }
+    if ([self.navigationItem.titleView isKindOfClass:[UILabel class]]) {
+        UILabel *titleLabel = (UILabel *)self.navigationItem.titleView;
+        titleLabel.textColor = theme.primaryTextColor;
+        titleLabel.font = [theme fontOfSize:17 weight:UIFontWeightSemibold];
+        [titleLabel sizeToFit];
+    }
     [self.collectionView reloadData];
     [self populateHomeScreenSentences];
 }
 
 #pragma mark - Home Screen Sentences
 
-- (void)populateHomeScreenSentences {
-    NSLog(@"[LGHomeViewController] populateHomeScreenSentences called");
+- (void)titleTapped {
+    [LGSpeechService.sharedService speakText:@"Ελληνικά"];
+}
 
-    // Clear any existing subviews
+- (void)populateHomeScreenSentences {
     [self.homeScreenSentencesContainer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-    LGDataStore *store = [LGDataStore sharedStore];
-    NSSet<NSString *> *homeScreenIDs = store.sentencesOnHomeScreen;
-
-    NSLog(@"[LGHomeViewController] Home screen sentence count: %lu", (unsigned long)homeScreenIDs.count);
-    NSLog(@"[LGHomeViewController] Total saved sentences: %lu", (unsigned long)store.savedSentencesWithIcons.count);
-
-    if (homeScreenIDs.count == 0) {
-        NSLog(@"[LGHomeViewController] No home screen sentences to display");
+    NSArray<LGSentence *> *pinned = LGDataStore.sharedStore.homeScreenSentences;
+    if (pinned.count == 0) {
         self.homeScreenSentencesHeightConstraint.constant = 0;
         return;
     }
     self.homeScreenSentencesHeightConstraint.constant = 96;
 
-    // Create stack view for static layout (no scroll)
     UIStackView *stackView = [[UIStackView alloc] init];
     stackView.axis = UILayoutConstraintAxisHorizontal;
     stackView.spacing = 10;
@@ -178,12 +190,8 @@ static const CGFloat LGGridSpacing = 10;
         [stackView.bottomAnchor constraintEqualToAnchor:self.homeScreenSentencesContainer.bottomAnchor]
     ]];
 
-    // Build buttons for each home screen sentence
-    NSArray<LGSentence *> *allSentences = store.savedSentencesWithIcons;
-    for (LGSentence *sentence in allSentences) {
-        if ([homeScreenIDs containsObject:sentence.sentenceID]) {
-            [self createTileButton:sentence inStackView:stackView];
-        }
+    for (LGSentence *sentence in pinned) {
+        [self createTileButton:sentence inStackView:stackView];
     }
 }
 
@@ -237,7 +245,6 @@ static const CGFloat LGGridSpacing = 10;
     [iconView.widthAnchor constraintEqualToConstant:28].active = YES;
     [iconView.heightAnchor constraintEqualToConstant:28].active = YES;
 
-    // There's no real translation to show yet, so just show the sentence itself.
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.text = sentence.text;
     nameLabel.font = [theme fontOfSize:12 weight:UIFontWeightSemibold];
@@ -301,8 +308,6 @@ static const CGFloat LGGridSpacing = 10;
 
 + (NSDictionary<NSString *, NSDictionary<NSString *, NSString *> *> *)localizedTileStrings {
     return @{
-        @"favorites" : @{ @"en" : @"Favorites", @"es" : @"Favoritos", @"it" : @"Preferiti",
-                          @"fr" : @"Favoris", @"yue" : @"最愛" },
         @"help" : @{ @"en" : @"Help", @"es" : @"Ayuda", @"it" : @"Aiuto",
                      @"fr" : @"Aide", @"yue" : @"幫助" },
         @"sentences" : @{ @"en" : @"Sentences", @"es" : @"Frases", @"it" : @"Frasi",
@@ -323,12 +328,7 @@ static const CGFloat LGGridSpacing = 10;
                                   forIndexPath:indexPath];
 
     NSString *language = LGLanguageManager.sharedManager.languageCode;
-    if (indexPath.item == LGTileFavorites) {
-        [cell configureWithSymbolName:@"star.fill"
-                           titleGreek:@"Αγαπημένα"
-                             subtitle:[[self class] tileString:@"favorites"]];
-        cell.accessibilityIdentifier = @"home.tile.favorites";
-    } else if (indexPath.item == LGTileThemeToggle) {
+    if (indexPath.item == LGTileThemeToggle) {
         // The tile names the mode you are in, not the one you'd switch to.
         BOOL isDark = LGThemeManager.sharedManager.style == LGThemeStyleDark;
         [cell configureWithSymbolName:@"circle.lefthalf.filled"
@@ -362,11 +362,11 @@ static const CGFloat LGGridSpacing = 10;
 - (CGSize)collectionView:(UICollectionView *)collectionView
                     layout:(UICollectionViewLayout *)collectionViewLayout
     sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize bounds = collectionView.bounds.size;
     NSInteger items = [self collectionView:collectionView numberOfItemsInSection:0];
     NSInteger rows = (items + LGGridColumns - 1) / LGGridColumns;
-    CGFloat width = (bounds.width - LGGridSpacing * (LGGridColumns + 1)) / LGGridColumns;
-    CGFloat height = (bounds.height - LGGridSpacing * (rows + 1)) / rows;
+    CGFloat width = (collectionView.bounds.size.width - LGGridSpacing * (LGGridColumns + 1)) / LGGridColumns;
+    CGFloat visibleHeight = collectionView.bounds.size.height - self.view.safeAreaInsets.bottom;
+    CGFloat height = (visibleHeight - LGGridSpacing * (rows + 1)) / rows;
     return CGSizeMake(floor(width), floor(MAX(height, 52)));
 }
 
@@ -388,14 +388,9 @@ static const CGFloat LGGridSpacing = 10;
         return;
     }
 
-    LGWordListViewController *list;
-    if (indexPath.item == LGTileFavorites) {
-        list = [[LGWordListViewController alloc] initWithFavorites];
-    } else {
-        LGCategory *category =
-            LGDataStore.sharedStore.categories[(NSUInteger)(indexPath.item - LGFixedTileCount)];
-        list = [[LGWordListViewController alloc] initWithCategory:category];
-    }
+    LGCategory *category =
+        LGDataStore.sharedStore.categories[(NSUInteger)(indexPath.item - LGFixedTileCount)];
+    LGWordListViewController *list = [[LGWordListViewController alloc] initWithCategory:category];
     [self.navigationController pushViewController:list animated:YES];
 }
 

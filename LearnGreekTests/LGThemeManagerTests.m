@@ -42,6 +42,19 @@
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
+- (void)testShowTranslationDefaultsToTrue {
+    LGThemeManager *manager = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
+    XCTAssertTrue(manager.showTranslation);
+}
+
+- (void)testToggleTranslationFlipsAndPersists {
+    LGThemeManager *manager = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
+    [manager toggleTranslation];
+    XCTAssertFalse(manager.showTranslation);
+    LGThemeManager *reloaded = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
+    XCTAssertFalse(reloaded.showTranslation);
+}
+
 - (void)testShowPronunciationDefaultsToTrue {
     LGThemeManager *manager = [[LGThemeManager alloc] initWithUserDefaults:self.defaults];
     XCTAssertTrue(manager.showPronunciation);

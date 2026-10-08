@@ -30,6 +30,7 @@
     [coder encodeObject:self.sentenceID forKey:@"sentenceID"];
     [coder encodeObject:self.createdAt forKey:@"createdAt"];
     [coder encodeObject:self.phonetic forKey:@"phonetic"];
+    [coder encodeObject:self.translation forKey:@"translation"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -40,6 +41,7 @@
         _sentenceID = [decoder decodeObjectForKey:@"sentenceID"];
         _createdAt = [decoder decodeObjectForKey:@"createdAt"];
         _phonetic = [decoder decodeObjectForKey:@"phonetic"];
+        _translation = [decoder decodeObjectForKey:@"translation"];
     }
     return self;
 }

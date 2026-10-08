@@ -16,6 +16,7 @@ extern NSNotificationName const LGThemeDidChangeNotification;
 
 @property (nonatomic, readonly) LGThemeStyle style;
 @property (nonatomic, readonly) BOOL showPronunciation;
+@property (nonatomic, readonly) BOOL showTranslation;
 
 @property (nonatomic, readonly) UIColor *backgroundColor;
 @property (nonatomic, readonly) UIColor *cellColor;
@@ -28,6 +29,7 @@ extern NSNotificationName const LGThemeDidChangeNotification;
 
 - (void)toggleTheme;
 - (void)togglePronunciation;
+- (void)toggleTranslation;
 - (void)applyToNavigationController:(UINavigationController *)nav;
 
 /// For tests: back the manager with a throwaway defaults suite.

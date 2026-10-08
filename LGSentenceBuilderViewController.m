@@ -7,6 +7,7 @@
 #import "LGWordCell.h"
 #import "LGSentence.h"
 #import "LGSentenceEditModalViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 static NSInteger const LGSectionSaved = 0;
 static NSInteger const LGSectionFavorites = 1;
@@ -17,6 +18,8 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
                                                UICollectionViewDataSource, UICollectionViewDelegate,
                                                LGWordCellDelegate, LGSentenceEditDelegate>
 @property (nonatomic, copy) NSArray<LGWord *> *favorites;
+@property (nonatomic, strong) AVAudioPlayer *flushPlayer;
+@property (nonatomic, assign) BOOL suppressSentenceReload;
 @property (nonatomic, copy) NSArray<NSString *> *saved;
 @property (nonatomic, copy) NSArray<LGSentence *> *savedSentences;
 @property (nonatomic, strong) NSMutableArray<LGWord *> *chain;
@@ -50,11 +53,11 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
             @"fr" : @"Tes favoris", @"yue" : @"你嘅最愛",
         },
         @"noFavorites" : @{
-            @"en" : @"Favorite words and phrases to build sentences",
-            @"es" : @"Marca palabras y frases favoritas para crear oraciones",
-            @"it" : @"Aggiungi parole e frasi preferite per costruire frasi",
-            @"fr" : @"Ajoute des mots et phrases favoris pour construire des phrases",
-            @"yue" : @"撳最愛嘅字同短語，用嚟組成句子",
+            @"en" : @"Star words to build sentences",
+            @"es" : @"Marca palabras para crear frases",
+            @"it" : @"Segna parole per creare frasi",
+            @"fr" : @"Étoile des mots pour créer des phrases",
+            @"yue" : @"撳星字嚟組句子",
         },
         @"flushTitle" : @{
             @"en" : @"Flush all data?",
@@ -154,13 +157,19 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
                    name:LGFavoritesDidChangeNotification
                  object:nil];
     [center addObserver:self
-               selector:@selector(reloadData)
+               selector:@selector(sentencesDidChange)
                    name:LGSentencesDidChangeNotification
                  object:nil];
     [center addObserver:self
                selector:@selector(applyTheme)
                    name:LGThemeDidChangeNotification
                  object:nil];
+}
+
+- (void)sentencesDidChange {
+    if (!self.suppressSentenceReload) {
+        [self reloadData];
+    }
 }
 
 - (UIButton *)buttonWithSymbol:(NSString *)symbol
@@ -206,6 +215,17 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     return [parts componentsJoinedByString:@" "];
 }
 
+- (NSString *)chainTranslation {
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    for (LGWord *word in self.chain) {
+        NSString *english = [word translationForLanguage:@"en"];
+        if (english.length > 0) {
+            [parts addObject:english];
+        }
+    }
+    return [parts componentsJoinedByString:@" "];
+}
+
 - (void)renderChain {
     BOOL hasWords = self.chain.count > 0;
     self.sentenceLabel.text = hasWords ? [self chainText] : @"…";
@@ -229,6 +249,7 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     LGSentence *sentence = [[LGSentence alloc] initWithText:text
                                               iconSymbolName:@"ellipsis.bubble"
                                                     phonetic:[self chainPhonetic]];
+    sentence.translation = [self chainTranslation];
     NSLog(@"[LGSentenceBuilderViewController] Calling addSentence");
     [LGDataStore.sharedStore addSentence:sentence];
     NSLog(@"[LGSentenceBuilderViewController] addSentence returned, clearing chain");
@@ -242,6 +263,7 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
     LGSentence *sentence = [[LGSentence alloc] initWithText:[self chainText]
                                               iconSymbolName:icon
                                                     phonetic:[self chainPhonetic]];
+    sentence.translation = [self chainTranslation];
     [LGDataStore.sharedStore addSentence:sentence];
     [self clearChain];
     [self reloadData];
@@ -265,8 +287,81 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
                                             handler:^(UIAlertAction *action) {
         [LGDataStore.sharedStore deleteAllSentences];
         [self reloadData];
+        [self playFlushFeedback];
     }]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)sendSentenceToHomeAnimatingFromView:(UIView *)rowView completion:(void (^)(void))completion {
+    CGRect frame = [rowView convertRect:rowView.bounds toView:self.view];
+    UIView *ghost = [rowView snapshotViewAfterScreenUpdates:NO];
+    ghost.frame = frame;
+    [self.view addSubview:ghost];
+    CGPoint exit = CGPointMake(-CGRectGetWidth(frame), CGRectGetMidY(frame));
+    [UIView animateKeyframesWithDuration:0.6 delay:0 options:0 animations:^{
+        [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.3 animations:^{
+            ghost.transform = CGAffineTransformMakeScale(1.0, 0.7);
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.3 relativeDuration:0.7 animations:^{
+            ghost.center = exit;
+            ghost.transform = CGAffineTransformMakeScale(0.05, 0.4);
+            ghost.alpha = 0;
+        }];
+    } completion:^(BOOL finished) {
+        [ghost removeFromSuperview];
+        completion();
+    }];
+}
+
+- (BOOL)outputIsBuiltIn {
+    for (AVAudioSessionPortDescription *port in [AVAudioSession sharedInstance].currentRoute.outputs) {
+        BOOL builtIn = [port.portType isEqualToString:AVAudioSessionPortBuiltInSpeaker]
+            || [port.portType isEqualToString:AVAudioSessionPortBuiltInReceiver];
+        if (!builtIn) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)playFlushFeedback {
+    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:@"flush" withExtension:@"wav"];
+    if (soundURL && [self outputIsBuiltIn]) {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+        self.flushPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
+        self.flushPlayer.volume = 0.35;
+        [self.flushPlayer play];
+    }
+
+    UIImageView *toilet = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"toilet.fill"]];
+    toilet.accessibilityIdentifier = @"sentenceBuilder.flushAnimation";
+    toilet.tintColor = LGThemeManager.sharedManager.accentColor;
+    toilet.contentMode = UIViewContentModeScaleAspectFit;
+    toilet.frame = CGRectMake(0, 0, 120, 120);
+    toilet.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+    toilet.alpha = 0;
+    [self.view addSubview:toilet];
+
+    [UIView animateWithDuration:0.2 animations:^{
+        toilet.alpha = 1;
+    }];
+    [UIView animateKeyframesWithDuration:1.6 delay:0 options:0 animations:^{
+        [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.25 animations:^{
+            toilet.transform = CGAffineTransformMakeRotation(-0.25);
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.25 relativeDuration:0.25 animations:^{
+            toilet.transform = CGAffineTransformMakeRotation(0.25);
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.2 animations:^{
+            toilet.transform = CGAffineTransformMakeRotation(-0.12);
+        }];
+        [UIView addKeyframeWithRelativeStartTime:0.7 relativeDuration:0.3 animations:^{
+            toilet.alpha = 0;
+            toilet.transform = CGAffineTransformMakeTranslation(0, 60);
+        }];
+    } completion:^(BOOL finished) {
+        [toilet removeFromSuperview];
+    }];
 }
 
 - (void)applyTheme {
@@ -353,14 +448,20 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
                                                                              title:@"Home"
                                                                            handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
         LGSentence *sentence = self.savedSentences[indexPath.row];
-        NSLog(@"[LGSentenceBuilder] Adding sentence to home screen: %@", sentence.text);
-        [[LGDataStore sharedStore] addSentenceToHomeScreen:sentence];
-
-        // Fade out animation before dismissing
-        [UIView animateWithDuration:0.3 animations:^{
-            sourceView.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [self reloadData];
+        NSUInteger savedBefore = self.savedSentences.count;
+        sourceView.hidden = YES;
+        [self sendSentenceToHomeAnimatingFromView:sourceView completion:^{
+            self.suppressSentenceReload = YES;
+            [[LGDataStore sharedStore] addSentenceToHomeScreen:sentence];
+            self.suppressSentenceReload = NO;
+            NSArray<LGSentence *> *updated = LGDataStore.sharedStore.savedSentencesWithIcons;
+            if (updated.count + 1 == savedBefore) {
+                self.savedSentences = updated;
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath]
+                                      withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [self reloadData];
+            }
             completionHandler(YES);
         }];
     }];

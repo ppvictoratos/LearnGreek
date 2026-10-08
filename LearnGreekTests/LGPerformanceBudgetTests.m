@@ -35,7 +35,7 @@
             [[LGDataStore alloc] initWithBundle:[NSBundle bundleForClass:[LGDataStore class]]
                                    userDefaults:[[NSUserDefaults alloc]
                                                     initWithSuiteName:@"LGPerfTests"]];
-        XCTAssertEqual(store.categories.count, 14u);
+        XCTAssertEqual(store.categories.count, 17u);
     }];
 }
 

@@ -10,6 +10,9 @@
 /// the words the sentence was chained from. Nil when there's none available.
 @property (nonatomic, copy) NSString *phonetic;
 
+/// English translation of the sentence, captured when it was saved. Nil for sentences saved before translations existed.
+@property (nonatomic, copy) NSString *translation;
+
 - (instancetype)initWithText:(NSString *)text
                  iconSymbolName:(NSString *)iconSymbolName;
 

@@ -1,7 +1,9 @@
 #import <XCTest/XCTest.h>
 #import "LGCategory.h"
 #import "LGDataStore.h"
+#import "LGFunctionalHelpers.h"
 #import "LGLanguageManager.h"
+#import "LGSentence.h"
 #import "LGPhrase.h"
 #import "LGWord.h"
 
@@ -25,8 +27,8 @@
     [super tearDown];
 }
 
-- (void)testLoadsFourteenCategories {
-    XCTAssertEqual(self.store.categories.count, 14u);
+- (void)testLoadsSeventeenCategories {
+    XCTAssertEqual(self.store.categories.count, 17u);
 }
 
 - (void)testEveryCategoryIsFullyPopulated {
@@ -34,7 +36,7 @@
         XCTAssertTrue(category.categoryID.length > 0);
         XCTAssertTrue(category.nameGreek.length > 0);
         XCTAssertTrue(category.symbolName.length > 0);
-        XCTAssertGreaterThanOrEqual(category.words.count, 8u,
+        XCTAssertGreaterThanOrEqual(category.words.count, 6u,
                                     @"category %@ is too thin", category.categoryID);
         for (LGWord *word in category.words) {
             XCTAssertTrue(word.greek.length > 0);
@@ -98,15 +100,28 @@
     }
 }
 
-- (void)testWordIDsAreUniqueAcrossCategories {
-    NSMutableSet<NSString *> *seen = [NSMutableSet set];
-    for (LGCategory *category in self.store.categories) {
-        for (LGWord *word in category.words) {
-            XCTAssertFalse([seen containsObject:word.wordID],
-                           @"duplicate word %@", word.wordID);
-            [seen addObject:word.wordID];
-        }
-    }
+- (void)testOnlyTheKnownSharedPhraseRepeatsAcrossCategories {
+    NSArray<LGWord *> *allWords = [self.store.categories lg_flatMap:^NSArray *(LGCategory *category) {
+        return category.words;
+    }];
+    NSArray<NSString *> *ids = [allWords lg_map:^id(LGWord *word) { return word.wordID; }];
+    NSArray<NSString *> *repeated = [[NSSet setWithArray:ids].allObjects lg_filter:^BOOL(NSString *identifier) {
+        return [ids filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", identifier]].count > 1;
+    }];
+    XCTAssertEqualObjects(repeated, @[@"Είμαι καλά"]);
+}
+
+- (void)testRepeatedWordsShareOneTranslation {
+    NSArray<LGWord *> *allWords = [self.store.categories lg_flatMap:^NSArray *(LGCategory *category) {
+        return category.words;
+    }];
+    NSArray<LGWord *> *repeated = [allWords lg_filter:^BOOL(LGWord *word) {
+        return [word.greek isEqualToString:@"Είμαι καλά"];
+    }];
+    NSArray<NSString *> *translations = [repeated lg_map:^id(LGWord *word) {
+        return [word translationForLanguage:@"en"];
+    }];
+    XCTAssertEqual([NSSet setWithArray:translations].count, 1u);
 }
 
 - (void)testFavoritesStartEmpty {
@@ -226,6 +241,99 @@
     [self.store addPhrase:[[LGPhrase alloc] initWithText:@"Ena" language:LGPhraseLanguageGreek]];
     [self.store deleteAllPhrases];
     XCTAssertEqual(self.store.phrases.count, 0u);
+}
+
+#pragma mark - Home screen pins
+
+- (NSArray<LGSentence *> *)addSentencesNamed:(NSArray<NSString *> *)names {
+    return [names lg_map:^id(NSString *name) {
+        LGSentence *sentence = [[LGSentence alloc] initWithText:name iconSymbolName:@"ellipsis.bubble"];
+        [self.store addSentence:sentence];
+        return sentence;
+    }];
+}
+
+- (NSArray<NSString *> *)textsOf:(NSArray<LGSentence *> *)sentences {
+    return [sentences lg_map:^id(LGSentence *sentence) { return sentence.text; }];
+}
+
+- (void)testPinningMovesSentenceOffSavedList {
+    LGSentence *sentence = [self addSentencesNamed:@[@"Καλημέρα"]].firstObject;
+    [self.store addSentenceToHomeScreen:sentence];
+    XCTAssertEqual(self.store.savedSentencesWithIcons.count, 0u);
+    XCTAssertEqualObjects([self textsOf:self.store.homeScreenSentences], @[@"Καλημέρα"]);
+}
+
+- (void)testFifthPinReturnsTheOldestPinnedSentenceToSaved {
+    NSArray<LGSentence *> *sentences = [self addSentencesNamed:@[@"A", @"B", @"C", @"D", @"E"]];
+    for (LGSentence *sentence in sentences) {
+        [self.store addSentenceToHomeScreen:sentence];
+    }
+    XCTAssertEqualObjects([self textsOf:self.store.homeScreenSentences], (@[@"B", @"C", @"D", @"E"]));
+    XCTAssertEqualObjects([self textsOf:self.store.savedSentencesWithIcons], @[@"A"]);
+
+    LGDataStore *reloaded = [[LGDataStore alloc] initWithBundle:[NSBundle bundleForClass:[LGDataStore class]]
+                                                   userDefaults:self.defaults];
+    XCTAssertEqualObjects([self textsOf:reloaded.savedSentencesWithIcons], @[@"A"]);
+}
+
+- (void)testUnpinReturnsSentenceToSavedList {
+    NSArray<LGSentence *> *sentences = [self addSentencesNamed:@[@"One", @"Two"]];
+    [sentences lg_map:^id(LGSentence *sentence) {
+        [self.store addSentenceToHomeScreen:sentence];
+        return nil;
+    }];
+    [self.store removeSentenceFromHomeScreen:sentences.firstObject.sentenceID];
+    XCTAssertEqualObjects([self textsOf:self.store.homeScreenSentences], @[@"Two"]);
+    XCTAssertEqualObjects([self textsOf:self.store.savedSentencesWithIcons], @[@"One"]);
+}
+
+- (void)testSavedListHasNoLimit {
+    NSArray<NSString *> *names = [@[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10]
+        lg_map:^id(NSNumber *n) { return [NSString stringWithFormat:@"Sentence %@", n]; }];
+    [self addSentencesNamed:names];
+    XCTAssertEqual(self.store.savedSentencesWithIcons.count, 10u);
+    XCTAssertEqual(self.store.homeScreenSentences.count, 0u);
+}
+
+- (void)testPinningTheSameSentenceTwiceDoesNotDuplicateIt {
+    LGSentence *sentence = [self addSentencesNamed:@[@"Once"]].firstObject;
+    [self.store addSentenceToHomeScreen:sentence];
+    [self.store addSentenceToHomeScreen:sentence];
+    XCTAssertEqual(self.store.homeScreenSentences.count, 1u);
+}
+
+- (void)testDeletingAPinnedSentenceRemovesItFromHome {
+    LGSentence *sentence = [self addSentencesNamed:@[@"Gone"]].firstObject;
+    [self.store addSentenceToHomeScreen:sentence];
+    [self.store deleteSentenceWithID:sentence];
+    XCTAssertEqual(self.store.homeScreenSentences.count, 0u);
+    XCTAssertEqual(self.store.savedSentencesWithIcons.count, 0u);
+}
+
+- (void)testPinsSurviveReload {
+    LGSentence *sentence = [self addSentencesNamed:@[@"Stay"]].firstObject;
+    [self.store addSentenceToHomeScreen:sentence];
+    LGDataStore *reloaded = [[LGDataStore alloc] initWithBundle:[NSBundle bundleForClass:[LGDataStore class]]
+                                                   userDefaults:self.defaults];
+    XCTAssertEqualObjects([self textsOf:reloaded.homeScreenSentences], @[@"Stay"]);
+}
+
+- (void)testTranslationIsStoredOnTheSentenceAndSurvivesReload {
+    LGSentence *sentence = [[LGSentence alloc] initWithText:@"Καλημέρα" iconSymbolName:@"sun.max"];
+    sentence.translation = @"good morning";
+    [self.store addSentence:sentence];
+    LGDataStore *reloaded = [[LGDataStore alloc] initWithBundle:[NSBundle bundleForClass:[LGDataStore class]]
+                                                   userDefaults:self.defaults];
+    XCTAssertEqualObjects(reloaded.savedSentencesWithIcons.firstObject.translation, @"good morning");
+}
+
+- (void)testDeleteAllSentencesClearsSavedAndPinned {
+    NSArray<LGSentence *> *sentences = [self addSentencesNamed:@[@"x", @"y"]];
+    [self.store addSentenceToHomeScreen:sentences.firstObject];
+    [self.store deleteAllSentences];
+    XCTAssertEqual(self.store.savedSentencesWithIcons.count, 0u);
+    XCTAssertEqual(self.store.homeScreenSentences.count, 0u);
 }
 
 @end

@@ -1,6 +1,8 @@
 #import <XCTest/XCTest.h>
 #import "LGLanguageManager.h"
 
+static NSString *const kCantoneseFlag = @"LGFeatureCantonese";
+
 @interface LGLanguageManagerTests : XCTestCase
 @property (nonatomic, strong) NSUserDefaults *defaults;
 @end
@@ -34,13 +36,13 @@
 
 - (void)testCantoneseIsBehindAFeatureFlag {
     NSUserDefaults *standard = [NSUserDefaults standardUserDefaults];
-    [standard removeObjectForKey:LGFeatureCantoneseKey];
+    [standard removeObjectForKey:kCantoneseFlag];
     XCTAssertFalse([LGLanguageManager.supportedLanguageCodes containsObject:@"yue"]);
     XCTAssertTrue([LGLanguageManager.allLanguageCodes containsObject:@"yue"]);
 
-    [standard setBool:YES forKey:LGFeatureCantoneseKey];
+    [standard setBool:YES forKey:kCantoneseFlag];
     XCTAssertTrue([LGLanguageManager.supportedLanguageCodes containsObject:@"yue"]);
-    [standard removeObjectForKey:LGFeatureCantoneseKey];
+    [standard removeObjectForKey:kCantoneseFlag];
 }
 
 - (void)testSetLanguagePostsNotification {
