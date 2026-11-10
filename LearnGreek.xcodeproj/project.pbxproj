@@ -39,6 +39,8 @@
 		4C003F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C003D /* AVFoundation.framework */; };
 		4C0201 /* LGPhrase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0200 /* LGPhrase.m */; };
 		4C0204 /* LGPhrasesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0203 /* LGPhrasesViewController.m */; };
+		4C0208 /* LGTranslationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0207 /* LGTranslationService.m */; };
+		4C020B /* LGTranslateModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C020A /* LGTranslateModalViewController.m */; };
 		62EB57D575A238A5252FE839 /* LGLanguageManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B61882696B4E644E7FD090C /* LGLanguageManagerTests.m */; };
 		892AF9113EB204F003CCD78D /* LGThemeManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA8B71AA355F15BF4A7C0F5 /* LGThemeManagerTests.m */; };
 		9404C144BA7C22242C4828CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0BC73DC6FC389F2F24B6C6 /* Foundation.framework */; };
@@ -97,6 +99,10 @@
 		4C0202 /* LGPhrase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPhrase.h; sourceTree = SOURCE_ROOT; };
 		4C0203 /* LGPhrasesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGPhrasesViewController.m; sourceTree = SOURCE_ROOT; };
 		4C0205 /* LGPhrasesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGPhrasesViewController.h; sourceTree = SOURCE_ROOT; };
+		4C0206 /* LGTranslationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGTranslationService.h; sourceTree = SOURCE_ROOT; };
+		4C0207 /* LGTranslationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGTranslationService.m; sourceTree = SOURCE_ROOT; };
+		4C0209 /* LGTranslateModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LGTranslateModalViewController.h; sourceTree = SOURCE_ROOT; };
+		4C020A /* LGTranslateModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LGTranslateModalViewController.m; sourceTree = SOURCE_ROOT; };
 		532CA685F6C358C04CEC7066 /* LGPerformanceBudgetTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGPerformanceBudgetTests.m; sourceTree = "<group>"; };
 		5863591ABE5876BB19369589 /* LGSentenceBuilderCopyTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGSentenceBuilderCopyTests.m; sourceTree = "<group>"; };
 		6ECCCD8975A3AF63C00926D4 /* LGHelpScreenTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = LGHelpScreenTests.m; sourceTree = "<group>"; };
@@ -160,6 +166,10 @@
 				4C0202 /* LGPhrase.h */,
 				4C0203 /* LGPhrasesViewController.m */,
 				4C0205 /* LGPhrasesViewController.h */,
+				4C0206 /* LGTranslationService.h */,
+				4C0207 /* LGTranslationService.m */,
+				4C0209 /* LGTranslateModalViewController.h */,
+				4C020A /* LGTranslateModalViewController.m */,
 				4C0014 /* LGThemeManager.m */,
 				4C0016 /* LGLanguageManager.m */,
 				4C0018 /* LGSpeechService.m */,
@@ -356,6 +366,8 @@
 				4C0009 /* LGSentence.m in Sources */,
 				4C0201 /* LGPhrase.m in Sources */,
 				4C0204 /* LGPhrasesViewController.m in Sources */,
+				4C0208 /* LGTranslationService.m in Sources */,
+				4C020B /* LGTranslateModalViewController.m in Sources */,
 				4C000B /* LGSentenceBuilderViewController.m in Sources */,
 				4C000D /* LGSentenceEditModalViewController.m in Sources */,
 				4C000F /* LGCategory.m in Sources */,

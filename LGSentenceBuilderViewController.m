@@ -7,6 +7,7 @@
 #import "LGWordCell.h"
 #import "LGSentence.h"
 #import "LGSentenceEditModalViewController.h"
+#import "LGTranslateModalViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 static NSInteger const LGSectionSaved = 0;
@@ -16,7 +17,8 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
 
 @interface LGSentenceBuilderViewController () <UITableViewDataSource, UITableViewDelegate,
                                                UICollectionViewDataSource, UICollectionViewDelegate,
-                                               LGWordCellDelegate, LGSentenceEditDelegate>
+                                               LGWordCellDelegate, LGSentenceEditDelegate,
+                                               LGTranslateDelegate>
 @property (nonatomic, copy) NSArray<LGWord *> *favorites;
 @property (nonatomic, strong) AVAudioPlayer *flushPlayer;
 @property (nonatomic, assign) BOOL suppressSentenceReload;
@@ -146,6 +148,14 @@ static NSString *const LGSavedSentenceCellID = @"LGSavedSentenceCell";
                                        action:@selector(deleteAllSentences)];
     deleteButton.tintColor = [UIColor systemRedColor];
     self.navigationItem.rightBarButtonItem = deleteButton;
+
+    UIBarButtonItem *translateButton =
+        [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"translate"]
+                                        style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(showTranslateModal)];
+    translateButton.accessibilityIdentifier = @"sentence.translate";
+    self.navigationItem.leftBarButtonItem = translateButton;
 
     [self reloadData];
     [self renderChain];
@@ -637,6 +647,20 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)sentenceDidDelete:(LGSentence *)sentence {
+    [self reloadData];
+}
+
+#pragma mark - Translate
+
+- (void)showTranslateModal {
+    LGTranslateModalViewController *vc = [[LGTranslateModalViewController alloc] init];
+    vc.delegate = self;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)translateModalDidSave:(NSString *)greekText {
     [self reloadData];
 }
 
